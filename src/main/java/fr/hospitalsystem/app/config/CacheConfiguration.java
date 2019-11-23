@@ -42,6 +42,9 @@ public class CacheConfiguration {
             createCache(cm, fr.hospitalsystem.app.domain.User.class.getName());
             createCache(cm, fr.hospitalsystem.app.domain.Authority.class.getName());
             createCache(cm, fr.hospitalsystem.app.domain.User.class.getName() + ".authorities");
+            createCache(cm, fr.hospitalsystem.app.domain.Patient.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.MedicalService.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Doctor.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

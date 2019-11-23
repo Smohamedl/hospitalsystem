@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="doctor">
+            <h2><span jhiTranslate="hospitalsystemApp.doctor.detail.title">Doctor</span> {{doctor.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="hospitalsystemApp.doctor.name">Name</span></dt>
+                <dd>
+                    <span>{{doctor.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.doctor.firstname">Firstname</span></dt>
+                <dd>
+                    <span>{{doctor.firstname}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.doctor.job">Job</span></dt>
+                <dd>
+                    <span>{{doctor.job}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.doctor.specialist">Specialist</span></dt>
+                <dd>
+                    <span>{{doctor.specialist}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.doctor.address">Address</span></dt>
+                <dd>
+                    <span>{{doctor.address}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.doctor.tel">Tel</span></dt>
+                <dd>
+                    <span>{{doctor.tel}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.doctor.medicalService">Medical Service</span></dt>
+                <dd>
+                    <div *ngIf="doctor.medicalService">
+                        <a [routerLink]="['/medical-service', doctor.medicalService?.id, 'view']">{{doctor.medicalService?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/doctor', doctor.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
