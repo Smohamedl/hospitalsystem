@@ -363,6 +363,10 @@
             <artifactId>metrics-core</artifactId>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+        <dependency> <!-- added dependency to correct 'failed to load driver class' exception -->
+             <groupId>com.h2database</groupId>
+             <artifactId>h2</artifactId>
+         </dependency>
     </dependencies>
 
     <build>

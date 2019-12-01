@@ -10,6 +10,7 @@
         "patient": "Patient",
         "medicalService": "Medical Service",
         "doctor": "Doctor",
+        "actype": "Actype",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
