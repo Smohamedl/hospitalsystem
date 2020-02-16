@@ -50,6 +50,18 @@
             </column>
         </createTable>
 
+        <createTable tableName="jhi_actions">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="jhi_roles">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
         <createTable tableName="jhi_user_authority">
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
@@ -76,6 +88,25 @@
         <addNotNullConstraint   columnName="password_hash"
                                 columnDataType="varchar(60)"
                                 tableName="jhi_user"/>
+
+        <createTable tableName="jhi_roles_actions">
+            <column name="roles_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="actions_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="jhi_authority_roles">
+            <column name="authority_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roles_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
         <loadData
                   file="config/liquibase/data/user.csv"
                   separator=";"
