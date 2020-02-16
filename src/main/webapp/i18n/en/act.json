@@ -1,0 +1,27 @@
+{
+  "hospitalsystemApp": {
+    "act": {
+      "home": {
+        "title": "Acts",
+        "createLabel": "Create a new Act",
+        "createOrEditLabel": "Create or edit a Act",
+        "search": "Search for Act",
+        "notFound": "No Acts found"
+      },
+      "created": "A new Act is created with identifier {{ param }}",
+      "updated": "A Act is updated with identifier {{ param }}",
+      "deleted": "A Act is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Act {{ id }}?"
+      },
+      "detail": {
+        "title": "Act"
+      },
+      "patientName": "Patient Name",
+      "medicalService": "Medical Service",
+      "actype": "Actype",
+      "doctor": "Doctor",
+      "patient": "Patient"
+    }
+  }
+}

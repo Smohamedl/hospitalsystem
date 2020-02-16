@@ -107,6 +107,7 @@
                 <scope>import</scope>
             </dependency>
             <!-- jhipster-needle-maven-add-dependency-management -->
+            
         </dependencies>
     </dependencyManagement>
 
@@ -367,6 +368,12 @@
              <groupId>com.h2database</groupId>
              <artifactId>h2</artifactId>
          </dependency>
+
+        <dependency>
+        	<groupId>com.itextpdf</groupId>
+        	<artifactId>itextpdf</artifactId>
+        	<version>5.5.10</version>
+        </dependency>
     </dependencies>
 
     <build>
