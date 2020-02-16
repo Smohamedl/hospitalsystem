@@ -126,4 +126,8 @@ public class Patient implements Serializable {
             ", address='" + getAddress() + "'" +
             "}";
     }
+    
+    public String getNametel() {
+    	return firstname + " " + name + " - " + tel;
+    }
 }

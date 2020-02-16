@@ -14,6 +14,11 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule,MatInputModule} from '@angular/material';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+
 
 @NgModule({
   imports: [
@@ -23,7 +28,13 @@ import { ErrorComponent } from './layouts/error/error.component';
     HospitalsystemHomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     HospitalsystemEntityModule,
-    HospitalsystemAppRoutingModule
+    HospitalsystemAppRoutingModule,
+    BrowserAnimationsModule, 
+    MatAutocompleteModule, 
+    MatInputModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    AutoCompleteModule
   ],
   declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [JhiMainComponent]

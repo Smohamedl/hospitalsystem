@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -124,6 +124,18 @@ public class ActypeResource {
         log.debug("REST request to get Actype : {}", id);
         Optional<Actype> actype = actypeRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(actype);
+    }
+    
+    /**
+     * */
+    @GetMapping("/actypes/service/{service}")
+    public ResponseEntity<List<Actype>> getServiceActypes(@PathVariable String service) {
+        log.debug("REST request to get a page of Actypes by service");
+        List<Actype> collection = actypeRepository.findByService(service);
+        
+        log.debug("############## collection " + collection.toString());
+        log.debug("**************** servicce name" + service);
+        return ResponseEntity.ok().body(collection);
     }
 
     /**
