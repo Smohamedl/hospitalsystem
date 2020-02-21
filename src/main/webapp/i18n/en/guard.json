@@ -1,0 +1,24 @@
+{
+  "hospitalsystemApp": {
+    "guard": {
+      "home": {
+        "title": "Guards",
+        "createLabel": "Create a new Guard",
+        "createOrEditLabel": "Create or edit a Guard",
+        "search": "Search for Guard",
+        "notFound": "No Guards found"
+      },
+      "created": "A new Guard is created with identifier {{ param }}",
+      "updated": "A Guard is updated with identifier {{ param }}",
+      "deleted": "A Guard is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Guard {{ id }}?"
+      },
+      "detail": {
+        "title": "Guard"
+      },
+      "pay": "Pay",
+      "date": "Date"
+    }
+  }
+}

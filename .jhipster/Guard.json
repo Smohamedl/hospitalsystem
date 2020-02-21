@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "pay",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20200221224900",
+    "dto": "no",
+    "searchEngine": "elasticsearch",
+    "service": "no",
+    "entityTableName": "guard",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

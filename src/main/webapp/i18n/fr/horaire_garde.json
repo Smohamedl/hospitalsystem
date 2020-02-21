@@ -1,0 +1,25 @@
+{
+  "hospitalsystemApp": {
+    "horaire_garde": {
+      "home": {
+        "title": "Horaire_gardes",
+        "createLabel": "Créer un nouveau Horaire Garde",
+        "createOrEditLabel": "Créer ou éditer un Horaire Garde",
+        "search": "Recherche pour Horaire Garde",
+        "notFound": "Aucun Horaire Garde trouvé"
+      },
+      "created": "Un nouveau Horaire Garde a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Horaire Garde avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Horaire Garde avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Horaire Garde {{ id }} ?"
+      },
+      "detail": {
+        "title": "Horaire Garde"
+      },
+      "start": "Start",
+      "end": "End",
+      "name": "Name"
+    }
+  }
+}
