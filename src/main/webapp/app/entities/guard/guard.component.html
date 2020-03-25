@@ -33,17 +33,33 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
-            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
-            <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.pay">Pay</span></th>
+            <!-- <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th> -->
             <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.date">Date</span></th>
+            <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.guardSchedule">Guard Schedule</span></th>
+            <!-- <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.doctorMedicalService">Doctor Medical Service</span></th> -->
+            <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.doctor">Doctor</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let guard of guards ;trackBy: trackId">
-                <td><a [routerLink]="['/guard', guard.id, 'view' ]">{{guard.id}}</a></td>
-                <td>{{guard.pay}}</td>
+                <!-- <td><a [routerLink]="['/guard', guard.id, 'view' ]">{{guard.id}}</a></td> -->
                 <td>{{guard.date | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="guard.guardSchedule">
+                        <a [routerLink]="['/guard-schedule', guard.guardSchedule?.id, 'view' ]" >{{guard.guardSchedule?.name}}</a>
+                    </div>
+                </td>
+                <!-- <td>
+                    <div *ngIf="guard.doctorMedicalService">
+                        <a [routerLink]="['/medical-service', guard.doctorMedicalService?.id, 'view' ]" >{{guard.doctorMedicalService?.name}}</a>
+                    </div>
+                </td> -->
+                <td>
+                    <div *ngIf="guard.doctor">
+                        <a [routerLink]="['/doctor', guard.doctor?.id, 'view' ]" >{{guard.doctor?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
