@@ -4,19 +4,34 @@
     "relationships": [],
     "fields": [
         {
+            "fieldName": "payement",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": "1"
+        },
+        {
             "fieldName": "start",
             "fieldType": "Integer",
-            "fieldValidateRules": []
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "end",
             "fieldType": "Integer",
-            "fieldValidateRules": []
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "name",
             "fieldType": "String",
-            "fieldValidateRules": []
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20200221211022",

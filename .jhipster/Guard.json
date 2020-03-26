@@ -1,15 +1,39 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
-    "fields": [
+    "relationships": [
         {
-            "fieldName": "pay",
-            "fieldType": "Float",
-            "fieldValidateRules": [
+            "relationshipName": "guardSchedule",
+            "otherEntityName": "guardSchedule",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
                 "required"
-            ]
+            ],
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "guard"
         },
+        {
+            "relationshipName": "doctorMedicalService",
+            "otherEntityName": "medicalService",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "guard"
+        },
+        {
+            "relationshipName": "doctor",
+            "otherEntityName": "doctor",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "guard"
+        }
+    ],
+    "fields": [
         {
             "fieldName": "date",
             "fieldType": "LocalDate",

@@ -4,34 +4,34 @@ import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
 
 import { HospitalsystemTestModule } from '../../../test.module';
-import { Horaire_gardeUpdateComponent } from 'app/entities/horaire-garde/horaire-garde-update.component';
-import { Horaire_gardeService } from 'app/entities/horaire-garde/horaire-garde.service';
-import { Horaire_garde } from 'app/shared/model/horaire-garde.model';
+import { HospitalizationUpdateComponent } from 'app/entities/hospitalization/hospitalization-update.component';
+import { HospitalizationService } from 'app/entities/hospitalization/hospitalization.service';
+import { Hospitalization } from 'app/shared/model/hospitalization.model';
 
 describe('Component Tests', () => {
-  describe('Horaire_garde Management Update Component', () => {
-    let comp: Horaire_gardeUpdateComponent;
-    let fixture: ComponentFixture<Horaire_gardeUpdateComponent>;
-    let service: Horaire_gardeService;
+  describe('Hospitalization Management Update Component', () => {
+    let comp: HospitalizationUpdateComponent;
+    let fixture: ComponentFixture<HospitalizationUpdateComponent>;
+    let service: HospitalizationService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HospitalsystemTestModule],
-        declarations: [Horaire_gardeUpdateComponent],
+        declarations: [HospitalizationUpdateComponent],
         providers: [FormBuilder]
       })
-        .overrideTemplate(Horaire_gardeUpdateComponent, '')
+        .overrideTemplate(HospitalizationUpdateComponent, '')
         .compileComponents();
 
-      fixture = TestBed.createComponent(Horaire_gardeUpdateComponent);
+      fixture = TestBed.createComponent(HospitalizationUpdateComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(Horaire_gardeService);
+      service = fixture.debugElement.injector.get(HospitalizationService);
     });
 
     describe('save', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
-        const entity = new Horaire_garde(123);
+        const entity = new Hospitalization(123);
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -45,7 +45,7 @@ describe('Component Tests', () => {
 
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
-        const entity = new Horaire_garde();
+        const entity = new Hospitalization();
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN

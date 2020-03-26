@@ -1,31 +1,40 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
-import { Horaire_gardeService } from 'app/entities/horaire-garde/horaire-garde.service';
-import { IHoraire_garde, Horaire_garde } from 'app/shared/model/horaire-garde.model';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { HospitalizationService } from 'app/entities/hospitalization/hospitalization.service';
+import { IHospitalization, Hospitalization } from 'app/shared/model/hospitalization.model';
 
 describe('Service Tests', () => {
-  describe('Horaire_garde Service', () => {
+  describe('Hospitalization Service', () => {
     let injector: TestBed;
-    let service: Horaire_gardeService;
+    let service: HospitalizationService;
     let httpMock: HttpTestingController;
-    let elemDefault: IHoraire_garde;
+    let elemDefault: IHospitalization;
     let expectedResult;
+    let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
       });
       expectedResult = {};
       injector = getTestBed();
-      service = injector.get(Horaire_gardeService);
+      service = injector.get(HospitalizationService);
       httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
-      elemDefault = new Horaire_garde(0, 0, 0, 'AAAAAAA');
+      elemDefault = new Hospitalization(0, currentDate);
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            date: currentDate.format(DATE_FORMAT)
+          },
+          elemDefault
+        );
         service
           .find(123)
           .pipe(take(1))
@@ -36,16 +45,22 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: elemDefault });
       });
 
-      it('should create a Horaire_garde', () => {
+      it('should create a Hospitalization', () => {
         const returnedFromService = Object.assign(
           {
-            id: 0
+            id: 0,
+            date: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            date: currentDate
+          },
+          returnedFromService
+        );
         service
-          .create(new Horaire_garde(null))
+          .create(new Hospitalization(null))
           .pipe(take(1))
           .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'POST' });
@@ -53,17 +68,20 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should update a Horaire_garde', () => {
+      it('should update a Hospitalization', () => {
         const returnedFromService = Object.assign(
           {
-            start: 1,
-            end: 1,
-            name: 'BBBBBB'
+            date: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            date: currentDate
+          },
+          returnedFromService
+        );
         service
           .update(expected)
           .pipe(take(1))
@@ -73,16 +91,19 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should return a list of Horaire_garde', () => {
+      it('should return a list of Hospitalization', () => {
         const returnedFromService = Object.assign(
           {
-            start: 1,
-            end: 1,
-            name: 'BBBBBB'
+            date: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            date: currentDate
+          },
+          returnedFromService
+        );
         service
           .query(expected)
           .pipe(
@@ -96,7 +117,7 @@ describe('Service Tests', () => {
         expect(expectedResult).toContainEqual(expected);
       });
 
-      it('should delete a Horaire_garde', () => {
+      it('should delete a Hospitalization', () => {
         service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });

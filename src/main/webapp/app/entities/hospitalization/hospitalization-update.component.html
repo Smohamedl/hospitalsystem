@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="jhi-horaire-garde-heading" jhiTranslate="hospitalsystemApp.horaire_garde.home.createOrEditLabel">Create or edit a Horaire Garde</h2>
+            <h2 id="jhi-hospitalization-heading" jhiTranslate="hospitalsystemApp.hospitalization.home.createOrEditLabel">Create or edit a Hospitalization</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!editForm.get('id').value">
@@ -10,19 +10,19 @@
                         readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.horaire_garde.start" for="field_start">Start</label>
-                    <input type="number" class="form-control" name="start" id="field_start"
-                           formControlName="start"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.horaire_garde.end" for="field_end">End</label>
-                    <input type="number" class="form-control" name="end" id="field_end"
-                           formControlName="end"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.horaire_garde.name" for="field_name">Name</label>
-                    <input type="text" class="form-control" name="name" id="field_name"
-                           formControlName="name"/>
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.hospitalization.date" for="field_date">Date</label>
+                    <div class="input-group">
+                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" formControlName="date"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('date').invalid && (editForm.get('date').dirty || editForm.get('date').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('date').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
                 </div>
 
             </div>

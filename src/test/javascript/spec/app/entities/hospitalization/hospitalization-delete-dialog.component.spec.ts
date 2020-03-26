@@ -4,27 +4,27 @@ import { of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { HospitalsystemTestModule } from '../../../test.module';
-import { Horaire_gardeDeleteDialogComponent } from 'app/entities/horaire-garde/horaire-garde-delete-dialog.component';
-import { Horaire_gardeService } from 'app/entities/horaire-garde/horaire-garde.service';
+import { HospitalizationDeleteDialogComponent } from 'app/entities/hospitalization/hospitalization-delete-dialog.component';
+import { HospitalizationService } from 'app/entities/hospitalization/hospitalization.service';
 
 describe('Component Tests', () => {
-  describe('Horaire_garde Management Delete Component', () => {
-    let comp: Horaire_gardeDeleteDialogComponent;
-    let fixture: ComponentFixture<Horaire_gardeDeleteDialogComponent>;
-    let service: Horaire_gardeService;
+  describe('Hospitalization Management Delete Component', () => {
+    let comp: HospitalizationDeleteDialogComponent;
+    let fixture: ComponentFixture<HospitalizationDeleteDialogComponent>;
+    let service: HospitalizationService;
     let mockEventManager: any;
     let mockActiveModal: any;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HospitalsystemTestModule],
-        declarations: [Horaire_gardeDeleteDialogComponent]
+        declarations: [HospitalizationDeleteDialogComponent]
       })
-        .overrideTemplate(Horaire_gardeDeleteDialogComponent, '')
+        .overrideTemplate(HospitalizationDeleteDialogComponent, '')
         .compileComponents();
-      fixture = TestBed.createComponent(Horaire_gardeDeleteDialogComponent);
+      fixture = TestBed.createComponent(HospitalizationDeleteDialogComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(Horaire_gardeService);
+      service = fixture.debugElement.injector.get(HospitalizationService);
       mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
       mockActiveModal = fixture.debugElement.injector.get(NgbActiveModal);
     });
