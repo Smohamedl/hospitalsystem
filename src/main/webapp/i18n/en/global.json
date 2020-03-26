@@ -14,12 +14,7 @@
         "act": "Act",
         "guardSchedule": "Guard Schedule",
         "guard": "Guard",
-<<<<<<< HEAD
         "hospitalization": "Hospitalization",
-=======
-        "action": "Action",
-        "rules": "Rules",
->>>>>>> branch 'branche_sml' of https://github.com/Smohamedl/hospitalsystem.git
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
