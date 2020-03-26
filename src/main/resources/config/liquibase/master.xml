@@ -21,7 +21,12 @@
     <include file="config/liquibase/changelog/20191201211545_added_entity_Act.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200221211022_added_entity_GuardSchedule.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200221224900_added_entity_Guard.xml" relativeToChangelogFile="false"/>
+<<<<<<< HEAD
     <include file="config/liquibase/changelog/20200324211529_added_entity_Hospitalization.xml" relativeToChangelogFile="false"/>
+=======
+    <include file="config/liquibase/changelog/20200221232124_added_entity_Action.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200221232418_added_entity_Rules.xml" relativeToChangelogFile="false"/>
+>>>>>>> branch 'branche_sml' of https://github.com/Smohamedl/hospitalsystem.git
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20191123055359_added_entity_constraints_Doctor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191128145749_added_entity_constraints_Actype.xml" relativeToChangelogFile="false"/>
