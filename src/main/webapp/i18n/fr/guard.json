@@ -17,8 +17,10 @@
       "detail": {
         "title": "Guard"
       },
-      "pay": "Pay",
-      "date": "Date"
+      "date": "Date",
+      "guardSchedule": "Guard Schedule",
+      "doctorMedicalService": "Doctor Medical Service",
+      "doctor": "Doctor"
     }
   }
 }

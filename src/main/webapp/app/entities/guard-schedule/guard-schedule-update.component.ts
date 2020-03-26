@@ -17,9 +17,10 @@ export class GuardScheduleUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    start: [],
-    end: [],
-    name: []
+    payement: [null, [Validators.required, Validators.min(1)]],
+    start: [null, [Validators.required]],
+    end: [null, [Validators.required]],
+    name: [null, [Validators.required]]
   });
 
   constructor(protected guardScheduleService: GuardScheduleService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -34,6 +35,7 @@ export class GuardScheduleUpdateComponent implements OnInit {
   updateForm(guardSchedule: IGuardSchedule) {
     this.editForm.patchValue({
       id: guardSchedule.id,
+      payement: guardSchedule.payement,
       start: guardSchedule.start,
       end: guardSchedule.end,
       name: guardSchedule.name
@@ -58,6 +60,7 @@ export class GuardScheduleUpdateComponent implements OnInit {
     return {
       ...new GuardSchedule(),
       id: this.editForm.get(['id']).value,
+      payement: this.editForm.get(['payement']).value,
       start: this.editForm.get(['start']).value,
       end: this.editForm.get(['end']).value,
       name: this.editForm.get(['name']).value

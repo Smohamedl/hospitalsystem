@@ -32,9 +32,9 @@
     <div class="table-responsive" *ngIf="guards?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-            <tr>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <!-- <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th> -->
-            <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.date">Date</span></th>
+            <th scope="col" jhiSortBy="date" ><span jhiTranslate="hospitalsystemApp.guard.date">Date</span><fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.guardSchedule">Guard Schedule</span></th>
             <!-- <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.doctorMedicalService">Doctor Medical Service</span></th> -->
             <th scope="col" ><span jhiTranslate="hospitalsystemApp.guard.doctor">Doctor</span></th>

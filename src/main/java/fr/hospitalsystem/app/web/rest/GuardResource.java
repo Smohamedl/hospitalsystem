@@ -1,29 +1,40 @@
 package fr.hospitalsystem.app.web.rest;
 
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import fr.hospitalsystem.app.domain.Guard;
 import fr.hospitalsystem.app.repository.GuardRepository;
 import fr.hospitalsystem.app.repository.search.GuardSearchRepository;
 import fr.hospitalsystem.app.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link fr.hospitalsystem.app.domain.Guard}.
@@ -53,7 +64,8 @@ public class GuardResource {
      * {@code POST  /guards} : Create a new guard.
      *
      * @param guard the guard to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new guard, or with status {@code 400 (Bad Request)} if the guard has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new guard, or with status {@code 400 (Bad Request)} if
+     *         the guard has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/guards")
@@ -65,17 +77,15 @@ public class GuardResource {
         Guard result = guardRepository.save(guard);
         guardSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/guards/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString())).body(result);
     }
 
     /**
      * {@code PUT  /guards} : Updates an existing guard.
      *
      * @param guard the guard to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated guard,
-     * or with status {@code 400 (Bad Request)} if the guard is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the guard couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated guard, or with status {@code 400 (Bad Request)} if
+     *         the guard is not valid, or with status {@code 500 (Internal Server Error)} if the guard couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/guards")
@@ -86,21 +96,22 @@ public class GuardResource {
         }
         Guard result = guardRepository.save(guard);
         guardSearchRepository.save(result);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, guard.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, guard.getId().toString()))
+                .body(result);
     }
 
     /**
      * {@code GET  /guards} : get all the guards.
      *
-
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of guards in body.
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of Guards in body.
      */
     @GetMapping("/guards")
-    public List<Guard> getAllGuards() {
-        log.debug("REST request to get all Guards");
-        return guardRepository.findAll();
+    public ResponseEntity<List<Guard>> getAllGuards(Pageable pageable) {
+        log.debug("REST request to get a page of Patients");
+        Page<Guard> page = guardRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -131,17 +142,16 @@ public class GuardResource {
     }
 
     /**
-     * {@code SEARCH  /_search/guards?query=:query} : search for the guard corresponding
-     * to the query.
+     * {@code SEARCH  /_search/guards?query=:query} : search for the guard corresponding to the query.
      *
      * @param query the query of the guard search.
      * @return the result of the search.
      */
     @GetMapping("/_search/guards")
-    public List<Guard> searchGuards(@RequestParam String query) {
-        log.debug("REST request to search Guards for query {}", query);
-        return StreamSupport
-            .stream(guardSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+    public ResponseEntity<List<Guard>> searchGuards(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Guards for query {}", query);
+        Page<Guard> page = guardSearchRepository.search(queryStringQuery(query), pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

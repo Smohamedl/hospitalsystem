@@ -19,12 +19,13 @@
     <include file="config/liquibase/changelog/20191123055359_added_entity_Doctor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191128145749_added_entity_Actype.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191201211545_added_entity_Act.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20200221210456_added_entity_Horaire_garde.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200221211022_added_entity_GuardSchedule.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200221224900_added_entity_Guard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200324211529_added_entity_Hospitalization.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20191123055359_added_entity_constraints_Doctor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191128145749_added_entity_constraints_Actype.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191201211545_added_entity_constraints_Act.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200221224900_added_entity_constraints_Guard.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

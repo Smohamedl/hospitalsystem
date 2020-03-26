@@ -128,6 +128,9 @@ export class ActUpdateComponent implements OnInit {
       .findByService(this.editForm.get(['medicalService']).value.name)
       .subscribe((res: HttpResponse<IActype[]>) => (this.actypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     
+	 this.doctorService
+     .findByService(this.editForm.get(['medicalService']).value.name)
+     .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     
   }
 

@@ -1,13 +1,23 @@
 package fr.hospitalsystem.app.domain;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Guard.
@@ -26,12 +36,23 @@ public class Guard implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "pay", nullable = false)
-    private Float pay;
-
-    @NotNull
     @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull
+    @JsonIgnoreProperties("guards")
+    private GuardSchedule guardSchedule;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @NotNull
+    @JsonIgnoreProperties("guards")
+    private MedicalService doctorMedicalService;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull
+    @JsonIgnoreProperties("guards")
+    private Doctor doctor;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -40,19 +61,6 @@ public class Guard implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Float getPay() {
-        return pay;
-    }
-
-    public Guard pay(Float pay) {
-        this.pay = pay;
-        return this;
-    }
-
-    public void setPay(Float pay) {
-        this.pay = pay;
     }
 
     public LocalDate getDate() {
@@ -66,6 +74,45 @@ public class Guard implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public GuardSchedule getGuardSchedule() {
+        return guardSchedule;
+    }
+
+    public Guard guardSchedule(GuardSchedule guardSchedule) {
+        this.guardSchedule = guardSchedule;
+        return this;
+    }
+
+    public void setGuardSchedule(GuardSchedule guardSchedule) {
+        this.guardSchedule = guardSchedule;
+    }
+
+    public MedicalService getDoctorMedicalService() {
+        return doctorMedicalService;
+    }
+
+    public Guard doctorMedicalService(MedicalService medicalService) {
+        this.doctorMedicalService = medicalService;
+        return this;
+    }
+
+    public void setDoctorMedicalService(MedicalService medicalService) {
+        this.doctorMedicalService = medicalService;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public Guard doctor(Doctor doctor) {
+        this.doctor = doctor;
+        return this;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -87,10 +134,6 @@ public class Guard implements Serializable {
 
     @Override
     public String toString() {
-        return "Guard{" +
-            "id=" + getId() +
-            ", pay=" + getPay() +
-            ", date='" + getDate() + "'" +
-            "}";
+        return "Guard{" + "id=" + getId() + ", date='" + getDate() + "'" + "}";
     }
 }

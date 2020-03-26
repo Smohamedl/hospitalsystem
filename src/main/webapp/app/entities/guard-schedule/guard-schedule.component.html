@@ -34,6 +34,7 @@
             <thead>
             <tr>
             <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="hospitalsystemApp.guardSchedule.payement">Payement</span></th>
             <th scope="col" ><span jhiTranslate="hospitalsystemApp.guardSchedule.start">Start</span></th>
             <th scope="col" ><span jhiTranslate="hospitalsystemApp.guardSchedule.end">End</span></th>
             <th scope="col" ><span jhiTranslate="hospitalsystemApp.guardSchedule.name">Name</span></th>
@@ -43,6 +44,7 @@
             <tbody>
             <tr *ngFor="let guardSchedule of guardSchedules ;trackBy: trackId">
                 <td><a [routerLink]="['/guard-schedule', guardSchedule.id, 'view' ]">{{guardSchedule.id}}</a></td>
+                <td>{{guardSchedule.payement}}</td>
                 <td>{{guardSchedule.start}}</td>
                 <td>{{guardSchedule.end}}</td>
                 <td>{{guardSchedule.name}}</td>

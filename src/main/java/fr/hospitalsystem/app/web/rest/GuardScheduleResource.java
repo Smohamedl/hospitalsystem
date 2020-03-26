@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional; 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -56,7 +57,7 @@ public class GuardScheduleResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/guard-schedules")
-    public ResponseEntity<GuardSchedule> createGuardSchedule(@RequestBody GuardSchedule guardSchedule) throws URISyntaxException {
+    public ResponseEntity<GuardSchedule> createGuardSchedule(@Valid @RequestBody GuardSchedule guardSchedule) throws URISyntaxException {
         log.debug("REST request to save GuardSchedule : {}", guardSchedule);
         if (guardSchedule.getId() != null) {
             throw new BadRequestAlertException("A new guardSchedule cannot already have an ID", ENTITY_NAME, "idexists");
@@ -78,7 +79,7 @@ public class GuardScheduleResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/guard-schedules")
-    public ResponseEntity<GuardSchedule> updateGuardSchedule(@RequestBody GuardSchedule guardSchedule) throws URISyntaxException {
+    public ResponseEntity<GuardSchedule> updateGuardSchedule(@Valid @RequestBody GuardSchedule guardSchedule) throws URISyntaxException {
         log.debug("REST request to update GuardSchedule : {}", guardSchedule);
         if (guardSchedule.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

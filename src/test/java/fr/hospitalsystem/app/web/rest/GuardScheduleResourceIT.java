@@ -37,6 +37,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = HospitalsystemApp.class)
 public class GuardScheduleResourceIT {
 
+    private static final Double DEFAULT_PAYEMENT = 1D;
+    private static final Double UPDATED_PAYEMENT = 2D;
+
     private static final Integer DEFAULT_START = 1;
     private static final Integer UPDATED_START = 2;
 
@@ -96,6 +99,7 @@ public class GuardScheduleResourceIT {
      */
     public static GuardSchedule createEntity(EntityManager em) {
         GuardSchedule guardSchedule = new GuardSchedule()
+            .payement(DEFAULT_PAYEMENT)
             .start(DEFAULT_START)
             .end(DEFAULT_END)
             .name(DEFAULT_NAME);
@@ -109,6 +113,7 @@ public class GuardScheduleResourceIT {
      */
     public static GuardSchedule createUpdatedEntity(EntityManager em) {
         GuardSchedule guardSchedule = new GuardSchedule()
+            .payement(UPDATED_PAYEMENT)
             .start(UPDATED_START)
             .end(UPDATED_END)
             .name(UPDATED_NAME);
@@ -135,6 +140,7 @@ public class GuardScheduleResourceIT {
         List<GuardSchedule> guardScheduleList = guardScheduleRepository.findAll();
         assertThat(guardScheduleList).hasSize(databaseSizeBeforeCreate + 1);
         GuardSchedule testGuardSchedule = guardScheduleList.get(guardScheduleList.size() - 1);
+        assertThat(testGuardSchedule.getPayement()).isEqualTo(DEFAULT_PAYEMENT);
         assertThat(testGuardSchedule.getStart()).isEqualTo(DEFAULT_START);
         assertThat(testGuardSchedule.getEnd()).isEqualTo(DEFAULT_END);
         assertThat(testGuardSchedule.getName()).isEqualTo(DEFAULT_NAME);
@@ -168,6 +174,78 @@ public class GuardScheduleResourceIT {
 
     @Test
     @Transactional
+    public void checkPayementIsRequired() throws Exception {
+        int databaseSizeBeforeTest = guardScheduleRepository.findAll().size();
+        // set the field null
+        guardSchedule.setPayement(null);
+
+        // Create the GuardSchedule, which fails.
+
+        restGuardScheduleMockMvc.perform(post("/api/guard-schedules")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(guardSchedule)))
+            .andExpect(status().isBadRequest());
+
+        List<GuardSchedule> guardScheduleList = guardScheduleRepository.findAll();
+        assertThat(guardScheduleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkStartIsRequired() throws Exception {
+        int databaseSizeBeforeTest = guardScheduleRepository.findAll().size();
+        // set the field null
+        guardSchedule.setStart(null);
+
+        // Create the GuardSchedule, which fails.
+
+        restGuardScheduleMockMvc.perform(post("/api/guard-schedules")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(guardSchedule)))
+            .andExpect(status().isBadRequest());
+
+        List<GuardSchedule> guardScheduleList = guardScheduleRepository.findAll();
+        assertThat(guardScheduleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkEndIsRequired() throws Exception {
+        int databaseSizeBeforeTest = guardScheduleRepository.findAll().size();
+        // set the field null
+        guardSchedule.setEnd(null);
+
+        // Create the GuardSchedule, which fails.
+
+        restGuardScheduleMockMvc.perform(post("/api/guard-schedules")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(guardSchedule)))
+            .andExpect(status().isBadRequest());
+
+        List<GuardSchedule> guardScheduleList = guardScheduleRepository.findAll();
+        assertThat(guardScheduleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = guardScheduleRepository.findAll().size();
+        // set the field null
+        guardSchedule.setName(null);
+
+        // Create the GuardSchedule, which fails.
+
+        restGuardScheduleMockMvc.perform(post("/api/guard-schedules")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(guardSchedule)))
+            .andExpect(status().isBadRequest());
+
+        List<GuardSchedule> guardScheduleList = guardScheduleRepository.findAll();
+        assertThat(guardScheduleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllGuardSchedules() throws Exception {
         // Initialize the database
         guardScheduleRepository.saveAndFlush(guardSchedule);
@@ -177,6 +255,7 @@ public class GuardScheduleResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(guardSchedule.getId().intValue())))
+            .andExpect(jsonPath("$.[*].payement").value(hasItem(DEFAULT_PAYEMENT.doubleValue())))
             .andExpect(jsonPath("$.[*].start").value(hasItem(DEFAULT_START)))
             .andExpect(jsonPath("$.[*].end").value(hasItem(DEFAULT_END)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
@@ -193,6 +272,7 @@ public class GuardScheduleResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(guardSchedule.getId().intValue()))
+            .andExpect(jsonPath("$.payement").value(DEFAULT_PAYEMENT.doubleValue()))
             .andExpect(jsonPath("$.start").value(DEFAULT_START))
             .andExpect(jsonPath("$.end").value(DEFAULT_END))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
@@ -219,6 +299,7 @@ public class GuardScheduleResourceIT {
         // Disconnect from session so that the updates on updatedGuardSchedule are not directly saved in db
         em.detach(updatedGuardSchedule);
         updatedGuardSchedule
+            .payement(UPDATED_PAYEMENT)
             .start(UPDATED_START)
             .end(UPDATED_END)
             .name(UPDATED_NAME);
@@ -232,6 +313,7 @@ public class GuardScheduleResourceIT {
         List<GuardSchedule> guardScheduleList = guardScheduleRepository.findAll();
         assertThat(guardScheduleList).hasSize(databaseSizeBeforeUpdate);
         GuardSchedule testGuardSchedule = guardScheduleList.get(guardScheduleList.size() - 1);
+        assertThat(testGuardSchedule.getPayement()).isEqualTo(UPDATED_PAYEMENT);
         assertThat(testGuardSchedule.getStart()).isEqualTo(UPDATED_START);
         assertThat(testGuardSchedule.getEnd()).isEqualTo(UPDATED_END);
         assertThat(testGuardSchedule.getName()).isEqualTo(UPDATED_NAME);
@@ -294,6 +376,7 @@ public class GuardScheduleResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(guardSchedule.getId().intValue())))
+            .andExpect(jsonPath("$.[*].payement").value(hasItem(DEFAULT_PAYEMENT.doubleValue())))
             .andExpect(jsonPath("$.[*].start").value(hasItem(DEFAULT_START)))
             .andExpect(jsonPath("$.[*].end").value(hasItem(DEFAULT_END)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));

@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(GuardScheduleService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new GuardSchedule(0, 0, 0, 'AAAAAAA');
+      elemDefault = new GuardSchedule(0, 0, 0, 0, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,6 +56,7 @@ describe('Service Tests', () => {
       it('should update a GuardSchedule', () => {
         const returnedFromService = Object.assign(
           {
+            payement: 1,
             start: 1,
             end: 1,
             name: 'BBBBBB'
@@ -76,6 +77,7 @@ describe('Service Tests', () => {
       it('should return a list of GuardSchedule', () => {
         const returnedFromService = Object.assign(
           {
+            payement: 1,
             start: 1,
             end: 1,
             name: 'BBBBBB'

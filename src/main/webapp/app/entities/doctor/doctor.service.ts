@@ -27,7 +27,11 @@ export class DoctorService {
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IDoctor>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-
+  
+  findByService(_service: string):  Observable<EntityArrayResponseType>{
+    return this.http.get<IDoctor[]>(`${this.resourceUrl}/service/${_service}`, {observe: 'response' });
+  }
+  
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IDoctor[]>(this.resourceUrl, { params: options, observe: 'response' });

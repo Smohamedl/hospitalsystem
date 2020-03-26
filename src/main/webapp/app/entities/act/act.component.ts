@@ -68,7 +68,24 @@ export class ActComponent implements OnInit, OnDestroy {
       })
       .subscribe((res: HttpResponse<IAct[]>) => this.paginateActs(res.body, res.headers));
   }
-
+  
+  search(query) {
+    if (!query) {
+      return this.clear();
+    }
+    this.page = 0;
+    this.currentSearch = query;
+    this.router.navigate([
+      '/act',
+      {
+        search: this.currentSearch,
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
+  }
+  
   loadPage(page: number) {
     if (page !== this.previousPage) {
       this.previousPage = page;
@@ -94,23 +111,6 @@ export class ActComponent implements OnInit, OnDestroy {
     this.router.navigate([
       '/act',
       {
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
-    this.loadAll();
-  }
-
-  search(query) {
-    if (!query) {
-      return this.clear();
-    }
-    this.page = 0;
-    this.currentSearch = query;
-    this.router.navigate([
-      '/act',
-      {
-        search: this.currentSearch,
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }

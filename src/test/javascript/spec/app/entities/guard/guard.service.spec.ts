@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Guard(0, 0, currentDate);
+      elemDefault = new Guard(0, currentDate);
     });
 
     describe('Service methods', () => {
@@ -71,7 +71,6 @@ describe('Service Tests', () => {
       it('should update a Guard', () => {
         const returnedFromService = Object.assign(
           {
-            pay: 1,
             date: currentDate.format(DATE_FORMAT)
           },
           elemDefault
@@ -95,7 +94,6 @@ describe('Service Tests', () => {
       it('should return a list of Guard', () => {
         const returnedFromService = Object.assign(
           {
-            pay: 1,
             date: currentDate.format(DATE_FORMAT)
           },
           elemDefault

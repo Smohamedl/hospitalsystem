@@ -12,9 +12,9 @@
         "doctor": "Doctor",
         "actype": "Actype",
         "act": "Act",
-        "horaireGarde": "Horaire Garde",
         "guardSchedule": "Guard Schedule",
         "guard": "Guard",
+        "hospitalization": "Hospitalization",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

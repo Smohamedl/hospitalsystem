@@ -3,6 +3,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
@@ -23,13 +24,21 @@ public class GuardSchedule implements Serializable {
     @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
-    @Column(name = "start")
+    @NotNull
+    @DecimalMin(value = "1")
+    @Column(name = "payement", nullable = false)
+    private Double payement;
+
+    @NotNull
+    @Column(name = "start", nullable = false)
     private Integer start;
 
-    @Column(name = "end")
+    @NotNull
+    @Column(name = "end", nullable = false)
     private Integer end;
 
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -39,6 +48,19 @@ public class GuardSchedule implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Double getPayement() {
+        return payement;
+    }
+
+    public GuardSchedule payement(Double payement) {
+        this.payement = payement;
+        return this;
+    }
+
+    public void setPayement(Double payement) {
+        this.payement = payement;
     }
 
     public Integer getStart() {
@@ -101,6 +123,7 @@ public class GuardSchedule implements Serializable {
     public String toString() {
         return "GuardSchedule{" +
             "id=" + getId() +
+            ", payement=" + getPayement() +
             ", start=" + getStart() +
             ", end=" + getEnd() +
             ", name='" + getName() + "'" +

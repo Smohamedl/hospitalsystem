@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
+import { JhiResolvePagingParams } from 'ng-jhipster';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Guard } from 'app/shared/model/guard.model';
@@ -29,8 +30,12 @@ export const guardRoute: Routes = [
   {
     path: '',
     component: GuardComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
+    },
     data: {
       authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
       pageTitle: 'hospitalsystemApp.guard.home.title'
     },
     canActivate: [UserRouteAccessService]

@@ -25,16 +25,16 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./act/act.module').then(m => m.HospitalsystemActModule)
       },
       {
-        path: 'horaire-garde',
-        loadChildren: () => import('./horaire-garde/horaire-garde.module').then(m => m.HospitalsystemHoraire_gardeModule)
-      },
-      {
         path: 'guard-schedule',
         loadChildren: () => import('./guard-schedule/guard-schedule.module').then(m => m.HospitalsystemGuardScheduleModule)
       },
       {
         path: 'guard',
         loadChildren: () => import('./guard/guard.module').then(m => m.HospitalsystemGuardModule)
+      },
+      {
+        path: 'hospitalization',
+        loadChildren: () => import('./hospitalization/hospitalization.module').then(m => m.HospitalsystemHospitalizationModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])
