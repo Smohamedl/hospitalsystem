@@ -39,6 +39,7 @@
             <th scope="col"  jhiSortBy="total"><span jhiTranslate="hospitalsystemApp.session.total">Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="totalCheck"><span jhiTranslate="hospitalsystemApp.session.totalCheck">Total Check</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="jhi_user.id"><span jhiTranslate="hospitalsystemApp.session.jhi_user">Jhi User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="createdDate"><span jhiTranslate="hospitalsystemApp.session.createdDate">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -54,6 +55,7 @@
                         <a [routerLink]="['/jhi-user', session.user?.id, 'view' ]" >{{session.user?.id}}</a>
                     </div>
                 </td>
+                <td>{{session.createdDate}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

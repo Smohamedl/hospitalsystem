@@ -27,18 +27,16 @@
                         <a [routerLink]="['/jhi-user', session.user?.id, 'view']">{{session.user?.id}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.session.createdDate">Open Date</span></dt>
+                <dd>
+                    <span>{{session.createdDate}}</span>
+                </dd>
             </dl>
 
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/session', session.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

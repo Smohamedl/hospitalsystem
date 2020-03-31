@@ -21,7 +21,8 @@
       "totalPC": "Total PC",
       "total": "Total",
       "totalCheck": "Total Check",
-      "jhi_user": "Jhi User"
+      "jhi_user": "Jhi User",
+      "createdDate": "Date d'ouverture"
     }
   }
 }

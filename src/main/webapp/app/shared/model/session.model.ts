@@ -7,6 +7,7 @@ export interface ISession {
   total?: number;
   totalCheck?: number;
   user?: User;
+  createdDate: Date;
 }
 
 export class Session implements ISession {
@@ -16,6 +17,7 @@ export class Session implements ISession {
     public totalPC?: number,
     public total?: number,
     public totalCheck?: number,
-    public user?: User
+    public user?: User,
+    public createdDate?: Date
   ) {}
 }

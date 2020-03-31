@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Table(name = "session")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "session")
-public class Session implements Serializable {
+public class Session extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
