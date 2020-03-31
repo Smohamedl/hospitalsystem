@@ -18,6 +18,7 @@
         "action": "Action",
         "rules": "Rules",
         "socialOrganization": "Social Organization",
+        "session": "Session",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
