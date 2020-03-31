@@ -75,6 +75,12 @@
                             <span jhiTranslate="global.menu.entities.hospitalization">Hospitalization</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="social-organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.socialOrganization">Social Organization</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>

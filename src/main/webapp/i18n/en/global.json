@@ -15,6 +15,7 @@
         "guardSchedule": "Guard Schedule",
         "guard": "Guard",
         "hospitalization": "Hospitalization",
+        "socialOrganization": "Social Organization",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -17,6 +17,7 @@
         "hospitalization": "Hospitalization",
         "action": "Action",
         "rules": "Rules",
+        "socialOrganization": "Social Organization",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
