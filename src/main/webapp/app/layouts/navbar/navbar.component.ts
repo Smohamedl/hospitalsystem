@@ -10,6 +10,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { LoginService } from 'app/core/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { Session } from 'app/shared/model/session.model';
 
 @Component({
   selector: 'jhi-navbar',
@@ -23,6 +24,7 @@ export class NavbarComponent implements OnInit {
   swaggerEnabled: boolean;
   modalRef: NgbModalRef;
   version: string;
+  session: Session;
 
   constructor(
     private loginService: LoginService,
@@ -44,6 +46,9 @@ export class NavbarComponent implements OnInit {
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
       this.swaggerEnabled = profileInfo.swaggerEnabled;
+    });
+    this.accountService.getCurrentSession().subscribe(session => {
+      this.session = session;
     });
   }
 

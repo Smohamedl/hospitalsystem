@@ -15,6 +15,7 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -58,6 +60,9 @@ public class SessionResource {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 
     public SessionResource(SessionRepository sessionRepository, SessionSearchRepository sessionSearchRepository) {
         this.sessionRepository = sessionRepository;
@@ -93,6 +98,20 @@ public class SessionResource {
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /currentsession} : get the current user session
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the session, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/currentsession")
+    public ResponseEntity<Session> getSession() {
+        HttpSession httpSession = httpSessionFactory.getObject();
+         Session session = (Session) httpSession.getAttribute("SessionUser");
+        log.debug("REST request to get Session : {}", session.getId());
+        Optional<Session> currentsession = Optional.of(session);
+        return ResponseUtil.wrapOrNotFound(currentsession);
     }
 
     /**

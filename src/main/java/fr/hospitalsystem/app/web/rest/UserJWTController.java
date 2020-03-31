@@ -11,6 +11,7 @@ import fr.hospitalsystem.app.web.rest.vm.LoginVM;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.Instant;
 import java.util.List;
@@ -45,6 +47,9 @@ public class UserJWTController {
 
     @Autowired
     private SessionRepository sessionRepository;
+
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 
     public UserJWTController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.tokenProvider = tokenProvider;
@@ -95,7 +100,9 @@ public class UserJWTController {
             session.setCreated_date(Instant.now());
 
             sessionRepository.save(session);
-            System.out.println("Instantion of new session for " + user.get().getLogin());
+
+            HttpSession httpSession = httpSessionFactory.getObject();
+            httpSession.setAttribute("SessionUser", session);
         }
     }
     /**
