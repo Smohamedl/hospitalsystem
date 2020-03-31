@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { User } from 'app/core/user/user.model';
 
 export interface ISession {
@@ -6,8 +7,9 @@ export interface ISession {
   totalPC?: number;
   total?: number;
   totalCheck?: number;
-  user?: User;
-  createdDate: Date;
+  created_by?: string;
+  created_date?: Moment;
+  jhi_user?: User;
 }
 
 export class Session implements ISession {
@@ -17,7 +19,8 @@ export class Session implements ISession {
     public totalPC?: number,
     public total?: number,
     public totalCheck?: number,
-    public user?: User,
-    public createdDate?: Date
+    public created_by?: string,
+    public created_date?: Moment,
+    public jhi_user?: User
   ) {}
 }

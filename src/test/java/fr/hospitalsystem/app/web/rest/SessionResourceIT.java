@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,6 +52,12 @@ public class SessionResourceIT {
 
     private static final Integer DEFAULT_TOTAL_CHECK = 1;
     private static final Integer UPDATED_TOTAL_CHECK = 2;
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private SessionRepository sessionRepository;
@@ -104,7 +112,9 @@ public class SessionResourceIT {
             .totalCash(DEFAULT_TOTAL_CASH)
             .totalPC(DEFAULT_TOTAL_PC)
             .total(DEFAULT_TOTAL)
-            .totalCheck(DEFAULT_TOTAL_CHECK);
+            .totalCheck(DEFAULT_TOTAL_CHECK)
+            .created_by(DEFAULT_CREATED_BY)
+            .created_date(DEFAULT_CREATED_DATE);
         return session;
     }
     /**
@@ -118,7 +128,9 @@ public class SessionResourceIT {
             .totalCash(UPDATED_TOTAL_CASH)
             .totalPC(UPDATED_TOTAL_PC)
             .total(UPDATED_TOTAL)
-            .totalCheck(UPDATED_TOTAL_CHECK);
+            .totalCheck(UPDATED_TOTAL_CHECK)
+            .created_by(UPDATED_CREATED_BY)
+            .created_date(UPDATED_CREATED_DATE);
         return session;
     }
 
@@ -146,6 +158,8 @@ public class SessionResourceIT {
         assertThat(testSession.getTotalPC()).isEqualTo(DEFAULT_TOTAL_PC);
         assertThat(testSession.getTotal()).isEqualTo(DEFAULT_TOTAL);
         assertThat(testSession.getTotalCheck()).isEqualTo(DEFAULT_TOTAL_CHECK);
+        assertThat(testSession.getCreated_by()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testSession.getCreated_date()).isEqualTo(DEFAULT_CREATED_DATE);
 
         // Validate the Session in Elasticsearch
         verify(mockSessionSearchRepository, times(1)).save(testSession);
@@ -248,6 +262,42 @@ public class SessionResourceIT {
 
     @Test
     @Transactional
+    public void checkCreated_byIsRequired() throws Exception {
+        int databaseSizeBeforeTest = sessionRepository.findAll().size();
+        // set the field null
+        session.setCreated_by(null);
+
+        // Create the Session, which fails.
+
+        restSessionMockMvc.perform(post("/api/sessions")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(session)))
+            .andExpect(status().isBadRequest());
+
+        List<Session> sessionList = sessionRepository.findAll();
+        assertThat(sessionList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkCreated_dateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = sessionRepository.findAll().size();
+        // set the field null
+        session.setCreated_date(null);
+
+        // Create the Session, which fails.
+
+        restSessionMockMvc.perform(post("/api/sessions")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(session)))
+            .andExpect(status().isBadRequest());
+
+        List<Session> sessionList = sessionRepository.findAll();
+        assertThat(sessionList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllSessions() throws Exception {
         // Initialize the database
         sessionRepository.saveAndFlush(session);
@@ -260,9 +310,11 @@ public class SessionResourceIT {
             .andExpect(jsonPath("$.[*].totalCash").value(hasItem(DEFAULT_TOTAL_CASH)))
             .andExpect(jsonPath("$.[*].totalPC").value(hasItem(DEFAULT_TOTAL_PC)))
             .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL)))
-            .andExpect(jsonPath("$.[*].totalCheck").value(hasItem(DEFAULT_TOTAL_CHECK)));
+            .andExpect(jsonPath("$.[*].totalCheck").value(hasItem(DEFAULT_TOTAL_CHECK)))
+            .andExpect(jsonPath("$.[*].created_by").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].created_date").value(hasItem(DEFAULT_CREATED_DATE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getSession() throws Exception {
@@ -277,7 +329,9 @@ public class SessionResourceIT {
             .andExpect(jsonPath("$.totalCash").value(DEFAULT_TOTAL_CASH))
             .andExpect(jsonPath("$.totalPC").value(DEFAULT_TOTAL_PC))
             .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL))
-            .andExpect(jsonPath("$.totalCheck").value(DEFAULT_TOTAL_CHECK));
+            .andExpect(jsonPath("$.totalCheck").value(DEFAULT_TOTAL_CHECK))
+            .andExpect(jsonPath("$.created_by").value(DEFAULT_CREATED_BY))
+            .andExpect(jsonPath("$.created_date").value(DEFAULT_CREATED_DATE.toString()));
     }
 
     @Test
@@ -304,7 +358,9 @@ public class SessionResourceIT {
             .totalCash(UPDATED_TOTAL_CASH)
             .totalPC(UPDATED_TOTAL_PC)
             .total(UPDATED_TOTAL)
-            .totalCheck(UPDATED_TOTAL_CHECK);
+            .totalCheck(UPDATED_TOTAL_CHECK)
+            .created_by(UPDATED_CREATED_BY)
+            .created_date(UPDATED_CREATED_DATE);
 
         restSessionMockMvc.perform(put("/api/sessions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -319,6 +375,8 @@ public class SessionResourceIT {
         assertThat(testSession.getTotalPC()).isEqualTo(UPDATED_TOTAL_PC);
         assertThat(testSession.getTotal()).isEqualTo(UPDATED_TOTAL);
         assertThat(testSession.getTotalCheck()).isEqualTo(UPDATED_TOTAL_CHECK);
+        assertThat(testSession.getCreated_by()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testSession.getCreated_date()).isEqualTo(UPDATED_CREATED_DATE);
 
         // Validate the Session in Elasticsearch
         verify(mockSessionSearchRepository, times(1)).save(testSession);
@@ -381,6 +439,8 @@ public class SessionResourceIT {
             .andExpect(jsonPath("$.[*].totalCash").value(hasItem(DEFAULT_TOTAL_CASH)))
             .andExpect(jsonPath("$.[*].totalPC").value(hasItem(DEFAULT_TOTAL_PC)))
             .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL)))
-            .andExpect(jsonPath("$.[*].totalCheck").value(hasItem(DEFAULT_TOTAL_CHECK)));
+            .andExpect(jsonPath("$.[*].totalCheck").value(hasItem(DEFAULT_TOTAL_CHECK)))
+            .andExpect(jsonPath("$.[*].created_by").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].created_date").value(hasItem(DEFAULT_CREATED_DATE.toString())));
     }
 }

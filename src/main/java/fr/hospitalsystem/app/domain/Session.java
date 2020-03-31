@@ -8,6 +8,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * A Session.
@@ -16,7 +17,7 @@ import java.io.Serializable;
 @Table(name = "session")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "session")
-public class Session extends AbstractAuditingEntity implements Serializable {
+public class Session implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,7 +42,16 @@ public class Session extends AbstractAuditingEntity implements Serializable {
     @Column(name = "total_check", nullable = false)
     private Integer totalCheck;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    @Column(name = "created_by", nullable = false)
+    private String created_by;
+
+    @NotNull
+    @Column(name = "created_date", nullable = false)
+    private Instant created_date;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("sessions")
     private User jhi_user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -105,6 +115,32 @@ public class Session extends AbstractAuditingEntity implements Serializable {
         this.totalCheck = totalCheck;
     }
 
+    public String getCreated_by() {
+        return created_by;
+    }
+
+    public Session created_by(String created_by) {
+        this.created_by = created_by;
+        return this;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
+    }
+
+    public Instant getCreated_date() {
+        return created_date;
+    }
+
+    public Session created_date(Instant created_date) {
+        this.created_date = created_date;
+        return this;
+    }
+
+    public void setCreated_date(Instant created_date) {
+        this.created_date = created_date;
+    }
+
     public User getJhi_user() {
         return jhi_user;
     }
@@ -143,6 +179,8 @@ public class Session extends AbstractAuditingEntity implements Serializable {
             ", totalPC=" + getTotalPC() +
             ", total=" + getTotal() +
             ", totalCheck=" + getTotalCheck() +
+            ", created_by='" + getCreated_by() + "'" +
+            ", created_date='" + getCreated_date() + "'" +
             "}";
     }
 }

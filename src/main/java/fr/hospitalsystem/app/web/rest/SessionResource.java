@@ -1,8 +1,13 @@
 package fr.hospitalsystem.app.web.rest;
 
+import fr.hospitalsystem.app.domain.Authority;
 import fr.hospitalsystem.app.domain.Session;
+import fr.hospitalsystem.app.domain.User;
 import fr.hospitalsystem.app.repository.SessionRepository;
+import fr.hospitalsystem.app.repository.UserRepository;
 import fr.hospitalsystem.app.repository.search.SessionSearchRepository;
+import fr.hospitalsystem.app.security.AuthoritiesConstants;
+import fr.hospitalsystem.app.security.SecurityUtils;
 import fr.hospitalsystem.app.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -10,6 +15,7 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -50,52 +56,14 @@ public class SessionResource {
 
     private final SessionSearchRepository sessionSearchRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public SessionResource(SessionRepository sessionRepository, SessionSearchRepository sessionSearchRepository) {
         this.sessionRepository = sessionRepository;
         this.sessionSearchRepository = sessionSearchRepository;
     }
 
-    /**
-     * {@code POST  /sessions} : Create a new session.
-     *
-     * @param session the session to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new session, or with status {@code 400 (Bad Request)} if the session has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PostMapping("/sessions")
-    public ResponseEntity<Session> createSession(@Valid @RequestBody Session session) throws URISyntaxException {
-        log.debug("REST request to save Session : {}", session);
-        if (session.getId() != null) {
-            throw new BadRequestAlertException("A new session cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Session result = sessionRepository.save(session);
-        sessionSearchRepository.save(result);
-        return ResponseEntity.created(new URI("/api/sessions/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * {@code PUT  /sessions} : Updates an existing session.
-     *
-     * @param session the session to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated session,
-     * or with status {@code 400 (Bad Request)} if the session is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the session couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PutMapping("/sessions")
-    public ResponseEntity<Session> updateSession(@Valid @RequestBody Session session) throws URISyntaxException {
-        log.debug("REST request to update Session : {}", session);
-        if (session.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        Session result = sessionRepository.save(session);
-        sessionSearchRepository.save(result);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, session.getId().toString()))
-            .body(result);
-    }
 
     /**
      * {@code GET  /sessions} : get all the sessions.
@@ -108,7 +76,21 @@ public class SessionResource {
     @GetMapping("/sessions")
     public ResponseEntity<List<Session>> getAllSessions(Pageable pageable) {
         log.debug("REST request to get a page of Sessions");
-        Page<Session> page = sessionRepository.findAll(pageable);
+        Page<Session> page;
+        boolean isAdmin = false;
+        Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get().toLowerCase());
+        for(Authority auth : user.get().getAuthorities()) {
+            if (auth.getName().equals(AuthoritiesConstants.ADMIN)) {
+                isAdmin = true;
+                break;
+            }
+        }
+        if (isAdmin) {
+            page = sessionRepository.findAll(pageable);
+        } else {
+            page = sessionRepository.findAllByCreated_by(SecurityUtils.getCurrentUserLogin().get().toLowerCase(),pageable);
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -124,20 +106,6 @@ public class SessionResource {
         log.debug("REST request to get Session : {}", id);
         Optional<Session> session = sessionRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(session);
-    }
-
-    /**
-     * {@code DELETE  /sessions/:id} : delete the "id" session.
-     *
-     * @param id the id of the session to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
-    @DeleteMapping("/sessions/{id}")
-    public ResponseEntity<Void> deleteSession(@PathVariable Long id) {
-        log.debug("REST request to delete Session : {}", id);
-        sessionRepository.deleteById(id);
-        sessionSearchRepository.deleteById(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
     /**

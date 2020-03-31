@@ -6,7 +6,8 @@
             "relationshipName": "jhi_user",
             "otherEntityName": "jhi_user",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "session"
         }
     ],
     "fields": [
@@ -34,6 +35,20 @@
         {
             "fieldName": "totalCheck",
             "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "created_by",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "created_date",
+            "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
             ]

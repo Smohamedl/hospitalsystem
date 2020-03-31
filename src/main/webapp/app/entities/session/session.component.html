@@ -38,8 +38,9 @@
             <th scope="col"  jhiSortBy="totalPC"><span jhiTranslate="hospitalsystemApp.session.totalPC">Total PC</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="total"><span jhiTranslate="hospitalsystemApp.session.total">Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="totalCheck"><span jhiTranslate="hospitalsystemApp.session.totalCheck">Total Check</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="created_by"><span jhiTranslate="hospitalsystemApp.session.created_by">Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="created_date"><span jhiTranslate="hospitalsystemApp.session.created_date">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="jhi_user.id"><span jhiTranslate="hospitalsystemApp.session.jhi_user">Jhi User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th scope="col"  jhiSortBy="createdDate"><span jhiTranslate="hospitalsystemApp.session.createdDate">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -50,12 +51,9 @@
                 <td>{{session.totalPC}}</td>
                 <td>{{session.total}}</td>
                 <td>{{session.totalCheck}}</td>
-                <td>
-                    <div *ngIf="session.user">
-                        <a [routerLink]="['/jhi-user', session.user?.id, 'view' ]" >{{session.user?.id}}</a>
-                    </div>
-                </td>
-                <td>{{session.createdDate}}</td>
+                <td>{{session.created_by}}</td>
+                <td>{{session.created_date | date:'medium'}}</td>
+                <td>{{session.jhi_user.login}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

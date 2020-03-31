@@ -146,6 +146,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   protected paginateSessions(data: ISession[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+    console.log(data);
     this.sessions = data;
   }
 }

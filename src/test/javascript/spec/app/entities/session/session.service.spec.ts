@@ -1,6 +1,8 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { SessionService } from 'app/entities/session/session.service';
 import { ISession, Session } from 'app/shared/model/session.model';
 
@@ -11,6 +13,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: ISession;
     let expectedResult;
+    let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
@@ -19,13 +22,19 @@ describe('Service Tests', () => {
       injector = getTestBed();
       service = injector.get(SessionService);
       httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
-      elemDefault = new Session(0, 0, 0, 0, 0);
+      elemDefault = new Session(0, 0, 0, 0, 0, 'AAAAAAA', currentDate);
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            created_date: currentDate.format(DATE_TIME_FORMAT)
+          },
+          elemDefault
+        );
         service
           .find(123)
           .pipe(take(1))
@@ -39,11 +48,17 @@ describe('Service Tests', () => {
       it('should create a Session', () => {
         const returnedFromService = Object.assign(
           {
-            id: 0
+            id: 0,
+            created_date: currentDate.format(DATE_TIME_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            created_date: currentDate
+          },
+          returnedFromService
+        );
         service
           .create(new Session(null))
           .pipe(take(1))
@@ -59,12 +74,19 @@ describe('Service Tests', () => {
             totalCash: 1,
             totalPC: 1,
             total: 1,
-            totalCheck: 1
+            totalCheck: 1,
+            created_by: 'BBBBBB',
+            created_date: currentDate.format(DATE_TIME_FORMAT)
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            created_date: currentDate
+          },
+          returnedFromService
+        );
         service
           .update(expected)
           .pipe(take(1))
@@ -80,11 +102,18 @@ describe('Service Tests', () => {
             totalCash: 1,
             totalPC: 1,
             total: 1,
-            totalCheck: 1
+            totalCheck: 1,
+            created_by: 'BBBBBB',
+            created_date: currentDate.format(DATE_TIME_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            created_date: currentDate
+          },
+          returnedFromService
+        );
         service
           .query(expected)
           .pipe(

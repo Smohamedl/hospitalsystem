@@ -21,15 +21,17 @@
                 <dd>
                     <span>{{session.totalCheck}}</span>
                 </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.session.created_by">Created By</span></dt>
+                <dd>
+                    <span>{{session.created_by}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.session.created_date">Created Date</span></dt>
+                <dd>
+                    <span>{{session.created_date}}</span>
+                </dd>
                 <dt><span jhiTranslate="hospitalsystemApp.session.jhi_user">Jhi User</span></dt>
                 <dd>
-                    <div *ngIf="session.user">
-                        <a [routerLink]="['/jhi-user', session.user?.id, 'view']">{{session.user?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="hospitalsystemApp.session.createdDate">Open Date</span></dt>
-                <dd>
-                    <span>{{session.createdDate}}</span>
+                    <span>{{session.jhi_user.login}}</span>
                 </dd>
             </dl>
 
