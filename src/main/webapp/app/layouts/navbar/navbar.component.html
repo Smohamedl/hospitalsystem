@@ -212,5 +212,5 @@
     <div class="p-2"><a>total Cheques : {{session.totalCheck}}</a></div>
     <div class="p-2"><a>total : {{session.total}}</a></div>
     <div class="p-2"><a>User : {{session.jhi_user.login}}</a></div>
-    <div class="p-2"><a>Date d'ouverture : {{session.created_date}}</a></div>
+    <div class="p-2"><a>Date d'ouverture : {{session.created_date | date :'short'}}</a></div>
 </div>
