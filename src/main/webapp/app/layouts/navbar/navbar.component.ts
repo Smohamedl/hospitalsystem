@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageService, JhiEventManager } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit {
   session: Session;
 
   constructor(
+    private eventManager: JhiEventManager,
     private loginService: LoginService,
     private languageService: JhiLanguageService,
     private languageHelper: JhiLanguageHelper,
@@ -38,6 +39,11 @@ export class NavbarComponent implements OnInit {
   ) {
     this.version = VERSION ? (VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION) : '';
     this.isNavbarCollapsed = true;
+
+    this.eventManager.subscribe('authenticationSuccess', () => {
+      console.log('authenticationSuccess called');
+      this.loadSession();
+    });
   }
 
   ngOnInit() {
@@ -47,11 +53,12 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.swaggerEnabled = profileInfo.swaggerEnabled;
     });
-    this.accountService.getCurrentSession().subscribe(session => {
-      this.session = session;
-    });
+    this.loadSession();
   }
 
+  loadSession() {
+    this.session = JSON.parse(localStorage.getItem('User_Session'));
+  }
   changeLanguage(languageKey: string) {
     this.sessionStorage.store('locale', languageKey);
     this.languageService.changeLanguage(languageKey);
@@ -73,6 +80,7 @@ export class NavbarComponent implements OnInit {
     this.collapseNavbar();
     this.loginService.logout();
     this.router.navigate(['']);
+    localStorage.removeItem('User_Session');
   }
 
   toggleNavbar() {

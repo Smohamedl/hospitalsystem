@@ -204,13 +204,12 @@
         </ul>
     </div>
 </nav>
-
-<div class="d-flex flex-row center-block">
-    <div class="p-2">Session ID : <a>{{session.id}}</a></div>
-    <div class="p-2">Total Espece : <a>{{session.totalCash}}</a></div>
-    <div class="p-2">Total PC : <a>{{session.totalPC}}</a></div>
-    <div class="p-2">Total Cheques : <a>{{session.totalCheck}}</a></div>
-    <div class="p-2">Total : <a>{{session.total}}</a></div>
-    <div class="p-2">User : <a>{{session.jhi_user.login}}</a></div>
-    <div class="p-2">Date d'ouverture : <a>{{session.created_date | date :'short'}}</a></div>
+<div class="d-flex flex-row center-block"  *ngIf="isAuthenticated() && (session != null)">
+    <div class="p-2">Session ID : {{session.id}}</div>
+    <div class="p-2">Total Espece : {{session.totalCash}}</div>
+    <div class="p-2">Total PC : {{session.totalPC}}</div>
+    <div class="p-2">Total Cheques : {{session.totalCheck}}</div>
+    <div class="p-2">Total : {{session.total}}</div>
+    <div class="p-2">User : {{session.jhi_user.login}}</div>
+    <div class="p-2">Date d'ouverture : {{session.created_date | date :'short'}}</div>
 </div>

@@ -74,6 +74,13 @@ public class UserJWTController {
         return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
     }
 
+    @GetMapping("/logout")
+    public void logout() {
+        System.out.println("Logout");
+        HttpSession httpSession = httpSessionFactory.getObject();
+        httpSession.invalidate();
+    }
+
     private void createSession(String login){
         Optional<User> user = userRepository.findOneWithAuthoritiesByLogin(login);
 
@@ -84,12 +91,17 @@ public class UserJWTController {
         // Create new session if is Cassier user
         boolean isNeedSession = false;
         for (GrantedAuthority auth : grantedAuthorities){
-            if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER)){
+            if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER) || auth.getAuthority().equals(AuthoritiesConstants.ADMIN)){
                 isNeedSession = true;
                 break;
             }
         }
-        if (isNeedSession){
+
+
+        HttpSession httpSession = httpSessionFactory.getObject();
+        Session curentSession = (Session) httpSession.getAttribute("SessionUser");
+
+        if (isNeedSession && curentSession == null){
             Session session = new Session();
             session.setTotal(0);
             session.setTotalCash(0);
@@ -100,8 +112,6 @@ public class UserJWTController {
             session.setCreated_date(Instant.now());
 
             sessionRepository.save(session);
-
-            HttpSession httpSession = httpSessionFactory.getObject();
             httpSession.setAttribute("SessionUser", session);
         }
     }
