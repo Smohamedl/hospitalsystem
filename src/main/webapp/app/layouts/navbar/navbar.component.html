@@ -64,6 +64,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item" routerLink="receipt-act" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.receiptAct">Receipt Act</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item" routerLink="guard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.guard">Guard</span>
