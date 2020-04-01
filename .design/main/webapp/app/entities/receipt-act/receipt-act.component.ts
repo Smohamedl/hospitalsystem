@@ -43,12 +43,12 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   reverse: any;
 
   isSaving: boolean;
-  
+
   medicalservices: IMedicalService[];
-  
+
   doctors: IDoctor[];
   dateDp: any;
-  
+
   editForm = this.fb.group({
     id: [],
     medicalService: [null, Validators.required],
@@ -192,15 +192,15 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.receiptActs = data;
   }
-  
+
   // =======================================
-  
-  onChangeService(){
+
+  onChangeService() {
     this.doctorService
-    .findByService(this.editForm.get(['medicalService']).value.name)
-    .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+      .findByService(this.editForm.get(['medicalService']).value.name)
+      .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
-  
+
   updateForm(cat: ICat) {
     this.editForm.patchValue({
       id: cat.id,
@@ -212,18 +212,20 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   previousState() {
     window.history.back();
   }
-  
+
   save() {
-    
     this.receiptActService
-    .findByDoctor({
-      page: this.page - 1,
-      size: this.itemsPerPage,
-      sort: this.sort()
-    }, this.editForm.get(['medicalService']).value.name)
-    .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+      .findByDoctor(
+        {
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        },
+        this.editForm.get(['medicalService']).value.name
+      )
+      .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
   }
-  
+
   private createFromForm(): ICat {
     return {
       ...new Cat(),
@@ -232,11 +234,11 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
       doctor: this.editForm.get(['doctor']).value
     };
   }
-  
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ICat>>) {
     result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
-  
+
   protected onSaveError() {
     this.isSaving = false;
   }

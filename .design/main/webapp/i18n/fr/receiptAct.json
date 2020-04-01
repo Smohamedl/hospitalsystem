@@ -5,6 +5,7 @@
         "title": "ReceiptActs",
         "createLabel": "Créer un nouveau Receipt Act",
         "createOrEditLabel": "Créer ou éditer un Receipt Act",
+        "chooseDoctor": "Choose a doctor",
         "search": "Recherche pour Receipt Act",
         "notFound": "Aucun Receipt Act trouvé"
       },

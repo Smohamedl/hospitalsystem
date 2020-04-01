@@ -8,9 +8,5 @@ export interface ICat {
 }
 
 export class Cat implements ICat {
-  constructor(
-    public id?: number,
-    public medicalService?: IMedicalService,
-    public doctor?: IDoctor
-  ) {}
+  constructor(public id?: number, public medicalService?: IMedicalService, public doctor?: IDoctor) {}
 }

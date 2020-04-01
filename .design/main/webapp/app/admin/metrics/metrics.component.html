@@ -1,37 +1,37 @@
-<div (contextmenu)="__elementSelectionService.select('900637467',$event)" [ngStyle]="__elementSelectionService.getStyles('900637467')"(click)='__elementSelectionService.clear()'>
-    <h2 (contextmenu)="__elementSelectionService.select('2078270715',$event)" [ngStyle]="__elementSelectionService.getStyles('2078270715')">
-        <span id="metrics-page-heading" jhiTranslate="metrics.title" (contextmenu)="__elementSelectionService.select('992556768',$event)" [ngStyle]="__elementSelectionService.getStyles('992556768')">Application Metrics</span>
-        <button class="btn btn-primary float-right" (click)="refresh()" (contextmenu)="__elementSelectionService.select('1036344052',$event)" [ngStyle]="__elementSelectionService.getStyles('1036344052')">
-            <fa-icon [icon]="'sync'" (contextmenu)="__elementSelectionService.select('1561836784',$event)" [ngStyle]="__elementSelectionService.getStyles('1561836784')"></fa-icon> <span jhiTranslate="metrics.refresh.button" (contextmenu)="__elementSelectionService.select('1508598677',$event)" [ngStyle]="__elementSelectionService.getStyles('1508598677')">Refresh</span>
+<div (contextmenu)="__elementSelectionService.select('1437987600',$event)" [ngStyle]="__elementSelectionService.getStyles('1437987600')"(click)='__elementSelectionService.clear()'>
+    <h2 (contextmenu)="__elementSelectionService.select('1434612450',$event)" [ngStyle]="__elementSelectionService.getStyles('1434612450')">
+        <span id="metrics-page-heading" jhiTranslate="metrics.title" (contextmenu)="__elementSelectionService.select('802498097',$event)" [ngStyle]="__elementSelectionService.getStyles('802498097')">Application Metrics</span>
+        <button class="btn btn-primary float-right" (click)="refresh()" (contextmenu)="__elementSelectionService.select('1362305670',$event)" [ngStyle]="__elementSelectionService.getStyles('1362305670')">
+            <fa-icon [icon]="'sync'" (contextmenu)="__elementSelectionService.select('667387503',$event)" [ngStyle]="__elementSelectionService.getStyles('667387503')"></fa-icon> <span jhiTranslate="metrics.refresh.button" (contextmenu)="__elementSelectionService.select('1637152023',$event)" [ngStyle]="__elementSelectionService.getStyles('1637152023')">Refresh</span>
         </button>
     </h2>
 
-    <h3 jhiTranslate="metrics.jvm.title" (contextmenu)="__elementSelectionService.select('730321022',$event)" [ngStyle]="__elementSelectionService.getStyles('730321022')">JVM Metrics</h3>
-    <div class="row" *ngIf="!updatingMetrics" (contextmenu)="__elementSelectionService.select('1015168256',$event)" [ngStyle]="__elementSelectionService.getStyles('1015168256')">
-        <jhi-jvm-memory class="col-md-4" [updating]="updatingMetrics" [jvmMemoryMetrics]="metrics.jvm" (contextmenu)="__elementSelectionService.select('1544746588',$event)" [ngStyle]="__elementSelectionService.getStyles('1544746588')">
+    <h3 jhiTranslate="metrics.jvm.title" (contextmenu)="__elementSelectionService.select('1744221114',$event)" [ngStyle]="__elementSelectionService.getStyles('1744221114')">JVM Metrics</h3>
+    <div class="row" *ngIf="!updatingMetrics" (contextmenu)="__elementSelectionService.select('798595792',$event)" [ngStyle]="__elementSelectionService.getStyles('798595792')">
+        <jhi-jvm-memory class="col-md-4" [updating]="updatingMetrics" [jvmMemoryMetrics]="metrics.jvm" (contextmenu)="__elementSelectionService.select('880182706',$event)" [ngStyle]="__elementSelectionService.getStyles('880182706')">
         </jhi-jvm-memory>
-        <jhi-jvm-threads class="col-md-4" [threadData]="threadData" (contextmenu)="__elementSelectionService.select('1583858048',$event)" [ngStyle]="__elementSelectionService.getStyles('1583858048')"></jhi-jvm-threads>
-        <jhi-metrics-system class="col-md-4" [updating]="updatingMetrics" [systemMetrics]="metrics.processMetrics" (contextmenu)="__elementSelectionService.select('1266089490',$event)" [ngStyle]="__elementSelectionService.getStyles('1266089490')">
+        <jhi-jvm-threads class="col-md-4" [threadData]="threadData" (contextmenu)="__elementSelectionService.select('1921835622',$event)" [ngStyle]="__elementSelectionService.getStyles('1921835622')"></jhi-jvm-threads>
+        <jhi-metrics-system class="col-md-4" [updating]="updatingMetrics" [systemMetrics]="metrics.processMetrics" (contextmenu)="__elementSelectionService.select('548791534',$event)" [ngStyle]="__elementSelectionService.getStyles('548791534')">
         </jhi-metrics-system>
     </div>
 
-    <div *ngIf="isObjectExisting(metrics, 'garbageCollector')" (contextmenu)="__elementSelectionService.select('1714532417',$event)" [ngStyle]="__elementSelectionService.getStyles('1714532417')">
-        <h3 jhiTranslate="metrics.jvm.gc.title" (contextmenu)="__elementSelectionService.select('760879821',$event)" [ngStyle]="__elementSelectionService.getStyles('760879821')">Garbage collector statistics</h3>
-        <jhi-metrics-garbagecollector [updating]="updatingMetrics" [garbageCollectorMetrics]="metrics.garbageCollector" (contextmenu)="__elementSelectionService.select('1305589031',$event)" [ngStyle]="__elementSelectionService.getStyles('1305589031')"></jhi-metrics-garbagecollector>
+    <div *ngIf="isObjectExisting(metrics, 'garbageCollector')" (contextmenu)="__elementSelectionService.select('1134146866',$event)" [ngStyle]="__elementSelectionService.getStyles('1134146866')">
+        <h3 jhiTranslate="metrics.jvm.gc.title" (contextmenu)="__elementSelectionService.select('1136849894',$event)" [ngStyle]="__elementSelectionService.getStyles('1136849894')">Garbage collector statistics</h3>
+        <jhi-metrics-garbagecollector [updating]="updatingMetrics" [garbageCollectorMetrics]="metrics.garbageCollector" (contextmenu)="__elementSelectionService.select('1447605802',$event)" [ngStyle]="__elementSelectionService.getStyles('1447605802')"></jhi-metrics-garbagecollector>
     </div>
 
-    <div class="well well-lg" *ngIf="updatingMetrics" jhiTranslate="metrics.updating" (contextmenu)="__elementSelectionService.select('824919265',$event)" [ngStyle]="__elementSelectionService.getStyles('824919265')">Updating...</div>
+    <div class="well well-lg" *ngIf="updatingMetrics" jhiTranslate="metrics.updating" (contextmenu)="__elementSelectionService.select('1498790553',$event)" [ngStyle]="__elementSelectionService.getStyles('1498790553')">Updating...</div>
 
-    <jhi-metrics-request *ngIf="isObjectExisting(metrics, 'http.server.requests')" [updating]="updatingMetrics" [requestMetrics]="metrics['http.server.requests']" (contextmenu)="__elementSelectionService.select('1525897533',$event)" [ngStyle]="__elementSelectionService.getStyles('1525897533')">
+    <jhi-metrics-request *ngIf="isObjectExisting(metrics, 'http.server.requests')" [updating]="updatingMetrics" [requestMetrics]="metrics['http.server.requests']" (contextmenu)="__elementSelectionService.select('1475064996',$event)" [ngStyle]="__elementSelectionService.getStyles('1475064996')">
     </jhi-metrics-request>
 
-    <jhi-metrics-endpoints-requests *ngIf="isObjectExisting(metrics, 'services')" [updating]="updatingMetrics" [endpointsRequestsMetrics]="metrics.services" (contextmenu)="__elementSelectionService.select('662879452',$event)" [ngStyle]="__elementSelectionService.getStyles('662879452')">
+    <jhi-metrics-endpoints-requests *ngIf="isObjectExisting(metrics, 'services')" [updating]="updatingMetrics" [endpointsRequestsMetrics]="metrics.services" (contextmenu)="__elementSelectionService.select('65151100',$event)" [ngStyle]="__elementSelectionService.getStyles('65151100')">
     </jhi-metrics-endpoints-requests>
 
-    <jhi-metrics-cache *ngIf="isObjectExisting(metrics, 'cache')" [updating]="updatingMetrics" [cacheMetrics]="metrics.cache" (contextmenu)="__elementSelectionService.select('1740262790',$event)" [ngStyle]="__elementSelectionService.getStyles('1740262790')">
+    <jhi-metrics-cache *ngIf="isObjectExisting(metrics, 'cache')" [updating]="updatingMetrics" [cacheMetrics]="metrics.cache" (contextmenu)="__elementSelectionService.select('268976076',$event)" [ngStyle]="__elementSelectionService.getStyles('268976076')">
     </jhi-metrics-cache>
 
-    <jhi-metrics-datasource *ngIf="isObjectExistingAndNotEmpty(metrics, 'databases')" [updating]="updatingMetrics" [datasourceMetrics]="metrics.databases" (contextmenu)="__elementSelectionService.select('207421916',$event)" [ngStyle]="__elementSelectionService.getStyles('207421916')">
+    <jhi-metrics-datasource *ngIf="isObjectExistingAndNotEmpty(metrics, 'databases')" [updating]="updatingMetrics" [datasourceMetrics]="metrics.databases" (contextmenu)="__elementSelectionService.select('1694354982',$event)" [ngStyle]="__elementSelectionService.getStyles('1694354982')">
     </jhi-metrics-datasource>
 
 </div>

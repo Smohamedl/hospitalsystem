@@ -12,7 +12,6 @@ import { ReceiptActService } from './receipt-act.service';
 import { HttpErrorResponse } from '@angular/common/http';
 //eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 import { IMedicalService } from 'app/shared/model/medical-service.model';

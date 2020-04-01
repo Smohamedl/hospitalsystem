@@ -57,7 +57,7 @@ export class ReceiptActService {
       .get<IReceiptAct[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
-  
+
   findByDoctor(req: any, _doctor: string): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http

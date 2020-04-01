@@ -73,12 +73,12 @@ export class GuardUpdateComponent implements OnInit {
       .query()
       .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
-  
-  onChangeService(){
-      this.doctorService
+
+  onChangeService() {
+    this.doctorService
       .findByService(this.editForm.get(['doctorMedicalService']).value.name)
       .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-   }
+  }
 
   updateForm(guard: IGuard) {
     this.editForm.patchValue({
