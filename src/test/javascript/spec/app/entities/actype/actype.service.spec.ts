@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ActypeService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Actype(0, 'AAAAAAA');
+      elemDefault = new Actype(0, 'AAAAAAA', 0);
     });
 
     describe('Service methods', () => {
@@ -56,7 +56,8 @@ describe('Service Tests', () => {
       it('should update a Actype', () => {
         const returnedFromService = Object.assign(
           {
-            name: 'BBBBBB'
+            name: 'BBBBBB',
+            price: 1
           },
           elemDefault
         );
@@ -74,7 +75,8 @@ describe('Service Tests', () => {
       it('should return a list of Actype', () => {
         const returnedFromService = Object.assign(
           {
-            name: 'BBBBBB'
+            name: 'BBBBBB',
+            price: 1
           },
           elemDefault
         );

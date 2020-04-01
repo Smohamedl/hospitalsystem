@@ -1,0 +1,104 @@
+<div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('780628157',$event)" [ngStyle]="__elementSelectionService.getStyles('780628157')"(click)='__elementSelectionService.clear()'>
+    <div class="col-8" (contextmenu)="__elementSelectionService.select('1498487242',$event)" [ngStyle]="__elementSelectionService.getStyles('1498487242')">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" (contextmenu)="__elementSelectionService.select('1279695045',$event)" [ngStyle]="__elementSelectionService.getStyles('1279695045')">
+            <h2 id="myUserLabel" jhiTranslate="userManagement.home.createOrEditLabel" (contextmenu)="__elementSelectionService.select('2043124618',$event)" [ngStyle]="__elementSelectionService.getStyles('2043124618')">
+                Create or edit a User
+            </h2>
+            <div (contextmenu)="__elementSelectionService.select('762312639',$event)" [ngStyle]="__elementSelectionService.getStyles('762312639')">
+                <jhi-alert-error (contextmenu)="__elementSelectionService.select('2090935441',$event)" [ngStyle]="__elementSelectionService.getStyles('2090935441')"></jhi-alert-error>
+                <div class="form-group" [hidden]="!user.id" (contextmenu)="__elementSelectionService.select('81337200',$event)" [ngStyle]="__elementSelectionService.getStyles('81337200')">
+                    <label jhiTranslate="global.field.id" (contextmenu)="__elementSelectionService.select('1099422634',$event)" [ngStyle]="__elementSelectionService.getStyles('1099422634')">ID</label>
+                    <input type="text" class="form-control" name="id" formControlName="id" readonly (contextmenu)="__elementSelectionService.select('319233578',$event)" [ngStyle]="__elementSelectionService.getStyles('319233578')">
+                </div>
+
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('1727473015',$event)" [ngStyle]="__elementSelectionService.getStyles('1727473015')">
+                    <label class="form-control-label" jhiTranslate="userManagement.login" (contextmenu)="__elementSelectionService.select('716808258',$event)" [ngStyle]="__elementSelectionService.getStyles('716808258')">Login</label>
+                    <input type="text" class="form-control" name="login" formControlName="login" (contextmenu)="__elementSelectionService.select('1427924020',$event)" [ngStyle]="__elementSelectionService.getStyles('1427924020')">
+
+                    <div *ngIf="editForm.get('login').invalid &#38;&#38; (editForm.get('login').dirty || editForm.get('login').touched)" (contextmenu)="__elementSelectionService.select('2118244083',$event)" [ngStyle]="__elementSelectionService.getStyles('2118244083')">
+                        <small class="form-text text-danger" *ngIf="editForm.get('login').errors.required" jhiTranslate="entity.validation.required" (contextmenu)="__elementSelectionService.select('566397137',$event)" [ngStyle]="__elementSelectionService.getStyles('566397137')">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger" *ngIf="editForm.get('login').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{max: 50}" (contextmenu)="__elementSelectionService.select('1176409883',$event)" [ngStyle]="__elementSelectionService.getStyles('1176409883')">
+                            This field cannot be longer than 50 characters.
+                        </small>
+
+                        <small class="form-text text-danger" *ngIf="editForm.get('login').errors.pattern" jhiTranslate="entity.validation.patternLogin" (contextmenu)="__elementSelectionService.select('1888843304',$event)" [ngStyle]="__elementSelectionService.getStyles('1888843304')">
+                            This field can only contain letters, digits and e-mail addresses.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('9683079',$event)" [ngStyle]="__elementSelectionService.getStyles('9683079')">
+                    <label class="form-control-label" jhiTranslate="userManagement.firstName" (contextmenu)="__elementSelectionService.select('899830852',$event)" [ngStyle]="__elementSelectionService.getStyles('899830852')">First Name</label>
+                    <input type="text" class="form-control" name="firstName" formControlName="firstName" (contextmenu)="__elementSelectionService.select('121027492',$event)" [ngStyle]="__elementSelectionService.getStyles('121027492')">
+
+                    <div *ngIf="editForm.get('firstName').invalid &#38;&#38; (editForm.get('firstName').dirty || editForm.get('firstName').touched)" (contextmenu)="__elementSelectionService.select('1556719964',$event)" [ngStyle]="__elementSelectionService.getStyles('1556719964')">
+                        <small class="form-text text-danger" *ngIf="editForm.get('firstName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{max: 50}" (contextmenu)="__elementSelectionService.select('1111547322',$event)" [ngStyle]="__elementSelectionService.getStyles('1111547322')">
+                            This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('1701294530',$event)" [ngStyle]="__elementSelectionService.getStyles('1701294530')">
+                    <label jhiTranslate="userManagement.lastName" (contextmenu)="__elementSelectionService.select('1463737681',$event)" [ngStyle]="__elementSelectionService.getStyles('1463737681')">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" formControlName="lastName" (contextmenu)="__elementSelectionService.select('1177296291',$event)" [ngStyle]="__elementSelectionService.getStyles('1177296291')">
+
+                    <div *ngIf="editForm.get('lastName').invalid &#38;&#38; (editForm.get('lastName').dirty || editForm.get('lastName').touched)" (contextmenu)="__elementSelectionService.select('38118865',$event)" [ngStyle]="__elementSelectionService.getStyles('38118865')">
+                        <small class="form-text text-danger" *ngIf="editForm.get('lastName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{max: 50}" (contextmenu)="__elementSelectionService.select('1517612538',$event)" [ngStyle]="__elementSelectionService.getStyles('1517612538')">
+                            This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('2063693744',$event)" [ngStyle]="__elementSelectionService.getStyles('2063693744')">
+                    <label class="form-control-label" jhiTranslate="userManagement.email" (contextmenu)="__elementSelectionService.select('1567014006',$event)" [ngStyle]="__elementSelectionService.getStyles('1567014006')">Email</label>
+                    <input type="email" class="form-control" name="email" formControlName="email" (contextmenu)="__elementSelectionService.select('1914888486',$event)" [ngStyle]="__elementSelectionService.getStyles('1914888486')">
+
+                    <div *ngIf="editForm.get('email').invalid &#38;&#38; (editForm.get('email').dirty || editForm.get('email').touched)" (contextmenu)="__elementSelectionService.select('256170405',$event)" [ngStyle]="__elementSelectionService.getStyles('256170405')">
+                        <small class="form-text text-danger" *ngIf="editForm.get('email').errors.required" jhiTranslate="entity.validation.required" (contextmenu)="__elementSelectionService.select('2139652874',$event)" [ngStyle]="__elementSelectionService.getStyles('2139652874')">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger" *ngIf="editForm.get('email').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{max: 100}" (contextmenu)="__elementSelectionService.select('400889217',$event)" [ngStyle]="__elementSelectionService.getStyles('400889217')">
+                            This field cannot be longer than 100 characters.
+                        </small>
+
+                        <small class="form-text text-danger" *ngIf="editForm.get('email').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{min: 5}" (contextmenu)="__elementSelectionService.select('1915481482',$event)" [ngStyle]="__elementSelectionService.getStyles('1915481482')">
+                            This field is required to be at least 5 characters.
+                        </small>
+
+                        <small class="form-text text-danger" *ngIf="editForm.get('email').errors.email" jhiTranslate="global.messages.validate.email.invalid" (contextmenu)="__elementSelectionService.select('1527483291',$event)" [ngStyle]="__elementSelectionService.getStyles('1527483291')">
+                            Your email is invalid.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-check" (contextmenu)="__elementSelectionService.select('1612759843',$event)" [ngStyle]="__elementSelectionService.getStyles('1612759843')">
+                    <label class="form-check-label" for="activated" (contextmenu)="__elementSelectionService.select('1599507387',$event)" [ngStyle]="__elementSelectionService.getStyles('1599507387')">
+                        <input class="form-check-input" [disabled]="user.id === null" type="checkbox" id="activated" name="activated" formControlName="activated" (contextmenu)="__elementSelectionService.select('1924950630',$event)" [ngStyle]="__elementSelectionService.getStyles('1924950630')">
+                        <span jhiTranslate="userManagement.activated" (contextmenu)="__elementSelectionService.select('1978425593',$event)" [ngStyle]="__elementSelectionService.getStyles('1978425593')">Activated</span>
+                    </label>
+                </div>
+
+                <div class="form-group" *ngIf="languages &#38;&#38; languages.length &#62; 0" (contextmenu)="__elementSelectionService.select('322145468',$event)" [ngStyle]="__elementSelectionService.getStyles('322145468')">
+                    <label jhiTranslate="userManagement.langKey" (contextmenu)="__elementSelectionService.select('2018756146',$event)" [ngStyle]="__elementSelectionService.getStyles('2018756146')">Lang Key</label>
+                    <select class="form-control" id="langKey" name="langKey" formControlName="langKey" (contextmenu)="__elementSelectionService.select('1764584452',$event)" [ngStyle]="__elementSelectionService.getStyles('1764584452')">
+                        <option *ngFor="let language of languages" [value]="language" (contextmenu)="__elementSelectionService.select('2144346736',$event)" [ngStyle]="__elementSelectionService.getStyles('2144346736')">{{language | findLanguageFromKey}}</option>
+                    </select>
+                </div>
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('1888032602',$event)" [ngStyle]="__elementSelectionService.getStyles('1888032602')">
+                    <label jhiTranslate="userManagement.profiles" (contextmenu)="__elementSelectionService.select('378350895',$event)" [ngStyle]="__elementSelectionService.getStyles('378350895')">Profiles</label>
+                    <select class="form-control" multiple name="authority" formControlName="authorities" (contextmenu)="__elementSelectionService.select('348270262',$event)" [ngStyle]="__elementSelectionService.getStyles('348270262')">
+                        <option *ngFor="let authority of authorities" [value]="authority" (contextmenu)="__elementSelectionService.select('1795116540',$event)" [ngStyle]="__elementSelectionService.getStyles('1795116540')">{{authority}}</option>
+                    </select>
+                </div>
+            </div>
+            <div (contextmenu)="__elementSelectionService.select('1391764542',$event)" [ngStyle]="__elementSelectionService.getStyles('1391764542')">
+                <button type="button" class="btn btn-secondary" (click)="previousState()" (contextmenu)="__elementSelectionService.select('762253082',$event)" [ngStyle]="__elementSelectionService.getStyles('762253082')">
+                    <fa-icon [icon]="'ban'" (contextmenu)="__elementSelectionService.select('685585311',$event)" [ngStyle]="__elementSelectionService.getStyles('685585311')"></fa-icon>&#160;<span jhiTranslate="entity.action.cancel" (contextmenu)="__elementSelectionService.select('945626069',$event)" [ngStyle]="__elementSelectionService.getStyles('945626069')">Cancel</span>
+                </button>
+                <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary" (contextmenu)="__elementSelectionService.select('1342148020',$event)" [ngStyle]="__elementSelectionService.getStyles('1342148020')">
+                    <fa-icon [icon]="'save'" (contextmenu)="__elementSelectionService.select('440229006',$event)" [ngStyle]="__elementSelectionService.getStyles('440229006')"></fa-icon>&#160;<span jhiTranslate="entity.action.save" (contextmenu)="__elementSelectionService.select('1530779037',$event)" [ngStyle]="__elementSelectionService.getStyles('1530779037')">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

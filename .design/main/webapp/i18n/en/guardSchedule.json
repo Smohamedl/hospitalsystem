@@ -1,0 +1,26 @@
+{
+  "hospitalsystemApp": {
+    "guardSchedule": {
+      "home": {
+        "title": "Guard Schedules",
+        "createLabel": "Create a new Guard Schedule",
+        "createOrEditLabel": "Create or edit a Guard Schedule",
+        "search": "Search for Guard Schedule",
+        "notFound": "No Guard Schedules found"
+      },
+      "created": "A new Guard Schedule is created with identifier {{ param }}",
+      "updated": "A Guard Schedule is updated with identifier {{ param }}",
+      "deleted": "A Guard Schedule is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Guard Schedule {{ id }}?"
+      },
+      "detail": {
+        "title": "Guard Schedule"
+      },
+      "payement": "Payement",
+      "start": "Start",
+      "end": "End",
+      "name": "Name"
+    }
+  }
+}

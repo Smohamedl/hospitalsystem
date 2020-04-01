@@ -1,20 +1,13 @@
 package fr.hospitalsystem.app.domain;
-
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import java.io.Serializable;
 
 /**
  * A Actype.
@@ -36,8 +29,13 @@ public class Actype implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
+    @Column(name = "price", nullable = false)
+    private Double price;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @NotNull
+    @JsonIgnoreProperties("actypes")
     private MedicalService medicalService;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -60,6 +58,19 @@ public class Actype implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Actype price(Double price) {
+        this.price = price;
+        return this;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public MedicalService getMedicalService() {
@@ -94,6 +105,10 @@ public class Actype implements Serializable {
 
     @Override
     public String toString() {
-        return "Actype{" + "id=" + getId() + ", name='" + getName() + "'" + "}";
+        return "Actype{" +
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", price=" + getPrice() +
+            "}";
     }
 }

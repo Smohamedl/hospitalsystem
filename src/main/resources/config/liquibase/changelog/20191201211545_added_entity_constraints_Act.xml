@@ -32,5 +32,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="patient"/>
 
+        <addForeignKeyConstraint baseColumnNames="receipt_act_id"
+                                 baseTableName="act"
+                                 constraintName="fk_act_receipt_act_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="receipt_act"/>
+
     </changeSet>
 </databaseChangeLog>

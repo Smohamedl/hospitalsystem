@@ -9,6 +9,22 @@
                 <dd>
                     <span>{{hospitalization.date}}</span>
                 </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.hospitalization.description">Description</span></dt>
+                <dd>
+                    <span>{{hospitalization.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.hospitalization.patient">Patient</span></dt>
+                <dd>
+                    <div *ngIf="hospitalization.patient">
+                        <a [routerLink]="['/patient', hospitalization.patient?.id, 'view']">{{hospitalization.patient?.name}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.hospitalization.medicalService">Medical Service</span></dt>
+                <dd>
+                    <div *ngIf="hospitalization.medicalService">
+                        <a [routerLink]="['/medical-service', hospitalization.medicalService?.id, 'view']">{{hospitalization.medicalService?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

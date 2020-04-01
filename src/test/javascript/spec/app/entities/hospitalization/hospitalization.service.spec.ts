@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Hospitalization(0, currentDate);
+      elemDefault = new Hospitalization(0, currentDate, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -71,7 +71,8 @@ describe('Service Tests', () => {
       it('should update a Hospitalization', () => {
         const returnedFromService = Object.assign(
           {
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_FORMAT),
+            description: 'BBBBBB'
           },
           elemDefault
         );
@@ -94,7 +95,8 @@ describe('Service Tests', () => {
       it('should return a list of Hospitalization', () => {
         const returnedFromService = Object.assign(
           {
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_FORMAT),
+            description: 'BBBBBB'
           },
           elemDefault
         );

@@ -1,0 +1,41 @@
+<div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('753953202',$event)" [ngStyle]="__elementSelectionService.getStyles('753953202')"(click)='__elementSelectionService.clear()'>
+    <div class="col-8" (contextmenu)="__elementSelectionService.select('1532726197',$event)" [ngStyle]="__elementSelectionService.getStyles('1532726197')">
+        <div *ngIf="guard" (contextmenu)="__elementSelectionService.select('1959384213',$event)" [ngStyle]="__elementSelectionService.getStyles('1959384213')">
+            <h2 (contextmenu)="__elementSelectionService.select('531221597',$event)" [ngStyle]="__elementSelectionService.getStyles('531221597')"><span jhiTranslate="hospitalsystemApp.guard.detail.title" (contextmenu)="__elementSelectionService.select('680740485',$event)" [ngStyle]="__elementSelectionService.getStyles('680740485')">Guard</span> {{guard.id}}</h2>
+            <hr (contextmenu)="__elementSelectionService.select('798123521',$event)" [ngStyle]="__elementSelectionService.getStyles('798123521')">
+            <jhi-alert-error (contextmenu)="__elementSelectionService.select('356872730',$event)" [ngStyle]="__elementSelectionService.getStyles('356872730')"></jhi-alert-error>
+            <dl class="row-md jh-entity-details" (contextmenu)="__elementSelectionService.select('1147113419',$event)" [ngStyle]="__elementSelectionService.getStyles('1147113419')">
+                <dt (contextmenu)="__elementSelectionService.select('1984581291',$event)" [ngStyle]="__elementSelectionService.getStyles('1984581291')"><span jhiTranslate="hospitalsystemApp.guard.date" (contextmenu)="__elementSelectionService.select('1247058957',$event)" [ngStyle]="__elementSelectionService.getStyles('1247058957')">Date</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1950343935',$event)" [ngStyle]="__elementSelectionService.getStyles('1950343935')">
+                    <span (contextmenu)="__elementSelectionService.select('1285950052',$event)" [ngStyle]="__elementSelectionService.getStyles('1285950052')">{{guard.date}}</span>
+                </dd>
+                <dt (contextmenu)="__elementSelectionService.select('1748838989',$event)" [ngStyle]="__elementSelectionService.getStyles('1748838989')"><span jhiTranslate="hospitalsystemApp.guard.guardSchedule" (contextmenu)="__elementSelectionService.select('107444147',$event)" [ngStyle]="__elementSelectionService.getStyles('107444147')">Guard Schedule</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('222578074',$event)" [ngStyle]="__elementSelectionService.getStyles('222578074')">
+                    <div *ngIf="guard.guardSchedule" (contextmenu)="__elementSelectionService.select('1909300092',$event)" [ngStyle]="__elementSelectionService.getStyles('1909300092')">
+                        <a [routerLink]="['/guard-schedule', guard.guardSchedule?.id, 'view']" (contextmenu)="__elementSelectionService.select('1889777738',$event)" [ngStyle]="__elementSelectionService.getStyles('1889777738')">{{guard.guardSchedule?.name}}</a>
+                    </div>
+                </dd>
+                <dt (contextmenu)="__elementSelectionService.select('1296335618',$event)" [ngStyle]="__elementSelectionService.getStyles('1296335618')"><span jhiTranslate="hospitalsystemApp.guard.doctorMedicalService" (contextmenu)="__elementSelectionService.select('1644394405',$event)" [ngStyle]="__elementSelectionService.getStyles('1644394405')">Doctor Medical Service</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('2131236578',$event)" [ngStyle]="__elementSelectionService.getStyles('2131236578')">
+                    <div *ngIf="guard.doctorMedicalService" (contextmenu)="__elementSelectionService.select('302289057',$event)" [ngStyle]="__elementSelectionService.getStyles('302289057')">
+                        <a [routerLink]="['/medical-service', guard.doctorMedicalService?.id, 'view']" (contextmenu)="__elementSelectionService.select('2066832752',$event)" [ngStyle]="__elementSelectionService.getStyles('2066832752')">{{guard.doctorMedicalService?.name}}</a>
+                    </div>
+                </dd>
+                <dt (contextmenu)="__elementSelectionService.select('49722348',$event)" [ngStyle]="__elementSelectionService.getStyles('49722348')"><span jhiTranslate="hospitalsystemApp.guard.doctor" (contextmenu)="__elementSelectionService.select('1031146070',$event)" [ngStyle]="__elementSelectionService.getStyles('1031146070')">Doctor</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('197203137',$event)" [ngStyle]="__elementSelectionService.getStyles('197203137')">
+                    <div *ngIf="guard.doctor" (contextmenu)="__elementSelectionService.select('2062160404',$event)" [ngStyle]="__elementSelectionService.getStyles('2062160404')">
+                        <a [routerLink]="['/doctor', guard.doctor?.id, 'view']" (contextmenu)="__elementSelectionService.select('1295300470',$event)" [ngStyle]="__elementSelectionService.getStyles('1295300470')">{{guard.doctor?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit" (click)="previousState()" class="btn btn-info" (contextmenu)="__elementSelectionService.select('1084039228',$event)" [ngStyle]="__elementSelectionService.getStyles('1084039228')">
+                <fa-icon [icon]="'arrow-left'" (contextmenu)="__elementSelectionService.select('1140409330',$event)" [ngStyle]="__elementSelectionService.getStyles('1140409330')"></fa-icon>&#160;<span jhiTranslate="entity.action.back" (contextmenu)="__elementSelectionService.select('1764332331',$event)" [ngStyle]="__elementSelectionService.getStyles('1764332331')"> Back</span>
+            </button>
+
+            <button type="button" [routerLink]="['/guard', guard.id, 'edit']" class="btn btn-primary" (contextmenu)="__elementSelectionService.select('21894783',$event)" [ngStyle]="__elementSelectionService.getStyles('21894783')">
+                <fa-icon [icon]="'pencil-alt'" (contextmenu)="__elementSelectionService.select('687561386',$event)" [ngStyle]="__elementSelectionService.getStyles('687561386')"></fa-icon>&#160;<span jhiTranslate="entity.action.edit" (contextmenu)="__elementSelectionService.select('554990228',$event)" [ngStyle]="__elementSelectionService.getStyles('554990228')"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

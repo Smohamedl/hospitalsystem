@@ -1,0 +1,206 @@
+<nav class="navbar navbar-dark navbar-expand-md bg-dark" (contextmenu)="__elementSelectionService.select('1543984902',$event)" [ngStyle]="__elementSelectionService.getStyles('1543984902')"(click)='__elementSelectionService.clear()'>
+    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1741569210',$event)" [ngStyle]="__elementSelectionService.getStyles('1741569210')">
+        <span class="logo-img" (contextmenu)="__elementSelectionService.select('915168948',$event)" [ngStyle]="__elementSelectionService.getStyles('915168948')"></span>
+        <span jhiTranslate="global.title" class="navbar-title" (contextmenu)="__elementSelectionService.select('1366859675',$event)" [ngStyle]="__elementSelectionService.getStyles('1366859675')">Hospitalsystem</span> <span class="navbar-version" (contextmenu)="__elementSelectionService.select('1767630459',$event)" [ngStyle]="__elementSelectionService.getStyles('1767630459')">{{version}}</span>
+    </a>
+    <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()" (contextmenu)="__elementSelectionService.select('1928016322',$event)" [ngStyle]="__elementSelectionService.getStyles('1928016322')">
+        <fa-icon icon="bars" (contextmenu)="__elementSelectionService.select('737932689',$event)" [ngStyle]="__elementSelectionService.getStyles('737932689')"></fa-icon>
+    </a>
+    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()" (contextmenu)="__elementSelectionService.select('1929984232',$event)" [ngStyle]="__elementSelectionService.getStyles('1929984232')">
+        <ul class="navbar-nav ml-auto" (contextmenu)="__elementSelectionService.select('162073474',$event)" [ngStyle]="__elementSelectionService.getStyles('162073474')">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (contextmenu)="__elementSelectionService.select('1680478602',$event)" [ngStyle]="__elementSelectionService.getStyles('1680478602')">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1912604849',$event)" [ngStyle]="__elementSelectionService.getStyles('1912604849')">
+                    <span (contextmenu)="__elementSelectionService.select('1837229693',$event)" [ngStyle]="__elementSelectionService.getStyles('1837229693')">
+                        <fa-icon icon="home" (contextmenu)="__elementSelectionService.select('194287494',$event)" [ngStyle]="__elementSelectionService.getStyles('194287494')"></fa-icon>
+                        <span jhiTranslate="global.menu.home" (contextmenu)="__elementSelectionService.select('675438315',$event)" [ngStyle]="__elementSelectionService.getStyles('675438315')">Home</span>
+                    </span>
+                </a>
+            </li>
+            
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (contextmenu)="__elementSelectionService.select('1463766700',$event)" [ngStyle]="__elementSelectionService.getStyles('1463766700')">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" (contextmenu)="__elementSelectionService.select('998129536',$event)" [ngStyle]="__elementSelectionService.getStyles('998129536')">
+                    <span (contextmenu)="__elementSelectionService.select('1425821225',$event)" [ngStyle]="__elementSelectionService.getStyles('1425821225')">
+                        <fa-icon icon="th-list" (contextmenu)="__elementSelectionService.select('553251755',$event)" [ngStyle]="__elementSelectionService.getStyles('553251755')"></fa-icon>
+                        <span jhiTranslate="global.menu.entities.main" (contextmenu)="__elementSelectionService.select('911588971',$event)" [ngStyle]="__elementSelectionService.getStyles('911588971')">
+                            Entities
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu" (contextmenu)="__elementSelectionService.select('2007381871',$event)" [ngStyle]="__elementSelectionService.getStyles('2007381871')">
+                    <li (contextmenu)="__elementSelectionService.select('733998802',$event)" [ngStyle]="__elementSelectionService.getStyles('733998802')">
+                        <a class="dropdown-item" routerLink="patient" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1439840010',$event)" [ngStyle]="__elementSelectionService.getStyles('1439840010')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('790321583',$event)" [ngStyle]="__elementSelectionService.getStyles('790321583')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.patient" (contextmenu)="__elementSelectionService.select('870241067',$event)" [ngStyle]="__elementSelectionService.getStyles('870241067')">Patient</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1009618275',$event)" [ngStyle]="__elementSelectionService.getStyles('1009618275')">
+                        <a class="dropdown-item" routerLink="medical-service" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1859923731',$event)" [ngStyle]="__elementSelectionService.getStyles('1859923731')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1474899416',$event)" [ngStyle]="__elementSelectionService.getStyles('1474899416')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.medicalService" (contextmenu)="__elementSelectionService.select('148373328',$event)" [ngStyle]="__elementSelectionService.getStyles('148373328')">Medical Service</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('2100347116',$event)" [ngStyle]="__elementSelectionService.getStyles('2100347116')">
+                        <a class="dropdown-item" routerLink="doctor" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('2019717329',$event)" [ngStyle]="__elementSelectionService.getStyles('2019717329')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1914217971',$event)" [ngStyle]="__elementSelectionService.getStyles('1914217971')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.doctor" (contextmenu)="__elementSelectionService.select('1402055518',$event)" [ngStyle]="__elementSelectionService.getStyles('1402055518')">Doctor</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('790691455',$event)" [ngStyle]="__elementSelectionService.getStyles('790691455')">
+                        <a class="dropdown-item" routerLink="actype" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1721418016',$event)" [ngStyle]="__elementSelectionService.getStyles('1721418016')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('842243745',$event)" [ngStyle]="__elementSelectionService.getStyles('842243745')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.actype" (contextmenu)="__elementSelectionService.select('403401688',$event)" [ngStyle]="__elementSelectionService.getStyles('403401688')">Actype</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('2109971823',$event)" [ngStyle]="__elementSelectionService.getStyles('2109971823')">
+                        <a class="dropdown-item" routerLink="act" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('340773585',$event)" [ngStyle]="__elementSelectionService.getStyles('340773585')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1033591113',$event)" [ngStyle]="__elementSelectionService.getStyles('1033591113')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.act" (contextmenu)="__elementSelectionService.select('1598378628',$event)" [ngStyle]="__elementSelectionService.getStyles('1598378628')">Act</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1053932540',$event)" [ngStyle]="__elementSelectionService.getStyles('1053932540')">
+                        <a class="dropdown-item" routerLink="guard-schedule" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1232669633',$event)" [ngStyle]="__elementSelectionService.getStyles('1232669633')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('917262591',$event)" [ngStyle]="__elementSelectionService.getStyles('917262591')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.guardSchedule" (contextmenu)="__elementSelectionService.select('440892437',$event)" [ngStyle]="__elementSelectionService.getStyles('440892437')">Guard Schedule</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1153472149',$event)" [ngStyle]="__elementSelectionService.getStyles('1153472149')">
+                        <a class="dropdown-item" routerLink="guard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1017870660',$event)" [ngStyle]="__elementSelectionService.getStyles('1017870660')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('152449578',$event)" [ngStyle]="__elementSelectionService.getStyles('152449578')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.guard" (contextmenu)="__elementSelectionService.select('1658257290',$event)" [ngStyle]="__elementSelectionService.getStyles('1658257290')">Guard</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1990410546',$event)" [ngStyle]="__elementSelectionService.getStyles('1990410546')">
+                        <a class="dropdown-item" routerLink="hospitalization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('665636101',$event)" [ngStyle]="__elementSelectionService.getStyles('665636101')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1415179742',$event)" [ngStyle]="__elementSelectionService.getStyles('1415179742')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.hospitalization" (contextmenu)="__elementSelectionService.select('407458426',$event)" [ngStyle]="__elementSelectionService.getStyles('407458426')">Hospitalization</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('715343898',$event)" [ngStyle]="__elementSelectionService.getStyles('715343898')">
+                        <a class="dropdown-item" routerLink="social-organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('687751099',$event)" [ngStyle]="__elementSelectionService.getStyles('687751099')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1979036801',$event)" [ngStyle]="__elementSelectionService.getStyles('1979036801')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.socialOrganization" (contextmenu)="__elementSelectionService.select('1364242980',$event)" [ngStyle]="__elementSelectionService.getStyles('1364242980')">Social Organization</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1479133585',$event)" [ngStyle]="__elementSelectionService.getStyles('1479133585')">
+                        <a class="dropdown-item" routerLink="session" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1606626014',$event)" [ngStyle]="__elementSelectionService.getStyles('1606626014')">
+                            <fa-icon icon="asterisk" fixedWidth="true" (contextmenu)="__elementSelectionService.select('9832957',$event)" [ngStyle]="__elementSelectionService.getStyles('9832957')"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.session" (contextmenu)="__elementSelectionService.select('1849136555',$event)" [ngStyle]="__elementSelectionService.getStyles('1849136555')">Session</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (contextmenu)="__elementSelectionService.select('1931797698',$event)" [ngStyle]="__elementSelectionService.getStyles('1931797698')">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" (contextmenu)="__elementSelectionService.select('88538762',$event)" [ngStyle]="__elementSelectionService.getStyles('88538762')">
+                    <span (contextmenu)="__elementSelectionService.select('1219769356',$event)" [ngStyle]="__elementSelectionService.getStyles('1219769356')">
+                        <fa-icon icon="user-plus" (contextmenu)="__elementSelectionService.select('1778033679',$event)" [ngStyle]="__elementSelectionService.getStyles('1778033679')"></fa-icon>
+                        <span jhiTranslate="global.menu.admin.main" (contextmenu)="__elementSelectionService.select('174226252',$event)" [ngStyle]="__elementSelectionService.getStyles('174226252')">Administration</span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu" (contextmenu)="__elementSelectionService.select('1607688293',$event)" [ngStyle]="__elementSelectionService.getStyles('1607688293')">
+                    <li (contextmenu)="__elementSelectionService.select('811966475',$event)" [ngStyle]="__elementSelectionService.getStyles('811966475')">
+                        <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1739886799',$event)" [ngStyle]="__elementSelectionService.getStyles('1739886799')">
+                            <fa-icon icon="user" fixedWidth="true" (contextmenu)="__elementSelectionService.select('594102423',$event)" [ngStyle]="__elementSelectionService.getStyles('594102423')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.userManagement" (contextmenu)="__elementSelectionService.select('1140846310',$event)" [ngStyle]="__elementSelectionService.getStyles('1140846310')">User management</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('2021932157',$event)" [ngStyle]="__elementSelectionService.getStyles('2021932157')">
+                        <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1092466529',$event)" [ngStyle]="__elementSelectionService.getStyles('1092466529')">
+                            <fa-icon icon="tachometer-alt" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1597993000',$event)" [ngStyle]="__elementSelectionService.getStyles('1597993000')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.metrics" (contextmenu)="__elementSelectionService.select('1681400887',$event)" [ngStyle]="__elementSelectionService.getStyles('1681400887')">Metrics</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('127432716',$event)" [ngStyle]="__elementSelectionService.getStyles('127432716')">
+                        <a class="dropdown-item" routerLink="admin/health" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('955142452',$event)" [ngStyle]="__elementSelectionService.getStyles('955142452')">
+                            <fa-icon icon="heart" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1097510665',$event)" [ngStyle]="__elementSelectionService.getStyles('1097510665')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.health" (contextmenu)="__elementSelectionService.select('1907504790',$event)" [ngStyle]="__elementSelectionService.getStyles('1907504790')">Health</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1748952721',$event)" [ngStyle]="__elementSelectionService.getStyles('1748952721')">
+                        <a class="dropdown-item" routerLink="admin/configuration" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('709064083',$event)" [ngStyle]="__elementSelectionService.getStyles('709064083')">
+                            <fa-icon icon="list" fixedWidth="true" (contextmenu)="__elementSelectionService.select('435436280',$event)" [ngStyle]="__elementSelectionService.getStyles('435436280')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.configuration" (contextmenu)="__elementSelectionService.select('1757982378',$event)" [ngStyle]="__elementSelectionService.getStyles('1757982378')">Configuration</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1688504004',$event)" [ngStyle]="__elementSelectionService.getStyles('1688504004')">
+                        <a class="dropdown-item" routerLink="admin/audits" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('554639028',$event)" [ngStyle]="__elementSelectionService.getStyles('554639028')">
+                            <fa-icon icon="bell" fixedWidth="true" (contextmenu)="__elementSelectionService.select('344709368',$event)" [ngStyle]="__elementSelectionService.getStyles('344709368')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.audits" (contextmenu)="__elementSelectionService.select('1462314593',$event)" [ngStyle]="__elementSelectionService.getStyles('1462314593')">Audits</span>
+                        </a>
+                    </li>
+                    <li (contextmenu)="__elementSelectionService.select('1342572101',$event)" [ngStyle]="__elementSelectionService.getStyles('1342572101')">
+                        <a class="dropdown-item" routerLink="admin/logs" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1558594435',$event)" [ngStyle]="__elementSelectionService.getStyles('1558594435')">
+                            <fa-icon icon="tasks" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1653619542',$event)" [ngStyle]="__elementSelectionService.getStyles('1653619542')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.logs" (contextmenu)="__elementSelectionService.select('95562500',$event)" [ngStyle]="__elementSelectionService.getStyles('95562500')">Logs</span>
+                        </a>
+                    </li>
+                    <li *ngIf="swaggerEnabled" (contextmenu)="__elementSelectionService.select('1537778378',$event)" [ngStyle]="__elementSelectionService.getStyles('1537778378')">
+                        <a class="dropdown-item" routerLink="admin/docs" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('649267038',$event)" [ngStyle]="__elementSelectionService.getStyles('649267038')">
+                            <fa-icon icon="book" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1590616675',$event)" [ngStyle]="__elementSelectionService.getStyles('1590616675')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.apidocs" (contextmenu)="__elementSelectionService.select('1286893764',$event)" [ngStyle]="__elementSelectionService.getStyles('1286893764')">API</span>
+                        </a>
+                    </li>
+                    
+                    <li *ngIf="!inProduction" (contextmenu)="__elementSelectionService.select('1812922259',$event)" [ngStyle]="__elementSelectionService.getStyles('1812922259')">
+                        <a class="dropdown-item" href="./h2-console" target="_tab" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1459663062',$event)" [ngStyle]="__elementSelectionService.getStyles('1459663062')">
+                            <fa-icon icon="hdd" fixedWidth="true" (contextmenu)="__elementSelectionService.select('957399636',$event)" [ngStyle]="__elementSelectionService.getStyles('957399636')"></fa-icon>
+                            <span jhiTranslate="global.menu.admin.database" (contextmenu)="__elementSelectionService.select('628507745',$event)" [ngStyle]="__elementSelectionService.getStyles('628507745')">Database</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages &#38;&#38; languages.length &#62; 1" (contextmenu)="__elementSelectionService.select('1621442268',$event)" [ngStyle]="__elementSelectionService.getStyles('1621442268')">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown" (contextmenu)="__elementSelectionService.select('601198308',$event)" [ngStyle]="__elementSelectionService.getStyles('601198308')">
+                    <span (contextmenu)="__elementSelectionService.select('664905024',$event)" [ngStyle]="__elementSelectionService.getStyles('664905024')">
+                        <fa-icon icon="flag" (contextmenu)="__elementSelectionService.select('510188710',$event)" [ngStyle]="__elementSelectionService.getStyles('510188710')"></fa-icon>
+                        <span jhiTranslate="global.menu.language" (contextmenu)="__elementSelectionService.select('57245231',$event)" [ngStyle]="__elementSelectionService.getStyles('57245231')">Language</span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown" (contextmenu)="__elementSelectionService.select('1441045810',$event)" [ngStyle]="__elementSelectionService.getStyles('1441045810')">
+                    <li *ngFor="let language of languages" (contextmenu)="__elementSelectionService.select('1599581871',$event)" [ngStyle]="__elementSelectionService.getStyles('1599581871')">
+                        <a class="dropdown-item" [jhiActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);collapseNavbar();" (contextmenu)="__elementSelectionService.select('151155965',$event)" [ngStyle]="__elementSelectionService.getStyles('151155965')">{{language | findLanguageFromKey}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (contextmenu)="__elementSelectionService.select('1241139869',$event)" [ngStyle]="__elementSelectionService.getStyles('1241139869')">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" (contextmenu)="__elementSelectionService.select('719011275',$event)" [ngStyle]="__elementSelectionService.getStyles('719011275')">
+                  <span *ngIf="!getImageUrl()" (contextmenu)="__elementSelectionService.select('480351702',$event)" [ngStyle]="__elementSelectionService.getStyles('480351702')">
+                    <fa-icon icon="user" (contextmenu)="__elementSelectionService.select('1737749497',$event)" [ngStyle]="__elementSelectionService.getStyles('1737749497')"></fa-icon>
+                    <span jhiTranslate="global.menu.account.main" (contextmenu)="__elementSelectionService.select('1425264687',$event)" [ngStyle]="__elementSelectionService.getStyles('1425264687')">
+                      Account
+                    </span>
+                  </span>
+                  <span *ngIf="getImageUrl()" (contextmenu)="__elementSelectionService.select('2080389122',$event)" [ngStyle]="__elementSelectionService.getStyles('2080389122')">
+                      <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar" (contextmenu)="__elementSelectionService.select('637450542',$event)" [ngStyle]="__elementSelectionService.getStyles('637450542')">
+                  </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu" (contextmenu)="__elementSelectionService.select('2128698737',$event)" [ngStyle]="__elementSelectionService.getStyles('2128698737')">
+                    <li *ngSwitchCase="true" (contextmenu)="__elementSelectionService.select('1826342949',$event)" [ngStyle]="__elementSelectionService.getStyles('1826342949')">
+                        <a class="dropdown-item" routerLink="account/settings" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('59422388',$event)" [ngStyle]="__elementSelectionService.getStyles('59422388')">
+                            <fa-icon icon="wrench" fixedWidth="true" (contextmenu)="__elementSelectionService.select('212327965',$event)" [ngStyle]="__elementSelectionService.getStyles('212327965')"></fa-icon>
+                            <span jhiTranslate="global.menu.account.settings" (contextmenu)="__elementSelectionService.select('240234965',$event)" [ngStyle]="__elementSelectionService.getStyles('240234965')">Settings</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true" (contextmenu)="__elementSelectionService.select('117873415',$event)" [ngStyle]="__elementSelectionService.getStyles('117873415')">
+                        <a class="dropdown-item" routerLink="account/password" routerLinkActive="active" (click)="collapseNavbar()" (contextmenu)="__elementSelectionService.select('1713378328',$event)" [ngStyle]="__elementSelectionService.getStyles('1713378328')">
+                            <fa-icon icon="lock" fixedWidth="true" (contextmenu)="__elementSelectionService.select('792349341',$event)" [ngStyle]="__elementSelectionService.getStyles('792349341')"></fa-icon>
+                            <span jhiTranslate="global.menu.account.password" (contextmenu)="__elementSelectionService.select('1847637327',$event)" [ngStyle]="__elementSelectionService.getStyles('1847637327')">Password</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true" (contextmenu)="__elementSelectionService.select('382664710',$event)" [ngStyle]="__elementSelectionService.getStyles('382664710')">
+                        <a class="dropdown-item" (click)="logout()" id="logout" (contextmenu)="__elementSelectionService.select('1107397632',$event)" [ngStyle]="__elementSelectionService.getStyles('1107397632')">
+                            <fa-icon icon="sign-out-alt" fixedWidth="true" (contextmenu)="__elementSelectionService.select('246842030',$event)" [ngStyle]="__elementSelectionService.getStyles('246842030')"></fa-icon>
+                            <span jhiTranslate="global.menu.account.logout" (contextmenu)="__elementSelectionService.select('1454713869',$event)" [ngStyle]="__elementSelectionService.getStyles('1454713869')">Sign out</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="false" (contextmenu)="__elementSelectionService.select('657790575',$event)" [ngStyle]="__elementSelectionService.getStyles('657790575')">
+                        <a class="dropdown-item" (click)="login()" id="login" (contextmenu)="__elementSelectionService.select('1869365195',$event)" [ngStyle]="__elementSelectionService.getStyles('1869365195')">
+                            <fa-icon icon="sign-in-alt" fixedWidth="true" (contextmenu)="__elementSelectionService.select('1385399751',$event)" [ngStyle]="__elementSelectionService.getStyles('1385399751')"></fa-icon>
+                            <span jhiTranslate="global.menu.account.login" (contextmenu)="__elementSelectionService.select('1816257231',$event)" [ngStyle]="__elementSelectionService.getStyles('1816257231')">Sign in</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

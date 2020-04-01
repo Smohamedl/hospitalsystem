@@ -35,6 +35,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span jhiTranslate="hospitalsystemApp.actype.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="price"><span jhiTranslate="hospitalsystemApp.actype.price">Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="medicalService.name"><span jhiTranslate="hospitalsystemApp.actype.medicalService">Medical Service</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
@@ -43,9 +44,10 @@
             <tr *ngFor="let actype of actypes ;trackBy: trackId">
                 <td><a [routerLink]="['/actype', actype.id, 'view' ]">{{actype.id}}</a></td>
                 <td>{{actype.name}}</td>
+                <td>{{actype.price}}</td>
                 <td>
                     <div *ngIf="actype.medicalService">
-                        <a [routerLink]="['/medical-service', actype.medicalService?.id, 'view' ]" >{{actype.medicalService?.name}}</a>                    
+                        <a [routerLink]="['/medical-service', actype.medicalService?.id, 'view' ]" >{{actype.medicalService?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

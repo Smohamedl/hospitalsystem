@@ -33,6 +33,12 @@
                         <a [routerLink]="['/patient', act.patient?.id, 'view']">{{act.patient?.name}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.act.receiptAct">Receipt Act</span></dt>
+                <dd>
+                    <div *ngIf="act.receiptAct">
+                        <a [routerLink]="['/receipt-act', act.receiptAct?.id, 'view']">{{act.receiptAct?.id}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

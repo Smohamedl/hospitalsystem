@@ -1,0 +1,28 @@
+{
+  "hospitalsystemApp": {
+    "receiptAct": {
+      "home": {
+        "title": "ReceiptActs",
+        "createLabel": "Créer un nouveau Receipt Act",
+        "createOrEditLabel": "Créer ou éditer un Receipt Act",
+        "chooseDoctor": "Choose a doctor",
+        "search": "Recherche pour Receipt Act",
+        "notFound": "Aucun Receipt Act trouvé"
+      },
+      "created": "Un nouveau Receipt Act a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Receipt Act avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Receipt Act avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Receipt Act {{ id }} ?"
+      },
+      "detail": {
+        "title": "Receipt Act"
+      },
+      "total": "Total",
+      "paid": "Paid",
+      "paidDoctor": "Paid Doctor",
+      "date": "Date",
+      "act": "Act"
+    }
+  }
+}
