@@ -1,0 +1,44 @@
+<div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('208913526',$event)" [ngStyle]="__elementSelectionService.getStyles('208913526')"(click)='__elementSelectionService.clear()'>
+    <div class="col-8" (contextmenu)="__elementSelectionService.select('449423757',$event)" [ngStyle]="__elementSelectionService.getStyles('449423757')">
+        <div *ngIf="user" (contextmenu)="__elementSelectionService.select('143367894',$event)" [ngStyle]="__elementSelectionService.getStyles('143367894')">
+            <h2 (contextmenu)="__elementSelectionService.select('776095705',$event)" [ngStyle]="__elementSelectionService.getStyles('776095705')">
+                <span jhiTranslate="userManagement.detail.title" (contextmenu)="__elementSelectionService.select('391086661',$event)" [ngStyle]="__elementSelectionService.getStyles('391086661')">User</span> [<b (contextmenu)="__elementSelectionService.select('1075696864',$event)" [ngStyle]="__elementSelectionService.getStyles('1075696864')">{{user.login}}</b>]
+            </h2>
+            <dl class="row-md jh-entity-details" (contextmenu)="__elementSelectionService.select('347377435',$event)" [ngStyle]="__elementSelectionService.getStyles('347377435')">
+                <dt (contextmenu)="__elementSelectionService.select('678719195',$event)" [ngStyle]="__elementSelectionService.getStyles('678719195')"><span jhiTranslate="userManagement.login" (contextmenu)="__elementSelectionService.select('1136827450',$event)" [ngStyle]="__elementSelectionService.getStyles('1136827450')">Login</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1842801270',$event)" [ngStyle]="__elementSelectionService.getStyles('1842801270')">
+                    <span (contextmenu)="__elementSelectionService.select('1563065472',$event)" [ngStyle]="__elementSelectionService.getStyles('1563065472')">{{user.login}}</span>
+                    <jhi-boolean [value]="user.activated" [textTrue]="'userManagement.activated' | translate" [textFalse]="'userManagement.deactivated' | translate" (contextmenu)="__elementSelectionService.select('1453572936',$event)" [ngStyle]="__elementSelectionService.getStyles('1453572936')">
+                    </jhi-boolean>
+                </dd>
+                <dt (contextmenu)="__elementSelectionService.select('22525674',$event)" [ngStyle]="__elementSelectionService.getStyles('22525674')"><span jhiTranslate="userManagement.firstName" (contextmenu)="__elementSelectionService.select('1527278060',$event)" [ngStyle]="__elementSelectionService.getStyles('1527278060')">First Name</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1439219825',$event)" [ngStyle]="__elementSelectionService.getStyles('1439219825')">{{user.firstName}}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('498720771',$event)" [ngStyle]="__elementSelectionService.getStyles('498720771')"><span jhiTranslate="userManagement.lastName" (contextmenu)="__elementSelectionService.select('568714680',$event)" [ngStyle]="__elementSelectionService.getStyles('568714680')">Last Name</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('960151393',$event)" [ngStyle]="__elementSelectionService.getStyles('960151393')">{{user.lastName}}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('711080831',$event)" [ngStyle]="__elementSelectionService.getStyles('711080831')"><span jhiTranslate="userManagement.email" (contextmenu)="__elementSelectionService.select('2013884360',$event)" [ngStyle]="__elementSelectionService.getStyles('2013884360')">Email</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1984925012',$event)" [ngStyle]="__elementSelectionService.getStyles('1984925012')">{{user.email}}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('442688843',$event)" [ngStyle]="__elementSelectionService.getStyles('442688843')"><span jhiTranslate="userManagement.langKey" (contextmenu)="__elementSelectionService.select('559979707',$event)" [ngStyle]="__elementSelectionService.getStyles('559979707')">Lang Key</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('304402544',$event)" [ngStyle]="__elementSelectionService.getStyles('304402544')">{{user.langKey}}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('411814477',$event)" [ngStyle]="__elementSelectionService.getStyles('411814477')"><span jhiTranslate="userManagement.createdBy" (contextmenu)="__elementSelectionService.select('365837482',$event)" [ngStyle]="__elementSelectionService.getStyles('365837482')">Created By</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('820969452',$event)" [ngStyle]="__elementSelectionService.getStyles('820969452')">{{user.createdBy}}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('83697361',$event)" [ngStyle]="__elementSelectionService.getStyles('83697361')"><span jhiTranslate="userManagement.createdDate" (contextmenu)="__elementSelectionService.select('1113744801',$event)" [ngStyle]="__elementSelectionService.getStyles('1113744801')">Created Date</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('640494123',$event)" [ngStyle]="__elementSelectionService.getStyles('640494123')">{{user.createdDate | date:'dd/MM/yy HH:mm' }}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('1643880605',$event)" [ngStyle]="__elementSelectionService.getStyles('1643880605')"><span jhiTranslate="userManagement.lastModifiedBy" (contextmenu)="__elementSelectionService.select('219947493',$event)" [ngStyle]="__elementSelectionService.getStyles('219947493')">Last Modified By</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1543635594',$event)" [ngStyle]="__elementSelectionService.getStyles('1543635594')">{{user.lastModifiedBy}}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('321980243',$event)" [ngStyle]="__elementSelectionService.getStyles('321980243')"><span jhiTranslate="userManagement.lastModifiedDate" (contextmenu)="__elementSelectionService.select('804434656',$event)" [ngStyle]="__elementSelectionService.getStyles('804434656')">Last Modified Date</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1124969970',$event)" [ngStyle]="__elementSelectionService.getStyles('1124969970')">{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
+                <dt (contextmenu)="__elementSelectionService.select('257421643',$event)" [ngStyle]="__elementSelectionService.getStyles('257421643')"><span jhiTranslate="userManagement.profiles" (contextmenu)="__elementSelectionService.select('348615789',$event)" [ngStyle]="__elementSelectionService.getStyles('348615789')">Profiles</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('773366183',$event)" [ngStyle]="__elementSelectionService.getStyles('773366183')">
+                    <ul class="list-unstyled" (contextmenu)="__elementSelectionService.select('13953963',$event)" [ngStyle]="__elementSelectionService.getStyles('13953963')">
+                        <li *ngFor="let authority of user.authorities" (contextmenu)="__elementSelectionService.select('809082707',$event)" [ngStyle]="__elementSelectionService.getStyles('809082707')">
+                            <span class="badge badge-info" (contextmenu)="__elementSelectionService.select('527622437',$event)" [ngStyle]="__elementSelectionService.getStyles('527622437')">{{authority}}</span>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+            <button type="submit" routerLink="../../" class="btn btn-info" (contextmenu)="__elementSelectionService.select('1946971893',$event)" [ngStyle]="__elementSelectionService.getStyles('1946971893')">
+                <fa-icon [icon]="'arrow-left'" (contextmenu)="__elementSelectionService.select('1394760300',$event)" [ngStyle]="__elementSelectionService.getStyles('1394760300')"></fa-icon>&#160;<span jhiTranslate="entity.action.back" (contextmenu)="__elementSelectionService.select('790463580',$event)" [ngStyle]="__elementSelectionService.getStyles('790463580')"> Back</span>
+            </button>
+        </div>
+    </div>
+</div>

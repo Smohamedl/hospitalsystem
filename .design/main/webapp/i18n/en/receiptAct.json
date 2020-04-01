@@ -1,0 +1,27 @@
+{
+  "hospitalsystemApp": {
+    "receiptAct": {
+      "home": {
+        "title": "Receipt Acts",
+        "createLabel": "Create a new Receipt Act",
+        "createOrEditLabel": "Create or edit a Receipt Act",
+        "search": "Search for Receipt Act",
+        "notFound": "No Receipt Acts found"
+      },
+      "created": "A new Receipt Act is created with identifier {{ param }}",
+      "updated": "A Receipt Act is updated with identifier {{ param }}",
+      "deleted": "A Receipt Act is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Receipt Act {{ id }}?"
+      },
+      "detail": {
+        "title": "Receipt Act"
+      },
+      "total": "Total",
+      "paid": "Paid",
+      "paidDoctor": "Paid Doctor",
+      "date": "Date",
+      "act": "Act"
+    }
+  }
+}

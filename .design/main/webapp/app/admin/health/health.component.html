@@ -1,0 +1,34 @@
+<div (contextmenu)="__elementSelectionService.select('1629973928',$event)" [ngStyle]="__elementSelectionService.getStyles('1629973928')"(click)='__elementSelectionService.clear()'>
+    <h2 (contextmenu)="__elementSelectionService.select('459702529',$event)" [ngStyle]="__elementSelectionService.getStyles('459702529')">
+        <span id="health-page-heading" jhiTranslate="health.title" (contextmenu)="__elementSelectionService.select('1106699752',$event)" [ngStyle]="__elementSelectionService.getStyles('1106699752')">Health Checks</span>
+        <button class="btn btn-primary float-right" (click)="refresh()" (contextmenu)="__elementSelectionService.select('1831678476',$event)" [ngStyle]="__elementSelectionService.getStyles('1831678476')">
+            <fa-icon [icon]="'sync'" (contextmenu)="__elementSelectionService.select('1578400710',$event)" [ngStyle]="__elementSelectionService.getStyles('1578400710')"></fa-icon> <span jhiTranslate="health.refresh.button" (contextmenu)="__elementSelectionService.select('1901434764',$event)" [ngStyle]="__elementSelectionService.getStyles('1901434764')">Refresh</span>
+        </button>
+    </h2>
+    <div class="table-responsive" (contextmenu)="__elementSelectionService.select('133883371',$event)" [ngStyle]="__elementSelectionService.getStyles('133883371')">
+        <table id="healthCheck" class="table table-striped" aria-describedby="health-page-heading" (contextmenu)="__elementSelectionService.select('63113802',$event)" [ngStyle]="__elementSelectionService.getStyles('63113802')">
+            <thead (contextmenu)="__elementSelectionService.select('2129959871',$event)" [ngStyle]="__elementSelectionService.getStyles('2129959871')">
+                <tr (contextmenu)="__elementSelectionService.select('599820826',$event)" [ngStyle]="__elementSelectionService.getStyles('599820826')">
+                    <th scope="col" jhiTranslate="health.table.service" (contextmenu)="__elementSelectionService.select('1942353460',$event)" [ngStyle]="__elementSelectionService.getStyles('1942353460')">Service Name</th>
+                    <th scope="col" class="text-center" jhiTranslate="health.table.status" (contextmenu)="__elementSelectionService.select('1758409564',$event)" [ngStyle]="__elementSelectionService.getStyles('1758409564')">Status</th>
+                    <th scope="col" class="text-center" jhiTranslate="health.details.details" (contextmenu)="__elementSelectionService.select('842818713',$event)" [ngStyle]="__elementSelectionService.getStyles('842818713')">Details</th>
+                </tr>
+            </thead>
+            <tbody (contextmenu)="__elementSelectionService.select('353085598',$event)" [ngStyle]="__elementSelectionService.getStyles('353085598')">
+                <tr *ngFor="let health of healthData" (contextmenu)="__elementSelectionService.select('1227069533',$event)" [ngStyle]="__elementSelectionService.getStyles('1227069533')">
+                    <td (contextmenu)="__elementSelectionService.select('1491535862',$event)" [ngStyle]="__elementSelectionService.getStyles('1491535862')">{{'health.indicator.' + baseName(health.name) | translate}} {{subSystemName(health.name)}}</td>
+                    <td class="text-center" (contextmenu)="__elementSelectionService.select('154056927',$event)" [ngStyle]="__elementSelectionService.getStyles('154056927')">
+                        <span class="badge" [ngClass]="getBadgeClass(health.status)" jhiTranslate="{{'health.status.' + health.status}}" (contextmenu)="__elementSelectionService.select('1101643324',$event)" [ngStyle]="__elementSelectionService.getStyles('1101643324')">
+                            {{health.status}}
+                        </span>
+                    </td>
+                    <td class="text-center" (contextmenu)="__elementSelectionService.select('345843492',$event)" [ngStyle]="__elementSelectionService.getStyles('345843492')">
+                        <a class="hand" (click)="showHealth(health)" *ngIf="health.details || health.error" (contextmenu)="__elementSelectionService.select('1948605174',$event)" [ngStyle]="__elementSelectionService.getStyles('1948605174')">
+                            <fa-icon [icon]="'eye'" (contextmenu)="__elementSelectionService.select('137489645',$event)" [ngStyle]="__elementSelectionService.getStyles('137489645')"></fa-icon>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

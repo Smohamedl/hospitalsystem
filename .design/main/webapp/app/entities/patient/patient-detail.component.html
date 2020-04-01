@@ -1,0 +1,35 @@
+<div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('182673903',$event)" [ngStyle]="__elementSelectionService.getStyles('182673903')"(click)='__elementSelectionService.clear()'>
+    <div class="col-8" (contextmenu)="__elementSelectionService.select('328082425',$event)" [ngStyle]="__elementSelectionService.getStyles('328082425')">
+        <div *ngIf="patient" (contextmenu)="__elementSelectionService.select('49534078',$event)" [ngStyle]="__elementSelectionService.getStyles('49534078')">
+            <h2 (contextmenu)="__elementSelectionService.select('1647390271',$event)" [ngStyle]="__elementSelectionService.getStyles('1647390271')"><span jhiTranslate="hospitalsystemApp.patient.detail.title" (contextmenu)="__elementSelectionService.select('1942467310',$event)" [ngStyle]="__elementSelectionService.getStyles('1942467310')">Patient</span> {{patient.id}}</h2>
+            <hr (contextmenu)="__elementSelectionService.select('288675460',$event)" [ngStyle]="__elementSelectionService.getStyles('288675460')">
+            <jhi-alert-error (contextmenu)="__elementSelectionService.select('226013432',$event)" [ngStyle]="__elementSelectionService.getStyles('226013432')"></jhi-alert-error>
+            <dl class="row-md jh-entity-details" (contextmenu)="__elementSelectionService.select('1725118398',$event)" [ngStyle]="__elementSelectionService.getStyles('1725118398')">
+                <dt (contextmenu)="__elementSelectionService.select('676178248',$event)" [ngStyle]="__elementSelectionService.getStyles('676178248')"><span jhiTranslate="hospitalsystemApp.patient.name" (contextmenu)="__elementSelectionService.select('536529459',$event)" [ngStyle]="__elementSelectionService.getStyles('536529459')">Name</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1464686148',$event)" [ngStyle]="__elementSelectionService.getStyles('1464686148')">
+                    <span (contextmenu)="__elementSelectionService.select('685565396',$event)" [ngStyle]="__elementSelectionService.getStyles('685565396')">{{patient.name}}</span>
+                </dd>
+                <dt (contextmenu)="__elementSelectionService.select('1830686318',$event)" [ngStyle]="__elementSelectionService.getStyles('1830686318')"><span jhiTranslate="hospitalsystemApp.patient.firstname" (contextmenu)="__elementSelectionService.select('620554924',$event)" [ngStyle]="__elementSelectionService.getStyles('620554924')">Firstname</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('431912705',$event)" [ngStyle]="__elementSelectionService.getStyles('431912705')">
+                    <span (contextmenu)="__elementSelectionService.select('1451475879',$event)" [ngStyle]="__elementSelectionService.getStyles('1451475879')">{{patient.firstname}}</span>
+                </dd>
+                <dt (contextmenu)="__elementSelectionService.select('1274268263',$event)" [ngStyle]="__elementSelectionService.getStyles('1274268263')"><span jhiTranslate="hospitalsystemApp.patient.tel" (contextmenu)="__elementSelectionService.select('135917631',$event)" [ngStyle]="__elementSelectionService.getStyles('135917631')">Tel</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1660262466',$event)" [ngStyle]="__elementSelectionService.getStyles('1660262466')">
+                    <span (contextmenu)="__elementSelectionService.select('715387200',$event)" [ngStyle]="__elementSelectionService.getStyles('715387200')">{{patient.tel}}</span>
+                </dd>
+                <dt (contextmenu)="__elementSelectionService.select('2136389249',$event)" [ngStyle]="__elementSelectionService.getStyles('2136389249')"><span jhiTranslate="hospitalsystemApp.patient.address" (contextmenu)="__elementSelectionService.select('948517212',$event)" [ngStyle]="__elementSelectionService.getStyles('948517212')">Address</span></dt>
+                <dd (contextmenu)="__elementSelectionService.select('1987088775',$event)" [ngStyle]="__elementSelectionService.getStyles('1987088775')">
+                    <span (contextmenu)="__elementSelectionService.select('1139558392',$event)" [ngStyle]="__elementSelectionService.getStyles('1139558392')">{{patient.address}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit" (click)="previousState()" class="btn btn-info" (contextmenu)="__elementSelectionService.select('155452346',$event)" [ngStyle]="__elementSelectionService.getStyles('155452346')">
+                <fa-icon [icon]="'arrow-left'" (contextmenu)="__elementSelectionService.select('2029422615',$event)" [ngStyle]="__elementSelectionService.getStyles('2029422615')"></fa-icon>&#160;<span jhiTranslate="entity.action.back" (contextmenu)="__elementSelectionService.select('184078887',$event)" [ngStyle]="__elementSelectionService.getStyles('184078887')"> Back</span>
+            </button>
+
+            <button type="button" [routerLink]="['/patient', patient.id, 'edit']" class="btn btn-primary" (contextmenu)="__elementSelectionService.select('730502919',$event)" [ngStyle]="__elementSelectionService.getStyles('730502919')">
+                <fa-icon [icon]="'pencil-alt'" (contextmenu)="__elementSelectionService.select('41555999',$event)" [ngStyle]="__elementSelectionService.getStyles('41555999')"></fa-icon>&#160;<span jhiTranslate="entity.action.edit" (contextmenu)="__elementSelectionService.select('1308659319',$event)" [ngStyle]="__elementSelectionService.getStyles('1308659319')"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

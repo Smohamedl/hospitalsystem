@@ -35,6 +35,9 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="date"><span jhiTranslate="hospitalsystemApp.hospitalization.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="description"><span jhiTranslate="hospitalsystemApp.hospitalization.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="patient.name"><span jhiTranslate="hospitalsystemApp.hospitalization.patient">Patient</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="medicalService.name"><span jhiTranslate="hospitalsystemApp.hospitalization.medicalService">Medical Service</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -42,6 +45,17 @@
             <tr *ngFor="let hospitalization of hospitalizations ;trackBy: trackId">
                 <td><a [routerLink]="['/hospitalization', hospitalization.id, 'view' ]">{{hospitalization.id}}</a></td>
                 <td>{{hospitalization.date | date:'mediumDate'}}</td>
+                <td>{{hospitalization.description}}</td>
+                <td>
+                    <div *ngIf="hospitalization.patient">
+                        <a [routerLink]="['/patient', hospitalization.patient?.id, 'view' ]" >{{hospitalization.patient?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="hospitalization.medicalService">
+                        <a [routerLink]="['/medical-service', hospitalization.medicalService?.id, 'view' ]" >{{hospitalization.medicalService?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

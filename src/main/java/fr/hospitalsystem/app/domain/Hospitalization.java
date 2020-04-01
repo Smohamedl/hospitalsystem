@@ -1,13 +1,23 @@
 package fr.hospitalsystem.app.domain;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Hospitalization.
@@ -28,6 +38,20 @@ public class Hospitalization implements Serializable {
     @NotNull
     @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    @NotNull
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull
+    @JsonIgnoreProperties("hospitalizations")
+    private Patient patient;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull
+    @JsonIgnoreProperties("hospitalizations")
+    private MedicalService medicalService;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -50,6 +74,45 @@ public class Hospitalization implements Serializable {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Hospitalization description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Hospitalization patient(Patient patient) {
+        this.patient = patient;
+        return this;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public MedicalService getMedicalService() {
+        return medicalService;
+    }
+
+    public Hospitalization medicalService(MedicalService medicalService) {
+        this.medicalService = medicalService;
+        return this;
+    }
+
+    public void setMedicalService(MedicalService medicalService) {
+        this.medicalService = medicalService;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -70,9 +133,6 @@ public class Hospitalization implements Serializable {
 
     @Override
     public String toString() {
-        return "Hospitalization{" +
-            "id=" + getId() +
-            ", date='" + getDate() + "'" +
-            "}";
+        return "Hospitalization{" + "id=" + getId() + ", date='" + getDate() + "'" + ", description='" + getDescription() + "'" + "}";
     }
 }

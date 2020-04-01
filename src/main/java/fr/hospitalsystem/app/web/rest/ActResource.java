@@ -1,51 +1,39 @@
 package fr.hospitalsystem.app.web.rest;
 
-import fr.hospitalsystem.app.domain.Act;
-import fr.hospitalsystem.app.domain.Actype;
-import fr.hospitalsystem.app.domain.Patient;
-import fr.hospitalsystem.app.repository.PatientRepository;
-import fr.hospitalsystem.app.service.ActService;
-import fr.hospitalsystem.app.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import java.io.*;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
-import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.qrcode.ByteArray;
-
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
+import fr.hospitalsystem.app.domain.Act;
+import fr.hospitalsystem.app.domain.ReceiptAct;
+import fr.hospitalsystem.app.service.ActService;
+import fr.hospitalsystem.app.web.rest.errors.BadRequestAlertException;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link fr.hospitalsystem.app.domain.Act}.
@@ -55,6 +43,7 @@ import org.springframework.core.io.Resource;
 public class ActResource {
 
     private final Logger log = LoggerFactory.getLogger(ActResource.class);
+    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final String ENTITY_NAME = "act";
 
@@ -62,9 +51,6 @@ public class ActResource {
     private String applicationName;
 
     private final ActService actService;
-    
-    @Autowired
-    private PatientRepository patientRepo;
 
     public ActResource(ActService actService) {
         this.actService = actService;
@@ -74,60 +60,38 @@ public class ActResource {
      * {@code POST  /acts} : Create a new act.
      *
      * @param act the act to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new act, or with status {@code 400 (Bad Request)} if the
+     *         act has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
-     * @throws Exception 
      */
-    @PostMapping(path="/acts", produces = "application/pdf")
-    public @ResponseBody Resource  createAct(@Valid @RequestBody Act act) throws URISyntaxException, Exception {
+    @PostMapping("/acts")
+    public ResponseEntity<Act> createAct(@Valid @RequestBody Act act) throws URISyntaxException {
         log.debug("REST request to save Act : {}", act);
         if (act.getId() != null) {
             throw new BadRequestAlertException("A new act cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        
-        // when act is not specified get it by its name
-        if(act.getPatient() == null && act.getPatientName().contains("-")) {
-        	String patientTel = act.getPatientName().split("-")[1].trim();
-        	List<Patient> patients = patientRepo.findByTel(patientTel);
-        	
-        	// TODO save the patient with the right full name not the first!
-        	if(!patients.isEmpty()) {
-        		act.setPatient(patients.get(0));
-        	}
-        }
-        
-        Act result = actService.save(act);
-        
-        final String temperotyFilePath = System.getProperty("java.io.tmpdir");
-        String fileName = "recu.pdf";
 
-        createPDF(temperotyFilePath+"\\"+fileName, act);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos = convertPDFToByteArrayOutputStream(temperotyFilePath+"\\"+fileName);
-        
-		/*
-		 * HttpHeaders headers = new HttpHeaders();
-		 * headers.setContentType(MediaType.APPLICATION_PDF);
-		 * 
-		 * OutputStream os = response.getOutputStream(); baos.writeTo(os); os.flush();
-		 */
-		 
-        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(baos.toByteArray()));
-        
-        return resource;
-		/*
-		 * return ResponseEntity.created(new URI("/api/acts/" + result.getId()))
-		 * .headers(HeaderUtil.createEntityCreationAlert(applicationName, true,
-		 * ENTITY_NAME, result.getId().toString())) .body(baos.toByteArray());
-		 */
+        ReceiptAct receiptAct = new ReceiptAct();
+        receiptAct.setDate(UPDATED_DATE);
+        receiptAct.setPaid(false);
+        receiptAct.setPaidDoctor(false);
+        receiptAct.setTotal(act.getActype().getPrice());
+
+        // receiptAct.setAct(act);
+
+        act.setReceiptAct(receiptAct);
+
+        Act result = actService.save(act);
+        return ResponseEntity.created(new URI("/api/acts/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString())).body(result);
     }
 
     /**
      * {@code PUT  /acts} : Updates an existing act.
      *
      * @param act the act to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated act,
-     * or with status {@code 400 (Bad Request)} if the act is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the act couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated act, or with status {@code 400 (Bad Request)} if the
+     *         act is not valid, or with status {@code 500 (Internal Server Error)} if the act couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/acts")
@@ -137,18 +101,14 @@ public class ActResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Act result = actService.save(act);
-        
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, act.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, act.getId().toString()))
+                .body(result);
     }
 
     /**
      * {@code GET  /acts} : get all the acts.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of acts in body.
      */
     @GetMapping("/acts")
@@ -186,10 +146,9 @@ public class ActResource {
     }
 
     /**
-     * {@code SEARCH  /_search/acts?query=:query} : search for the act corresponding
-     * to the query.
+     * {@code SEARCH  /_search/acts?query=:query} : search for the act corresponding to the query.
      *
-     * @param query the query of the act search.
+     * @param query    the query of the act search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */
@@ -199,64 +158,5 @@ public class ActResource {
         Page<Act> page = actService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-    
-	
-	  
-    public Document createPDF(String file, Act act) {
-	  
-	  Document document = null;
-	  
-	  try { document = new Document(); PdfWriter.getInstance(document, new
-	  FileOutputStream(file));
-	  
-	  document.open(); Font font = FontFactory.getFont(FontFactory.COURIER, 16,
-	  BaseColor.BLACK);
-	  
-	  String content = "HospitalSystem" + "\n " + new Date() + "\n --------------------------------------\n" 
-	  + act.getPatientName() + " " + act.getActype().getName() ;
-	  
-	  
-	  Paragraph paragraph = new Paragraph(content); document.add(paragraph);
-	  
-	  document.close();
-	  
-	  } catch (FileNotFoundException e) {
-	  
-	  e.printStackTrace(); } catch (DocumentException e) { e.printStackTrace(); }
-	  return document;
-	  
-	}
-	 
-    
-    private ByteArrayOutputStream convertPDFToByteArrayOutputStream(String fileName) {
-
-        InputStream inputStream = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-
-            inputStream = new FileInputStream(fileName);
-            byte[] buffer = new byte[1024];
-            baos = new ByteArrayOutputStream();
-
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                baos.write(buffer, 0, bytesRead);
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return baos;
     }
 }

@@ -43,6 +43,9 @@ public class ActypeResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final Double DEFAULT_PRICE = 1D;
+    private static final Double UPDATED_PRICE = 2D;
+
     @Autowired
     private ActypeRepository actypeRepository;
 
@@ -93,7 +96,8 @@ public class ActypeResourceIT {
      */
     public static Actype createEntity(EntityManager em) {
         Actype actype = new Actype()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .price(DEFAULT_PRICE);
         // Add required entity
         MedicalService medicalService;
         if (TestUtil.findAll(em, MedicalService.class).isEmpty()) {
@@ -114,7 +118,8 @@ public class ActypeResourceIT {
      */
     public static Actype createUpdatedEntity(EntityManager em) {
         Actype actype = new Actype()
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .price(UPDATED_PRICE);
         // Add required entity
         MedicalService medicalService;
         if (TestUtil.findAll(em, MedicalService.class).isEmpty()) {
@@ -149,6 +154,7 @@ public class ActypeResourceIT {
         assertThat(actypeList).hasSize(databaseSizeBeforeCreate + 1);
         Actype testActype = actypeList.get(actypeList.size() - 1);
         assertThat(testActype.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testActype.getPrice()).isEqualTo(DEFAULT_PRICE);
 
         // Validate the Actype in Elasticsearch
         verify(mockActypeSearchRepository, times(1)).save(testActype);
@@ -197,6 +203,24 @@ public class ActypeResourceIT {
 
     @Test
     @Transactional
+    public void checkPriceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = actypeRepository.findAll().size();
+        // set the field null
+        actype.setPrice(null);
+
+        // Create the Actype, which fails.
+
+        restActypeMockMvc.perform(post("/api/actypes")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(actype)))
+            .andExpect(status().isBadRequest());
+
+        List<Actype> actypeList = actypeRepository.findAll();
+        assertThat(actypeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllActypes() throws Exception {
         // Initialize the database
         actypeRepository.saveAndFlush(actype);
@@ -206,7 +230,8 @@ public class ActypeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(actype.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
     }
     
     @Test
@@ -220,7 +245,8 @@ public class ActypeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(actype.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
     }
 
     @Test
@@ -244,7 +270,8 @@ public class ActypeResourceIT {
         // Disconnect from session so that the updates on updatedActype are not directly saved in db
         em.detach(updatedActype);
         updatedActype
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .price(UPDATED_PRICE);
 
         restActypeMockMvc.perform(put("/api/actypes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -256,6 +283,7 @@ public class ActypeResourceIT {
         assertThat(actypeList).hasSize(databaseSizeBeforeUpdate);
         Actype testActype = actypeList.get(actypeList.size() - 1);
         assertThat(testActype.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testActype.getPrice()).isEqualTo(UPDATED_PRICE);
 
         // Validate the Actype in Elasticsearch
         verify(mockActypeSearchRepository, times(1)).save(testActype);
@@ -315,6 +343,7 @@ public class ActypeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(actype.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
     }
 }

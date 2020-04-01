@@ -1,13 +1,25 @@
 package fr.hospitalsystem.app.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import org.springframework.data.elasticsearch.annotations.FieldType;
-import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Act.
@@ -47,6 +59,10 @@ public class Act implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("acts")
     private Patient patient;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    @JoinColumn(unique = true)
+    private ReceiptAct receiptAct;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -121,6 +137,19 @@ public class Act implements Serializable {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+    public ReceiptAct getReceiptAct() {
+        return receiptAct;
+    }
+
+    public Act receiptAct(ReceiptAct receiptAct) {
+        this.receiptAct = receiptAct;
+        return this;
+    }
+
+    public void setReceiptAct(ReceiptAct receiptAct) {
+        this.receiptAct = receiptAct;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -141,9 +170,6 @@ public class Act implements Serializable {
 
     @Override
     public String toString() {
-        return "Act{" +
-            "id=" + getId() +
-            ", patientName='" + getPatientName() + "'" +
-            "}";
+        return "Act{" + "id=" + getId() + ", patientName='" + getPatientName() + "'" + "}";
     }
 }

@@ -2,6 +2,8 @@ package fr.hospitalsystem.app.web.rest;
 
 import fr.hospitalsystem.app.HospitalsystemApp;
 import fr.hospitalsystem.app.domain.Hospitalization;
+import fr.hospitalsystem.app.domain.Patient;
+import fr.hospitalsystem.app.domain.MedicalService;
 import fr.hospitalsystem.app.repository.HospitalizationRepository;
 import fr.hospitalsystem.app.repository.search.HospitalizationSearchRepository;
 import fr.hospitalsystem.app.web.rest.errors.ExceptionTranslator;
@@ -43,6 +45,9 @@ public class HospitalizationResourceIT {
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     @Autowired
     private HospitalizationRepository hospitalizationRepository;
@@ -94,7 +99,28 @@ public class HospitalizationResourceIT {
      */
     public static Hospitalization createEntity(EntityManager em) {
         Hospitalization hospitalization = new Hospitalization()
-            .date(DEFAULT_DATE);
+            .date(DEFAULT_DATE)
+            .description(DEFAULT_DESCRIPTION);
+        // Add required entity
+        Patient patient;
+        if (TestUtil.findAll(em, Patient.class).isEmpty()) {
+            patient = PatientResourceIT.createEntity(em);
+            em.persist(patient);
+            em.flush();
+        } else {
+            patient = TestUtil.findAll(em, Patient.class).get(0);
+        }
+        hospitalization.setPatient(patient);
+        // Add required entity
+        MedicalService medicalService;
+        if (TestUtil.findAll(em, MedicalService.class).isEmpty()) {
+            medicalService = MedicalServiceResourceIT.createEntity(em);
+            em.persist(medicalService);
+            em.flush();
+        } else {
+            medicalService = TestUtil.findAll(em, MedicalService.class).get(0);
+        }
+        hospitalization.setMedicalService(medicalService);
         return hospitalization;
     }
     /**
@@ -105,7 +131,28 @@ public class HospitalizationResourceIT {
      */
     public static Hospitalization createUpdatedEntity(EntityManager em) {
         Hospitalization hospitalization = new Hospitalization()
-            .date(UPDATED_DATE);
+            .date(UPDATED_DATE)
+            .description(UPDATED_DESCRIPTION);
+        // Add required entity
+        Patient patient;
+        if (TestUtil.findAll(em, Patient.class).isEmpty()) {
+            patient = PatientResourceIT.createUpdatedEntity(em);
+            em.persist(patient);
+            em.flush();
+        } else {
+            patient = TestUtil.findAll(em, Patient.class).get(0);
+        }
+        hospitalization.setPatient(patient);
+        // Add required entity
+        MedicalService medicalService;
+        if (TestUtil.findAll(em, MedicalService.class).isEmpty()) {
+            medicalService = MedicalServiceResourceIT.createUpdatedEntity(em);
+            em.persist(medicalService);
+            em.flush();
+        } else {
+            medicalService = TestUtil.findAll(em, MedicalService.class).get(0);
+        }
+        hospitalization.setMedicalService(medicalService);
         return hospitalization;
     }
 
@@ -130,6 +177,7 @@ public class HospitalizationResourceIT {
         assertThat(hospitalizationList).hasSize(databaseSizeBeforeCreate + 1);
         Hospitalization testHospitalization = hospitalizationList.get(hospitalizationList.size() - 1);
         assertThat(testHospitalization.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testHospitalization.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
 
         // Validate the Hospitalization in Elasticsearch
         verify(mockHospitalizationSearchRepository, times(1)).save(testHospitalization);
@@ -178,6 +226,24 @@ public class HospitalizationResourceIT {
 
     @Test
     @Transactional
+    public void checkDescriptionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = hospitalizationRepository.findAll().size();
+        // set the field null
+        hospitalization.setDescription(null);
+
+        // Create the Hospitalization, which fails.
+
+        restHospitalizationMockMvc.perform(post("/api/hospitalizations")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(hospitalization)))
+            .andExpect(status().isBadRequest());
+
+        List<Hospitalization> hospitalizationList = hospitalizationRepository.findAll();
+        assertThat(hospitalizationList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllHospitalizations() throws Exception {
         // Initialize the database
         hospitalizationRepository.saveAndFlush(hospitalization);
@@ -187,7 +253,8 @@ public class HospitalizationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(hospitalization.getId().intValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
     
     @Test
@@ -201,7 +268,8 @@ public class HospitalizationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(hospitalization.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -225,7 +293,8 @@ public class HospitalizationResourceIT {
         // Disconnect from session so that the updates on updatedHospitalization are not directly saved in db
         em.detach(updatedHospitalization);
         updatedHospitalization
-            .date(UPDATED_DATE);
+            .date(UPDATED_DATE)
+            .description(UPDATED_DESCRIPTION);
 
         restHospitalizationMockMvc.perform(put("/api/hospitalizations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -237,6 +306,7 @@ public class HospitalizationResourceIT {
         assertThat(hospitalizationList).hasSize(databaseSizeBeforeUpdate);
         Hospitalization testHospitalization = hospitalizationList.get(hospitalizationList.size() - 1);
         assertThat(testHospitalization.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testHospitalization.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
 
         // Validate the Hospitalization in Elasticsearch
         verify(mockHospitalizationSearchRepository, times(1)).save(testHospitalization);
@@ -296,6 +366,7 @@ public class HospitalizationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(hospitalization.getId().intValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 }

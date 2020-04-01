@@ -1,0 +1,37 @@
+<div class="modal-header" (contextmenu)="__elementSelectionService.select('1306918511',$event)" [ngStyle]="__elementSelectionService.getStyles('1306918511')"(click)='__elementSelectionService.clear()'>
+    <h4 class="modal-title" jhiTranslate="login.title" (contextmenu)="__elementSelectionService.select('377980484',$event)" [ngStyle]="__elementSelectionService.getStyles('377980484')">Sign in</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')" (contextmenu)="__elementSelectionService.select('1788517218',$event)" [ngStyle]="__elementSelectionService.getStyles('1788517218')"><span aria-hidden="true" (contextmenu)="__elementSelectionService.select('1868454958',$event)" [ngStyle]="__elementSelectionService.getStyles('1868454958')">x</span>
+    </button>
+</div>
+<div class="modal-body" (contextmenu)="__elementSelectionService.select('1435844232',$event)" [ngStyle]="__elementSelectionService.getStyles('1435844232')"(click)='__elementSelectionService.clear()'>
+    <div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('744978809',$event)" [ngStyle]="__elementSelectionService.getStyles('744978809')">
+        <div class="col-md-8" (contextmenu)="__elementSelectionService.select('116944663',$event)" [ngStyle]="__elementSelectionService.getStyles('116944663')">
+            <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication" (contextmenu)="__elementSelectionService.select('940025121',$event)" [ngStyle]="__elementSelectionService.getStyles('940025121')">
+                <strong (contextmenu)="__elementSelectionService.select('623190307',$event)" [ngStyle]="__elementSelectionService.getStyles('623190307')">Failed to sign in!</strong> Please check your credentials and try again.
+            </div>
+        </div>
+        <div class="col-md-8" (contextmenu)="__elementSelectionService.select('849229903',$event)" [ngStyle]="__elementSelectionService.getStyles('849229903')">
+            <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm" (contextmenu)="__elementSelectionService.select('2010868188',$event)" [ngStyle]="__elementSelectionService.getStyles('2010868188')">
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('1920005291',$event)" [ngStyle]="__elementSelectionService.getStyles('1920005291')">
+                    <label class="username-label" for="username" jhiTranslate="global.form.username.label" (contextmenu)="__elementSelectionService.select('2119233535',$event)" [ngStyle]="__elementSelectionService.getStyles('2119233535')">Login</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" formControlName="username" (contextmenu)="__elementSelectionService.select('1037040698',$event)" [ngStyle]="__elementSelectionService.getStyles('1037040698')">
+                </div>
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('293009366',$event)" [ngStyle]="__elementSelectionService.getStyles('293009366')">
+                    <label for="password" jhiTranslate="login.form.password" (contextmenu)="__elementSelectionService.select('1683397887',$event)" [ngStyle]="__elementSelectionService.getStyles('1683397887')">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}" formControlName="password" (contextmenu)="__elementSelectionService.select('494971037',$event)" [ngStyle]="__elementSelectionService.getStyles('494971037')">
+                </div>
+                <div class="form-check" (contextmenu)="__elementSelectionService.select('1600960827',$event)" [ngStyle]="__elementSelectionService.getStyles('1600960827')">
+                    <label class="form-check-label" for="rememberMe" (contextmenu)="__elementSelectionService.select('2038578503',$event)" [ngStyle]="__elementSelectionService.getStyles('2038578503')">
+                        <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" (contextmenu)="__elementSelectionService.select('702801900',$event)" [ngStyle]="__elementSelectionService.getStyles('702801900')">
+                        <span jhiTranslate="login.form.rememberme" (contextmenu)="__elementSelectionService.select('834631181',$event)" [ngStyle]="__elementSelectionService.getStyles('834631181')">Remember me</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button" (contextmenu)="__elementSelectionService.select('186692704',$event)" [ngStyle]="__elementSelectionService.getStyles('186692704')">Sign in</button>
+            </form>
+            <p (contextmenu)="__elementSelectionService.select('1663096902',$event)" [ngStyle]="__elementSelectionService.getStyles('1663096902')"></p>
+            <div class="alert alert-warning" (contextmenu)="__elementSelectionService.select('1430949705',$event)" [ngStyle]="__elementSelectionService.getStyles('1430949705')">
+                <a class="alert-link" (click)="requestResetPassword()" jhiTranslate="login.password.forgot" (contextmenu)="__elementSelectionService.select('529499379',$event)" [ngStyle]="__elementSelectionService.getStyles('529499379')">Did you forget your password?</a>
+            </div>
+        </div>
+    </div>
+</div>

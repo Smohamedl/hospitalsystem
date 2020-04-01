@@ -23,6 +23,7 @@ export class ActypeUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required]],
+    price: [null, [Validators.required]],
     medicalService: [null, Validators.required]
   });
 
@@ -51,6 +52,7 @@ export class ActypeUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: actype.id,
       name: actype.name,
+      price: actype.price,
       medicalService: actype.medicalService
     });
   }
@@ -74,6 +76,7 @@ export class ActypeUpdateComponent implements OnInit {
       ...new Actype(),
       id: this.editForm.get(['id']).value,
       name: this.editForm.get(['name']).value,
+      price: this.editForm.get(['price']).value,
       medicalService: this.editForm.get(['medicalService']).value
     };
   }

@@ -1,0 +1,11 @@
+id;total;paid;paid_doctor;date
+1;37454;true;true;2020-03-31
+2;73199;true;true;2020-03-30
+3;15601;false;false;2020-03-31
+4;5808;false;true;2020-03-30
+5;60111;false;true;2020-03-30
+6;2058;false;true;2020-03-30
+7;83244;true;false;2020-03-31
+8;18182;true;false;2020-03-30
+9;30424;true;true;2020-03-31
+10;43194;false;false;2020-03-30

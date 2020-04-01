@@ -38,6 +38,15 @@
             "relationshipType": "many-to-one",
             "otherEntityField": "name",
             "otherEntityRelationshipName": "act"
+        },
+        {
+            "relationshipName": "receiptAct",
+            "otherEntityName": "receiptAct",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": false,
+            "otherEntityRelationshipName": "act"
         }
     ],
     "fields": [

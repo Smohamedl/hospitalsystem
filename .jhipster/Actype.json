@@ -9,13 +9,21 @@
             "relationshipValidateRules": [
                 "required"
             ],
-            "otherEntityField": "name"
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "actype"
         }
     ],
     "fields": [
         {
             "fieldName": "name",
             "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Double",
             "fieldValidateRules": [
                 "required"
             ]

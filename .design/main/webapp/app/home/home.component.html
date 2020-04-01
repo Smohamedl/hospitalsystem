@@ -1,0 +1,13 @@
+<div class="row" (contextmenu)="__elementSelectionService.select('181666558',$event)" [ngStyle]="__elementSelectionService.getStyles('181666558')"(click)='__elementSelectionService.clear()'>
+    <div class="col-md-3" (contextmenu)="__elementSelectionService.select('615481027',$event)" [ngStyle]="__elementSelectionService.getStyles('615481027')">
+        <span class="hipster img-fluid rounded" (contextmenu)="__elementSelectionService.select('247876442',$event)" [ngStyle]="__elementSelectionService.getStyles('247876442')"></span>
+    </div>
+    <div class="col-md-9" (contextmenu)="__elementSelectionService.select('1813030861',$event)" [ngStyle]="__elementSelectionService.getStyles('1813030861')">
+        <h1 class="display-4" jhiTranslate="home.title" (contextmenu)="__elementSelectionService.select('219764477',$event)" [ngStyle]="__elementSelectionService.getStyles('219764477')">Hospital System Manager</h1>
+        <div [ngSwitch]="isAuthenticated()" (contextmenu)="__elementSelectionService.select('1377790203',$event)" [ngStyle]="__elementSelectionService.getStyles('1377790203')">
+            <div class="alert alert-success" *ngSwitchCase="true" (contextmenu)="__elementSelectionService.select('1849648505',$event)" [ngStyle]="__elementSelectionService.getStyles('1849648505')">
+                <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{username: account.login}" (contextmenu)="__elementSelectionService.select('133732796',$event)" [ngStyle]="__elementSelectionService.getStyles('133732796')"> You are logged in as user  momo &#34;{{account.login}}&#34;. </span>
+            </div>
+        </div>
+    </div>
+</div>

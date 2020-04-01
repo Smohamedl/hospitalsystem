@@ -11,16 +11,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.patientName" for="field_patientName">Patient Name</label>
-<!--                     <input type="text" class="form-control" name="patientName" id="field_patientName" -->
-<!--                            name="patientName" id="field_patientName"  formControlName="patientName"  -->
-<!--                            [matAutocomplete] = "auto"/> -->
-<!-- 				      <mat-autocomplete #auto = "matAutocomplete"> -->
-<!-- 				         <mat-option *ngFor = "let patient of patients" [value] = "patient.name"> -->
-<!-- 				            {{patient.name}} -->
-<!-- 				         </mat-option> -->
-<!-- 				      </mat-autocomplete> -->
-					<p-autoComplete class="form-control" formControlName="patientName" [suggestions]="patients" field="nametel" (completeMethod)="getPatients($event)"
-					[style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" (onSelect)="onSelectPatient($event)"></p-autoComplete>
+                    <input type="text" class="form-control" name="patientName" id="field_patientName"
+                           formControlName="patientName"/>
                     <div *ngIf="editForm.get('patientName').invalid && (editForm.get('patientName').dirty || editForm.get('patientName').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('patientName').errors.required" jhiTranslate="entity.validation.required">
@@ -31,7 +23,7 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.medicalService" for="field_medicalService">Medical Service</label>
-                    <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService" (change)="onChangeService()">
+                    <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService">
                         <option *ngIf="!editForm.get('medicalService').value" [ngValue]="null" selected></option>
                         <option [ngValue]="medicalServiceOption.id === editForm.get('medicalService').value?.id ? editForm.get('medicalService').value : medicalServiceOption" *ngFor="let medicalServiceOption of medicalservices; trackBy: trackMedicalServiceById">{{medicalServiceOption.name}}</option>
                     </select>
@@ -67,14 +59,15 @@
                            *ngIf="editForm.get('doctor').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
-                </div><!-- 
+                </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.patient" for="field_patient">Patient</label>
                     <select class="form-control" id="field_patient" name="patient" formControlName="patient">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="patientOption.id === editForm.get('patient').value?.id ? editForm.get('patient').value : patientOption" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.name}}</option>
                     </select>
-                </div> -->
+                </div>
+               
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
