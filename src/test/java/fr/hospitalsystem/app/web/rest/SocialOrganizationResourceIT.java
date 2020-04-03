@@ -2,6 +2,7 @@ package fr.hospitalsystem.app.web.rest;
 
 import fr.hospitalsystem.app.HospitalsystemApp;
 import fr.hospitalsystem.app.domain.SocialOrganization;
+import fr.hospitalsystem.app.domain.SocialOrganizationRegimen;
 import fr.hospitalsystem.app.repository.SocialOrganizationRepository;
 import fr.hospitalsystem.app.repository.search.SocialOrganizationSearchRepository;
 import fr.hospitalsystem.app.service.SocialOrganizationService;
@@ -306,6 +307,26 @@ public class SocialOrganizationResourceIT {
 
         // Get all the socialOrganizationList where name does not contain UPDATED_NAME
         defaultSocialOrganizationShouldBeFound("name.doesNotContain=" + UPDATED_NAME);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllSocialOrganizationsBySocialOrganizationRegimenIsEqualToSomething() throws Exception {
+        // Initialize the database
+        socialOrganizationRepository.saveAndFlush(socialOrganization);
+        SocialOrganizationRegimen socialOrganizationRegimen = SocialOrganizationRegimenResourceIT.createEntity(em);
+        em.persist(socialOrganizationRegimen);
+        em.flush();
+        socialOrganization.addSocialOrganizationRegimen(socialOrganizationRegimen);
+        socialOrganizationRepository.saveAndFlush(socialOrganization);
+        Long socialOrganizationRegimenId = socialOrganizationRegimen.getId();
+
+        // Get all the socialOrganizationList where socialOrganizationRegimen equals to socialOrganizationRegimenId
+        defaultSocialOrganizationShouldBeFound("socialOrganizationRegimenId.equals=" + socialOrganizationRegimenId);
+
+        // Get all the socialOrganizationList where socialOrganizationRegimen equals to socialOrganizationRegimenId + 1
+        defaultSocialOrganizationShouldNotBeFound("socialOrganizationRegimenId.equals=" + (socialOrganizationRegimenId + 1));
     }
 
     /**

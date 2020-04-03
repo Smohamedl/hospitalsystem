@@ -47,6 +47,20 @@ import { RouterModule } from '@angular/router';
       {
         path: 'session',
         loadChildren: () => import('./session/session.module').then(m => m.HospitalsystemSessionModule)
+      },
+      {
+        path: 'social-organization-regimen',
+        loadChildren: () =>
+          import('./social-organization-regimen/social-organization-regimen.module').then(
+            m => m.HospitalsystemSocialOrganizationRegimenModule
+          )
+      },
+      {
+        path: 'social-organization-details',
+        loadChildren: () =>
+          import('./social-organization-details/social-organization-details.module').then(
+            m => m.HospitalsystemSocialOrganizationDetailsModule
+          )
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

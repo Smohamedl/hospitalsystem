@@ -21,6 +21,12 @@
                 <dd>
                     <span>{{patient.address}}</span>
                 </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.patient.socialOrganizationDetails">Social Organization Details</span></dt>
+                <dd>
+                    <div *ngIf="patient.socialOrganizationDetails">
+                        <a [routerLink]="['/social-organization-details', patient.socialOrganizationDetails?.id, 'view']">{{patient.socialOrganizationDetails?.matriculeNumber}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

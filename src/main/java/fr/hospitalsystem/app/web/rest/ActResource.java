@@ -7,10 +7,15 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import fr.hospitalsystem.app.domain.Session;
+import fr.hospitalsystem.app.repository.SessionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +57,13 @@ public class ActResource {
 
     private final ActService actService;
 
-    public ActResource(ActService actService) {
+    private final SessionRepository sessionRepository;
+
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
+
+    public ActResource(SessionRepository sessionRepository, ActService actService) {
+        this.sessionRepository = sessionRepository;
         this.actService = actService;
     }
 
@@ -71,17 +82,29 @@ public class ActResource {
             throw new BadRequestAlertException("A new act cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
+        double total = act.getActype().getPrice();
+        if (act.getPatient().getSocialOrganizationDetails() != null) {
+            total =  total * ( 1 - (act.getPatient().getSocialOrganizationDetails().getSocialOrganizationRegimen().getPercentage() / 100));
+        }
         ReceiptAct receiptAct = new ReceiptAct();
         receiptAct.setDate(UPDATED_DATE);
         receiptAct.setPaid(false);
         receiptAct.setPaidDoctor(false);
-        receiptAct.setTotal(act.getActype().getPrice());
+        receiptAct.setTotal(total);
+
 
         // receiptAct.setAct(act);
 
         act.setReceiptAct(receiptAct);
 
         Act result = actService.save(act);
+
+        HttpSession httpSession = httpSessionFactory.getObject();
+        Session curentSession = (Session) httpSession.getAttribute("SessionUser");
+        curentSession.setTotalCash(curentSession.getTotalCash() + receiptAct.getTotal());
+        curentSession.setTotal(curentSession.getTotalCash() + curentSession.getTotalCheck());
+        sessionRepository.save(curentSession);
+
         return ResponseEntity.created(new URI("/api/acts/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString())).body(result);
     }

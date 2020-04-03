@@ -7,6 +7,8 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A SocialOrganization.
@@ -28,6 +30,10 @@ public class SocialOrganization implements Serializable {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @OneToMany(mappedBy = "socialOrganization")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<SocialOrganizationRegimen> socialOrganizationRegimen = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -48,6 +54,31 @@ public class SocialOrganization implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<SocialOrganizationRegimen> getSocialOrganizationRegimen() {
+        return socialOrganizationRegimen;
+    }
+
+    public SocialOrganization socialOrganizationRegimen(Set<SocialOrganizationRegimen> socialOrganizationRegimen) {
+        this.socialOrganizationRegimen = socialOrganizationRegimen;
+        return this;
+    }
+
+    public SocialOrganization addSocialOrganizationRegimen(SocialOrganizationRegimen socialOrganizationRegimen) {
+        this.socialOrganizationRegimen.add(socialOrganizationRegimen);
+        socialOrganizationRegimen.setSocialOrganization(this);
+        return this;
+    }
+
+    public SocialOrganization removeSocialOrganizationRegimen(SocialOrganizationRegimen socialOrganizationRegimen) {
+        this.socialOrganizationRegimen.remove(socialOrganizationRegimen);
+        socialOrganizationRegimen.setSocialOrganization(null);
+        return this;
+    }
+
+    public void setSocialOrganizationRegimen(Set<SocialOrganizationRegimen> socialOrganizationRegimen) {
+        this.socialOrganizationRegimen = socialOrganizationRegimen;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

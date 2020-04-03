@@ -6,6 +6,7 @@ import fr.hospitalsystem.app.domain.MedicalService;
 import fr.hospitalsystem.app.domain.Actype;
 import fr.hospitalsystem.app.domain.Doctor;
 import fr.hospitalsystem.app.repository.ActRepository;
+import fr.hospitalsystem.app.repository.SessionRepository;
 import fr.hospitalsystem.app.repository.search.ActSearchRepository;
 import fr.hospitalsystem.app.service.ActService;
 import fr.hospitalsystem.app.web.rest.errors.ExceptionTranslator;
@@ -52,6 +53,9 @@ public class ActResourceIT {
     @Autowired
     private ActService actService;
 
+    @Autowired
+    private SessionRepository sessionRepository;
+
     /**
      * This repository is mocked in the fr.hospitalsystem.app.repository.search test package.
      *
@@ -82,7 +86,7 @@ public class ActResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ActResource actResource = new ActResource(actService);
+        final ActResource actResource = new ActResource(sessionRepository, actService);
         this.restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -254,7 +258,7 @@ public class ActResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(act.getId().intValue())))
             .andExpect(jsonPath("$.[*].patientName").value(hasItem(DEFAULT_PATIENT_NAME)));
     }
-    
+
     @Test
     @Transactional
     public void getAct() throws Exception {

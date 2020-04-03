@@ -38,6 +38,10 @@ public class Patient implements Serializable {
     @Column(name = "address")
     private String address;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(unique = true)
+    private SocialOrganizationDetails socialOrganizationDetails;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -98,6 +102,19 @@ public class Patient implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public SocialOrganizationDetails getSocialOrganizationDetails() {
+        return socialOrganizationDetails;
+    }
+
+    public Patient socialOrganizationDetails(SocialOrganizationDetails socialOrganizationDetails) {
+        this.socialOrganizationDetails = socialOrganizationDetails;
+        return this;
+    }
+
+    public void setSocialOrganizationDetails(SocialOrganizationDetails socialOrganizationDetails) {
+        this.socialOrganizationDetails = socialOrganizationDetails;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -125,9 +142,5 @@ public class Patient implements Serializable {
             ", tel='" + getTel() + "'" +
             ", address='" + getAddress() + "'" +
             "}";
-    }
-    
-    public String getNametel() {
-    	return firstname + " " + name + " - " + tel;
     }
 }

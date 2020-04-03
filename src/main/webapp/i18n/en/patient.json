@@ -20,7 +20,8 @@
       "name": "Name",
       "firstname": "Firstname",
       "tel": "Tel",
-      "address": "Address"
+      "address": "Address",
+      "socialOrganizationDetails": "Social Organization Details"
     }
   }
 }

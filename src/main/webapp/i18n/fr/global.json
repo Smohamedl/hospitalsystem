@@ -20,6 +20,8 @@
         "receiptAct": "Receipt Act",
         "socialOrganization": "Social Organization",
         "session": "Session",
+        "socialOrganizationRegimen": "Social Organization Regimen",
+        "socialOrganizationDetails": "Social Organization Details",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

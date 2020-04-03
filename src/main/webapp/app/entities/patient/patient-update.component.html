@@ -42,6 +42,13 @@
                            formControlName="address"/>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.patient.socialOrganizationDetails" for="field_socialOrganizationDetails">Social Organization Details</label>
+                    <select class="form-control" id="field_socialOrganizationDetails" name="socialOrganizationDetails" formControlName="socialOrganizationDetails">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="socialOrganizationDetailsOption.id === editForm.get('socialOrganizationDetails').value?.id ? editForm.get('socialOrganizationDetails').value : socialOrganizationDetailsOption" *ngFor="let socialOrganizationDetailsOption of socialorganizationdetails; trackBy: trackSocialOrganizationDetailsById">{{socialOrganizationDetailsOption.matriculeNumber}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

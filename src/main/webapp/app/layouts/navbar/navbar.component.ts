@@ -42,8 +42,17 @@ export class NavbarComponent implements OnInit {
 
     this.eventManager.subscribe('authenticationSuccess', () => {
       console.log('authenticationSuccess called');
-      this.loadSession();
+      this.accountService.getCurrentSession().subscribe(session => {
+        localStorage.setItem('User_Session', JSON.stringify(session));
+      });
     });
+
+    setInterval(() => {
+      this.accountService.getCurrentSession().subscribe(result => {
+        localStorage.setItem('User_Session', JSON.stringify(result));
+      });
+      this.loadSession();
+    }, 30 * 1000);
   }
 
   ngOnInit() {

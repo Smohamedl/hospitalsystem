@@ -103,10 +103,10 @@ public class UserJWTController {
 
         if (isNeedSession && curentSession == null){
             Session session = new Session();
-            session.setTotal(0);
-            session.setTotalCash(0);
-            session.setTotalCheck(0);
-            session.setTotalPC(0);
+            session.setTotal(0.0);
+            session.setTotalCash(0.0);
+            session.setTotalCheck(0.0);
+            session.setTotalPC(0.0);
             session.setJhi_user(user.get());
             session.setCreated_by(user.get().getLogin());
             session.setCreated_date(Instant.now());

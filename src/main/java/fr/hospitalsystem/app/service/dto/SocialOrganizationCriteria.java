@@ -28,12 +28,15 @@ public class SocialOrganizationCriteria implements Serializable, Criteria {
 
     private StringFilter name;
 
+    private LongFilter socialOrganizationRegimenId;
+
     public SocialOrganizationCriteria(){
     }
 
     public SocialOrganizationCriteria(SocialOrganizationCriteria other){
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
+        this.socialOrganizationRegimenId = other.socialOrganizationRegimenId == null ? null : other.socialOrganizationRegimenId.copy();
     }
 
     @Override
@@ -57,6 +60,14 @@ public class SocialOrganizationCriteria implements Serializable, Criteria {
         this.name = name;
     }
 
+    public LongFilter getSocialOrganizationRegimenId() {
+        return socialOrganizationRegimenId;
+    }
+
+    public void setSocialOrganizationRegimenId(LongFilter socialOrganizationRegimenId) {
+        this.socialOrganizationRegimenId = socialOrganizationRegimenId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -69,14 +80,16 @@ public class SocialOrganizationCriteria implements Serializable, Criteria {
         final SocialOrganizationCriteria that = (SocialOrganizationCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(name, that.name);
+            Objects.equals(name, that.name) &&
+            Objects.equals(socialOrganizationRegimenId, that.socialOrganizationRegimenId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
-        name
+        name,
+        socialOrganizationRegimenId
         );
     }
 
@@ -85,6 +98,7 @@ public class SocialOrganizationCriteria implements Serializable, Criteria {
         return "SocialOrganizationCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
+                (socialOrganizationRegimenId != null ? "socialOrganizationRegimenId=" + socialOrganizationRegimenId + ", " : "") +
             "}";
     }
 

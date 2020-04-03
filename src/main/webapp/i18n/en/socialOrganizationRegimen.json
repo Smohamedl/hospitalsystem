@@ -1,0 +1,24 @@
+{
+  "hospitalsystemApp": {
+    "socialOrganizationRegimen": {
+      "home": {
+        "title": "Social Organization Regimen",
+        "createLabel": "Create a new Social Organization Regimen",
+        "createOrEditLabel": "Create or edit a Social Organization Regimen",
+        "search": "Search for Social Organization Regimen",
+        "notFound": "No Social Organization Regimen found"
+      },
+      "created": "A new Social Organization Regimen is created with identifier {{ param }}",
+      "updated": "A Social Organization Regimen is updated with identifier {{ param }}",
+      "deleted": "A Social Organization Regimen is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Social Organization Regimen {{ id }}?"
+      },
+      "detail": {
+        "title": "Social Organization Regimen"
+      },
+      "percentage": "Percentage",
+      "socialOrganization": "Social Organization"
+    }
+  }
+}

@@ -41,17 +41,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = HospitalsystemApp.class)
 public class SessionResourceIT {
 
-    private static final Integer DEFAULT_TOTAL_CASH = 1;
-    private static final Integer UPDATED_TOTAL_CASH = 2;
+    private static final Double DEFAULT_TOTAL_CASH = 1.0;
+    private static final Double UPDATED_TOTAL_CASH = 2.0;
 
-    private static final Integer DEFAULT_TOTAL_PC = 1;
-    private static final Integer UPDATED_TOTAL_PC = 2;
+    private static final Double DEFAULT_TOTAL_PC = 1.0;
+    private static final Double UPDATED_TOTAL_PC = 2.0;
 
-    private static final Integer DEFAULT_TOTAL = 1;
-    private static final Integer UPDATED_TOTAL = 2;
+    private static final Double DEFAULT_TOTAL = 1.0;
+    private static final Double UPDATED_TOTAL = 2.0;
 
-    private static final Integer DEFAULT_TOTAL_CHECK = 1;
-    private static final Integer UPDATED_TOTAL_CHECK = 2;
+    private static final Double DEFAULT_TOTAL_CHECK = 1.0;
+    private static final Double UPDATED_TOTAL_CHECK = 2.0;
 
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
