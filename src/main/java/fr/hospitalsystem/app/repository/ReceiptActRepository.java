@@ -14,6 +14,7 @@ import fr.hospitalsystem.app.domain.ReceiptAct;
 @SuppressWarnings("unused")
 @Repository
 public interface ReceiptActRepository extends JpaRepository<ReceiptAct, Long> {
-    @Query("select a.receiptAct from Act a where a.doctor.name = ?1")
+    // @Query("select a.receiptAct from Act a where a.doctor.name = ?1")
+    @Query("select r from ReceiptAct r where r.act.doctor.name = ?1")
     Page<ReceiptAct> findByService(String service, Pageable pageable);
 }

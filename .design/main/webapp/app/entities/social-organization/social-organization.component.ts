@@ -1,20 +1,22 @@
+import {ElementSelectionService} from './../../../../../app/element-selection.service';
+import {ComponentInspectorService} from './../../../../../app/component-inspector.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
-import { IReceiptAct } from 'app/shared/model/receipt-act.model';
+import { ISocialOrganization } from 'app/shared/model/social-organization.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { ReceiptActService } from './receipt-act.service';
+import { SocialOrganizationService } from './social-organization.service';
 
 @Component({
-  selector: 'jhi-receipt-act',
-  templateUrl: './receipt-act.component.html'
+  selector: 'jhi-social-organization',
+  templateUrl: './social-organization.component.html'
 })
-export class ReceiptActComponent implements OnInit, OnDestroy {
-  receiptActs: IReceiptAct[];
+export class SocialOrganizationComponent implements OnInit, OnDestroy {
+  socialOrganizations: ISocialOrganization[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -28,13 +30,15 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
-  constructor(
-    protected receiptActService: ReceiptActService,
+  constructor(public __elementSelectionService:ElementSelectionService, private __componentInspectorService:ComponentInspectorService,
+
+    protected socialOrganizationService: SocialOrganizationService,
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager
-  ) {
+  ) {this.__componentInspectorService.getComp(this);
+
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -50,23 +54,23 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
 
   loadAll() {
     if (this.currentSearch) {
-      this.receiptActService
+      this.socialOrganizationService
         .search({
           page: this.page - 1,
           query: this.currentSearch,
           size: this.itemsPerPage,
           sort: this.sort()
         })
-        .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+        .subscribe((res: HttpResponse<ISocialOrganization[]>) => this.paginateSocialOrganizations(res.body, res.headers));
       return;
     }
-    this.receiptActService
+    this.socialOrganizationService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+      .subscribe((res: HttpResponse<ISocialOrganization[]>) => this.paginateSocialOrganizations(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -77,7 +81,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/receipt-act'], {
+    this.router.navigate(['/social-organization'], {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
@@ -92,7 +96,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.currentSearch = '';
     this.router.navigate([
-      '/receipt-act',
+      '/social-organization',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -108,7 +112,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.currentSearch = query;
     this.router.navigate([
-      '/receipt-act',
+      '/social-organization',
       {
         search: this.currentSearch,
         page: this.page,
@@ -120,19 +124,19 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.registerChangeInReceiptActs();
+    this.registerChangeInSocialOrganizations();
   }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IReceiptAct) {
+  trackId(index: number, item: ISocialOrganization) {
     return item.id;
   }
 
-  registerChangeInReceiptActs() {
-    this.eventSubscriber = this.eventManager.subscribe('receiptActListModification', () => this.loadAll());
+  registerChangeInSocialOrganizations() {
+    this.eventSubscriber = this.eventManager.subscribe('socialOrganizationListModification', () => this.loadAll());
   }
 
   sort() {
@@ -143,9 +147,9 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateReceiptActs(data: IReceiptAct[], headers: HttpHeaders) {
+  protected paginateSocialOrganizations(data: ISocialOrganization[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.receiptActs = data;
+    this.socialOrganizations = data;
   }
 }

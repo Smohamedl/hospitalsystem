@@ -111,7 +111,8 @@
       "delete": "Supprimer",
       "open": "Ouvrir",
       "save": "Sauvegarder",
-      "view": "Voir"
+      "view": "Voir",
+      "download": "Telecharger"
     },
     "detail": {
       "field": "Champs",

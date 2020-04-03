@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IReceiptAct } from 'app/shared/model/receipt-act.model';
+import { HttpHeaders} from '@angular/common/http';
 
 type EntityResponseType = HttpResponse<IReceiptAct>;
 type EntityArrayResponseType = HttpResponse<IReceiptAct[]>;
@@ -50,6 +51,14 @@ export class ReceiptActService {
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+  
+  download(id: number): Observable<HttpResponse<any>> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'application/pdf; charset=utf-8');
+    return this.http.get<any>(`${this.resourceUrl}/download/${id}`, {headers,
+      observe: 'response',
+      responseType: 'blob' });
+  }
 
   search(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
@@ -62,6 +71,13 @@ export class ReceiptActService {
     const options = createRequestOption(req);
     return this.http
       .get<IReceiptAct[]>(`${this.resourceUrl}/doctor/${_doctor}`, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+  
+  searchByDoctor(req: any, _doctor: string): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IReceiptAct[]>(`${this.resourceSearchUrl}/doctor/${_doctor}`, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

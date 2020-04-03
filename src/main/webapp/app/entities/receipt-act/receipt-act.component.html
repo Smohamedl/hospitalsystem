@@ -1,13 +1,4 @@
 <div>
-    <h2 id="page-heading">
-        <span jhiTranslate="hospitalsystemApp.receiptAct.home.title">Receipt Acts</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-receipt-act" [routerLink]="['/receipt-act/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down"  jhiTranslate="hospitalsystemApp.receiptAct.home.createLabel">
-            Create a new Receipt Act
-            </span>
-        </button>
-    </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
@@ -107,13 +98,20 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
+                        <button 
+                            type="button"
+                            (click)= "download(receiptAct.id)"
+                             class="btn btn-success btn-sm">
+                            <fa-icon [icon]="'file-download'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.download">Download</span>
+                        </button>
                         <button type="submit"
                                 [routerLink]="['/receipt-act', receiptAct.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button *ngIf="!receiptAct.paid" type="submit"
                                 [routerLink]="['/receipt-act', { outlets: { popup: receiptAct.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

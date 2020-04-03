@@ -14,7 +14,6 @@ import { ReceiptActService } from './receipt-act.service';
 import { HttpErrorResponse } from '@angular/common/http';
 //eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 import { IMedicalService } from 'app/shared/model/medical-service.model';
@@ -22,6 +21,8 @@ import { MedicalServiceService } from 'app/entities/medical-service/medical-serv
 import { IDoctor } from 'app/shared/model/doctor.model';
 import { DoctorService } from 'app/entities/doctor/doctor.service';
 import { ICat, Cat } from 'app/shared/model/cat.model';
+import { SERVER_API_URL } from 'app/app.constants';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'jhi-receipt-act',
@@ -41,6 +42,8 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  receiptsByDoctor : boolean;
+  receiptUrl = SERVER_API_URL + '/api/receipt-acts';
 
   isSaving: boolean;
 
@@ -49,25 +52,26 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   doctors: IDoctor[];
   dateDp: any;
 
-  editForm = this.fb.group({
+  edipublic __elementSelectionService:ElementSelectionService, private __componentInspectorService:ComponentInspectorService,
+tForm = this.fb.group({
     id: [],
     medicalService: [null, Validators.required],
     doctor: [null, Validators.required]
   });
 
-  constructor(public __elementSelectionService:ElementSelectionService, private __componentInspectorService:ComponentInspectorService,
-
+  constructor(
     protected receiptActService: ReceiptActService,
     protected parseLinks: JhiParseLinks,
     protected router: Router,
     protected eventManager: JhiEventManager,
     protected jhiAlertService: JhiAlertService,
-    protected medicalServiceService: MedicalServiceService,
+    protected medicalServiceService: this.__componentInspectorService.getComp(this);
+MedicalServiceService,
     protected doctorService: DoctorService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {this.__componentInspectorService.getComp(this);
-
+  ) {
+    this.receiptsByDoctor = false;
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -79,10 +83,29 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
         ? this.activatedRoute.snapshot.queryParams['search']
         : '';
+        
   }
 
   loadAll() {
+    console.log('##################  ' + this.receiptsByDoctor);
     if (this.currentSearch) {
+      if(this.receiptsByDoctor){
+        this.receiptActService
+        .searchByDoctor(
+          {
+            page: this.page - 1,
+            query: this.currentSearch,
+            size: this.itemsPerPage,
+            sort: this.sort()
+          },
+          this.editForm.get(['medicalService']).value.name
+        )
+        .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+        
+        return;
+      }
+      
+      
       this.receiptActService
         .search({
           page: this.page - 1,
@@ -93,6 +116,22 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
         .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
       return;
     }
+    
+    if(this.receiptsByDoctor){
+      this.receiptActService
+      .findByDoctor(
+        {
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        },
+        this.editForm.get(['medicalService']).value.name
+      )
+      .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+
+      return;
+    }
+    
     this.receiptActService
       .query({
         page: this.page - 1,
@@ -214,6 +253,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    this.receiptsByDoctor= true;
     this.receiptActService
       .findByDoctor(
         {
@@ -224,6 +264,30 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
         this.editForm.get(['medicalService']).value.name
       )
       .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+  }
+  
+  download(id: number){
+    this.receiptActService.download(id).subscribe(response => {
+        const filename = "recu.pdf";
+        
+        this.saveFile(response.body, filename);
+ 
+      });
+  }
+  
+  down(){
+    this.receiptActService.download(1).subscribe(response => {
+      const filename = "recu.pdf";
+      
+      this.saveFile(response.body, filename);
+
+      this.previousState();
+    });
+  }
+  
+  saveFile(data: any, filename?: string) {
+    const blob = new Blob([data], {type: 'application/pdf; charset=utf-8'});
+    fileSaver.saveAs(blob, filename);
   }
 
   private createFromForm(): ICat {

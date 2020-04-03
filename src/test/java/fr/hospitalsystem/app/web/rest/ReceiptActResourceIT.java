@@ -1,10 +1,26 @@
 package fr.hospitalsystem.app.web.rest;
 
-import fr.hospitalsystem.app.HospitalsystemApp;
-import fr.hospitalsystem.app.domain.ReceiptAct;
-import fr.hospitalsystem.app.repository.ReceiptActRepository;
-import fr.hospitalsystem.app.repository.search.ReceiptActSearchRepository;
-import fr.hospitalsystem.app.web.rest.errors.ExceptionTranslator;
+import static fr.hospitalsystem.app.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Collections;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,19 +37,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import static fr.hospitalsystem.app.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import fr.hospitalsystem.app.HospitalsystemApp;
+import fr.hospitalsystem.app.domain.ReceiptAct;
+import fr.hospitalsystem.app.repository.ActRepository;
+import fr.hospitalsystem.app.repository.PatientRepository;
+import fr.hospitalsystem.app.repository.ReceiptActRepository;
+import fr.hospitalsystem.app.repository.search.ReceiptActSearchRepository;
+import fr.hospitalsystem.app.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@link ReceiptActResource} REST controller.
@@ -79,6 +89,12 @@ public class ReceiptActResourceIT {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private ActRepository actRepository;
+
     private MockMvc restReceiptActMockMvc;
 
     private ReceiptAct receiptAct;
@@ -86,41 +102,28 @@ public class ReceiptActResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ReceiptActResource receiptActResource = new ReceiptActResource(receiptActRepository, mockReceiptActSearchRepository);
-        this.restReceiptActMockMvc = MockMvcBuilders.standaloneSetup(receiptActResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
+        final ReceiptActResource receiptActResource = new ReceiptActResource(receiptActRepository, mockReceiptActSearchRepository, patientRepository,
+                actRepository);
+        this.restReceiptActMockMvc = MockMvcBuilders.standaloneSetup(receiptActResource).setCustomArgumentResolvers(pageableArgumentResolver)
+                .setControllerAdvice(exceptionTranslator).setConversionService(createFormattingConversionService())
+                .setMessageConverters(jacksonMessageConverter).setValidator(validator).build();
     }
 
     /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
+     * Create an entity for this test. This is a static method, as tests for other entities might also need it, if they test an entity which requires
+     * the current entity.
      */
     public static ReceiptAct createEntity(EntityManager em) {
-        ReceiptAct receiptAct = new ReceiptAct()
-            .total(DEFAULT_TOTAL)
-            .paid(DEFAULT_PAID)
-            .paidDoctor(DEFAULT_PAID_DOCTOR)
-            .date(DEFAULT_DATE);
+        ReceiptAct receiptAct = new ReceiptAct().total(DEFAULT_TOTAL).paid(DEFAULT_PAID).paidDoctor(DEFAULT_PAID_DOCTOR).date(DEFAULT_DATE);
         return receiptAct;
     }
+
     /**
-     * Create an updated entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
+     * Create an updated entity for this test. This is a static method, as tests for other entities might also need it, if they test an entity which
+     * requires the current entity.
      */
     public static ReceiptAct createUpdatedEntity(EntityManager em) {
-        ReceiptAct receiptAct = new ReceiptAct()
-            .total(UPDATED_TOTAL)
-            .paid(UPDATED_PAID)
-            .paidDoctor(UPDATED_PAID_DOCTOR)
-            .date(UPDATED_DATE);
+        ReceiptAct receiptAct = new ReceiptAct().total(UPDATED_TOTAL).paid(UPDATED_PAID).paidDoctor(UPDATED_PAID_DOCTOR).date(UPDATED_DATE);
         return receiptAct;
     }
 
@@ -135,10 +138,9 @@ public class ReceiptActResourceIT {
         int databaseSizeBeforeCreate = receiptActRepository.findAll().size();
 
         // Create the ReceiptAct
-        restReceiptActMockMvc.perform(post("/api/receipt-acts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(receiptAct)))
-            .andExpect(status().isCreated());
+        restReceiptActMockMvc
+                .perform(post("/api/receipt-acts").contentType(TestUtil.APPLICATION_JSON_UTF8).content(TestUtil.convertObjectToJsonBytes(receiptAct)))
+                .andExpect(status().isCreated());
 
         // Validate the ReceiptAct in the database
         List<ReceiptAct> receiptActList = receiptActRepository.findAll();
@@ -162,10 +164,9 @@ public class ReceiptActResourceIT {
         receiptAct.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restReceiptActMockMvc.perform(post("/api/receipt-acts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(receiptAct)))
-            .andExpect(status().isBadRequest());
+        restReceiptActMockMvc
+                .perform(post("/api/receipt-acts").contentType(TestUtil.APPLICATION_JSON_UTF8).content(TestUtil.convertObjectToJsonBytes(receiptAct)))
+                .andExpect(status().isBadRequest());
 
         // Validate the ReceiptAct in the database
         List<ReceiptAct> receiptActList = receiptActRepository.findAll();
@@ -175,7 +176,6 @@ public class ReceiptActResourceIT {
         verify(mockReceiptActSearchRepository, times(0)).save(receiptAct);
     }
 
-
     @Test
     @Transactional
     public void getAllReceiptActs() throws Exception {
@@ -183,16 +183,15 @@ public class ReceiptActResourceIT {
         receiptActRepository.saveAndFlush(receiptAct);
 
         // Get all the receiptActList
-        restReceiptActMockMvc.perform(get("/api/receipt-acts?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(receiptAct.getId().intValue())))
-            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].paid").value(hasItem(DEFAULT_PAID.booleanValue())))
-            .andExpect(jsonPath("$.[*].paidDoctor").value(hasItem(DEFAULT_PAID_DOCTOR.booleanValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+        restReceiptActMockMvc.perform(get("/api/receipt-acts?sort=id,desc")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(receiptAct.getId().intValue())))
+                .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.doubleValue())))
+                .andExpect(jsonPath("$.[*].paid").value(hasItem(DEFAULT_PAID.booleanValue())))
+                .andExpect(jsonPath("$.[*].paidDoctor").value(hasItem(DEFAULT_PAID_DOCTOR.booleanValue())))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getReceiptAct() throws Exception {
@@ -200,22 +199,19 @@ public class ReceiptActResourceIT {
         receiptActRepository.saveAndFlush(receiptAct);
 
         // Get the receiptAct
-        restReceiptActMockMvc.perform(get("/api/receipt-acts/{id}", receiptAct.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(receiptAct.getId().intValue()))
-            .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.doubleValue()))
-            .andExpect(jsonPath("$.paid").value(DEFAULT_PAID.booleanValue()))
-            .andExpect(jsonPath("$.paidDoctor").value(DEFAULT_PAID_DOCTOR.booleanValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
+        restReceiptActMockMvc.perform(get("/api/receipt-acts/{id}", receiptAct.getId())).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id").value(receiptAct.getId().intValue())).andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.doubleValue()))
+                .andExpect(jsonPath("$.paid").value(DEFAULT_PAID.booleanValue()))
+                .andExpect(jsonPath("$.paidDoctor").value(DEFAULT_PAID_DOCTOR.booleanValue()))
+                .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
 
     @Test
     @Transactional
     public void getNonExistingReceiptAct() throws Exception {
         // Get the receiptAct
-        restReceiptActMockMvc.perform(get("/api/receipt-acts/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restReceiptActMockMvc.perform(get("/api/receipt-acts/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
@@ -230,16 +226,11 @@ public class ReceiptActResourceIT {
         ReceiptAct updatedReceiptAct = receiptActRepository.findById(receiptAct.getId()).get();
         // Disconnect from session so that the updates on updatedReceiptAct are not directly saved in db
         em.detach(updatedReceiptAct);
-        updatedReceiptAct
-            .total(UPDATED_TOTAL)
-            .paid(UPDATED_PAID)
-            .paidDoctor(UPDATED_PAID_DOCTOR)
-            .date(UPDATED_DATE);
+        updatedReceiptAct.total(UPDATED_TOTAL).paid(UPDATED_PAID).paidDoctor(UPDATED_PAID_DOCTOR).date(UPDATED_DATE);
 
-        restReceiptActMockMvc.perform(put("/api/receipt-acts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedReceiptAct)))
-            .andExpect(status().isOk());
+        restReceiptActMockMvc.perform(
+                put("/api/receipt-acts").contentType(TestUtil.APPLICATION_JSON_UTF8).content(TestUtil.convertObjectToJsonBytes(updatedReceiptAct)))
+                .andExpect(status().isOk());
 
         // Validate the ReceiptAct in the database
         List<ReceiptAct> receiptActList = receiptActRepository.findAll();
@@ -262,10 +253,9 @@ public class ReceiptActResourceIT {
         // Create the ReceiptAct
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restReceiptActMockMvc.perform(put("/api/receipt-acts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(receiptAct)))
-            .andExpect(status().isBadRequest());
+        restReceiptActMockMvc
+                .perform(put("/api/receipt-acts").contentType(TestUtil.APPLICATION_JSON_UTF8).content(TestUtil.convertObjectToJsonBytes(receiptAct)))
+                .andExpect(status().isBadRequest());
 
         // Validate the ReceiptAct in the database
         List<ReceiptAct> receiptActList = receiptActRepository.findAll();
@@ -284,9 +274,8 @@ public class ReceiptActResourceIT {
         int databaseSizeBeforeDelete = receiptActRepository.findAll().size();
 
         // Delete the receiptAct
-        restReceiptActMockMvc.perform(delete("/api/receipt-acts/{id}", receiptAct.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isNoContent());
+        restReceiptActMockMvc.perform(delete("/api/receipt-acts/{id}", receiptAct.getId()).accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<ReceiptAct> receiptActList = receiptActRepository.findAll();
@@ -302,15 +291,14 @@ public class ReceiptActResourceIT {
         // Initialize the database
         receiptActRepository.saveAndFlush(receiptAct);
         when(mockReceiptActSearchRepository.search(queryStringQuery("id:" + receiptAct.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(receiptAct), PageRequest.of(0, 1), 1));
+                .thenReturn(new PageImpl<>(Collections.singletonList(receiptAct), PageRequest.of(0, 1), 1));
         // Search the receiptAct
-        restReceiptActMockMvc.perform(get("/api/_search/receipt-acts?query=id:" + receiptAct.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(receiptAct.getId().intValue())))
-            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].paid").value(hasItem(DEFAULT_PAID.booleanValue())))
-            .andExpect(jsonPath("$.[*].paidDoctor").value(hasItem(DEFAULT_PAID_DOCTOR.booleanValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+        restReceiptActMockMvc.perform(get("/api/_search/receipt-acts?query=id:" + receiptAct.getId())).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(receiptAct.getId().intValue())))
+                .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.doubleValue())))
+                .andExpect(jsonPath("$.[*].paid").value(hasItem(DEFAULT_PAID.booleanValue())))
+                .andExpect(jsonPath("$.[*].paidDoctor").value(hasItem(DEFAULT_PAID_DOCTOR.booleanValue())))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
 }

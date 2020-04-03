@@ -19,6 +19,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -41,27 +42,28 @@ public class Act implements Serializable {
     @Column(name = "patient_name", nullable = false)
     private String patientName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JsonIgnoreProperties("acts")
     private MedicalService medicalService;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JsonIgnoreProperties("acts")
     private Actype actype;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JsonIgnoreProperties("acts")
     private Doctor doctor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("acts")
     private Patient patient;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @JoinColumn(unique = true)
+    @JsonBackReference
     private ReceiptAct receiptAct;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -172,4 +174,22 @@ public class Act implements Serializable {
     public String toString() {
         return "Act{" + "id=" + getId() + ", patientName='" + getPatientName() + "'" + "}";
     }
+
+    /*
+     * public LocalDate getDate() { return this.receiptAct == null ? null : this.receiptAct.getDate(); }
+     * 
+     * public Double getTotal() { return this.receiptAct == null ? null : this.getReceiptAct().getTotal(); }
+     * 
+     * public Boolean isPaidDoctor() { return this.receiptAct == null ? null : this.receiptAct.isPaidDoctor(); }
+     * 
+     * public Boolean isPaid() { return this.receiptAct == null ? null : this.receiptAct.isPaid(); }
+     * 
+     * public void setTotal(Double t) { return; }
+     * 
+     * public void paid(Boolean t) { return; }
+     * 
+     * public void paidDoctor(Boolean t) { return; }
+     * 
+     * public void setDate(LocalDate t) { return; }
+     */
 }
