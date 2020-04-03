@@ -52,25 +52,25 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   doctors: IDoctor[];
   dateDp: any;
 
-  edipublic __elementSelectionService:ElementSelectionService, private __componentInspectorService:ComponentInspectorService,
-tForm = this.fb.group({
+  editForm = this.fb.group({
     id: [],
     medicalService: [null, Validators.required],
     doctor: [null, Validators.required]
   });
 
-  constructor(
+  constructor(public __elementSelectionService:ElementSelectionService, private __componentInspectorService:ComponentInspectorService,
+
     protected receiptActService: ReceiptActService,
     protected parseLinks: JhiParseLinks,
     protected router: Router,
     protected eventManager: JhiEventManager,
     protected jhiAlertService: JhiAlertService,
-    protected medicalServiceService: this.__componentInspectorService.getComp(this);
-MedicalServiceService,
+    protected medicalServiceService: MedicalServiceService,
     protected doctorService: DoctorService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {
+  ) {this.__componentInspectorService.getComp(this);
+
     this.receiptsByDoctor = false;
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {

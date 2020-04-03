@@ -175,21 +175,4 @@ public class Act implements Serializable {
         return "Act{" + "id=" + getId() + ", patientName='" + getPatientName() + "'" + "}";
     }
 
-    /*
-     * public LocalDate getDate() { return this.receiptAct == null ? null : this.receiptAct.getDate(); }
-     * 
-     * public Double getTotal() { return this.receiptAct == null ? null : this.getReceiptAct().getTotal(); }
-     * 
-     * public Boolean isPaidDoctor() { return this.receiptAct == null ? null : this.receiptAct.isPaidDoctor(); }
-     * 
-     * public Boolean isPaid() { return this.receiptAct == null ? null : this.receiptAct.isPaid(); }
-     * 
-     * public void setTotal(Double t) { return; }
-     * 
-     * public void paid(Boolean t) { return; }
-     * 
-     * public void paidDoctor(Boolean t) { return; }
-     * 
-     * public void setDate(LocalDate t) { return; }
-     */
 }
