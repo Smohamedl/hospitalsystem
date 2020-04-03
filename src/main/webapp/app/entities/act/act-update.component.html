@@ -62,12 +62,18 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.patient" for="field_patient">Patient</label>
-                    <select class="form-control" id="field_patient" name="patient" formControlName="patient">
+                    <select class="form-control" id="field_patient" name="patient" formControlName="patient" (change)="somethingChanged()">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="patientOption.id === editForm.get('patient').value?.id ? editForm.get('patient').value : patientOption" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.name}}</option>
                     </select>
                 </div>
-               
+
+                <div>
+                    <label for="id" jhiTranslate="global.field.ndeclaration">Declaration N°</label>
+                    <input type="text" class="form-control" value='{{declarationNumber}}' readonly />
+                </div>
+                <br/>
+
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

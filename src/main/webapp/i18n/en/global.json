@@ -94,7 +94,8 @@
       }
     },
     "field": {
-      "id": "ID"
+      "id": "ID",
+      "ndeclaration": "Declaration N°"
     },
     "ribbon": {
       "dev": "Development"

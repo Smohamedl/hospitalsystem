@@ -36,6 +36,8 @@ export class ActUpdateComponent implements OnInit {
 
   receiptacts: IReceiptAct[];
 
+  declarationNumber: String;
+
   editForm = this.fb.group({
     id: [],
     patientName: [null, [Validators.required]],
@@ -56,7 +58,9 @@ export class ActUpdateComponent implements OnInit {
     protected receiptActService: ReceiptActService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.declarationNumber = 'Non declaré';
+  }
 
   ngOnInit() {
     this.isSaving = false;
@@ -168,5 +172,12 @@ export class ActUpdateComponent implements OnInit {
 
   trackReceiptActById(index: number, item: IReceiptAct) {
     return item.id;
+  }
+  somethingChanged() {
+    if (this.editForm.get('patient').value.socialOrganizationDetails != null) {
+      this.declarationNumber = this.editForm.get('patient').value.socialOrganizationDetails.registrationNumber;
+    } else {
+      this.declarationNumber = 'Non declaré';
+    }
   }
 }
