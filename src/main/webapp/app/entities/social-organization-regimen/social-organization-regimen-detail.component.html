@@ -12,7 +12,7 @@
                 <dt><span jhiTranslate="hospitalsystemApp.socialOrganizationRegimen.socialOrganization">Social Organization</span></dt>
                 <dd>
                     <div *ngIf="socialOrganizationRegimen.socialOrganization">
-                        <a [routerLink]="['/social-organization', socialOrganizationRegimen.socialOrganization?.name, 'view']">{{socialOrganizationRegimen.socialOrganization?.name}}</a>
+                        <a [routerLink]="['/social-organization', socialOrganizationRegimen.socialOrganization?.id, 'view']">{{socialOrganizationRegimen.socialOrganization?.name}}</a>
                     </div>
                 </dd>
             </dl>

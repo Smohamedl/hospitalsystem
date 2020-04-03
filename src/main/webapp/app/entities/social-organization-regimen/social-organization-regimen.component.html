@@ -45,7 +45,7 @@
                 <td>{{socialOrganizationRegimen.percentage}}</td>
                 <td>
                     <div *ngIf="socialOrganizationRegimen.socialOrganization">
-                        <a [routerLink]="['/social-organization', socialOrganizationRegimen.socialOrganization?.name, 'view' ]" >{{socialOrganizationRegimen.socialOrganization?.name}}</a>
+                        <a [routerLink]="['/social-organization', socialOrganizationRegimen.socialOrganization?.id, 'view' ]" >{{socialOrganizationRegimen.socialOrganization?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">
