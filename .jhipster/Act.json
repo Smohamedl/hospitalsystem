@@ -47,6 +47,16 @@
             "ownerSide": true,
             "useJPADerivedIdentifier": false,
             "otherEntityRelationshipName": "act"
+        },
+        {
+            "relationshipName": "paymentMethod",
+            "otherEntityName": "paymentMethod",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "act"
         }
     ],
     "fields": [

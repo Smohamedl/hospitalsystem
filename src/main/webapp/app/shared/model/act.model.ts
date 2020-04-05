@@ -3,6 +3,7 @@ import { IActype } from 'app/shared/model/actype.model';
 import { IDoctor } from 'app/shared/model/doctor.model';
 import { IPatient } from 'app/shared/model/patient.model';
 import { IReceiptAct } from 'app/shared/model/receipt-act.model';
+import { IPaymentMethod } from 'app/shared/model/payment-method.model';
 
 export interface IAct {
   id?: number;
@@ -12,6 +13,7 @@ export interface IAct {
   doctor?: IDoctor;
   patient?: IPatient;
   receiptAct?: IReceiptAct;
+  paymentMethod?: IPaymentMethod;
 }
 
 export class Act implements IAct {
@@ -22,6 +24,7 @@ export class Act implements IAct {
     public actype?: IActype,
     public doctor?: IDoctor,
     public patient?: IPatient,
-    public receiptAct?: IReceiptAct
+    public receiptAct?: IReceiptAct,
+    public paymentMethod?: IPaymentMethod
   ) {}
 }

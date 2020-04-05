@@ -22,7 +22,8 @@
       "actype": "Actype",
       "doctor": "Doctor",
       "patient": "Patient",
-      "receiptAct": "Receipt Act"
+      "receiptAct": "Receipt Act",
+      "paymentMethod": "Payment Method"
     }
   }
 }

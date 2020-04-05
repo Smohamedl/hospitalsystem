@@ -22,6 +22,7 @@
         "session": "Session",
         "socialOrganizationRegimen": "Social Organization Regimen",
         "socialOrganizationDetails": "Social Organization Details",
+        "paymentMethod": "Payment Method",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -39,6 +39,12 @@
                         <a [routerLink]="['/receipt-act', act.receiptAct?.id, 'view']">{{act.receiptAct?.id}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.act.paymentMethod">Payment Method</span></dt>
+                <dd>
+                    <div *ngIf="act.paymentMethod">
+                        <a [routerLink]="['/payment-method', act.paymentMethod?.id, 'view']">{{act.paymentMethod?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

@@ -72,8 +72,19 @@
                     <label for="id" jhiTranslate="global.field.ndeclaration">Declaration N°</label>
                     <input type="text" class="form-control" value='{{declarationNumber}}' readonly />
                 </div>
-                <br/>
-
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.paymentMethod" for="field_paymentMethod">Payment Method</label>
+                    <select class="form-control" id="field_paymentMethod" name="paymentMethod" formControlName="paymentMethod">
+                        <option *ngIf="!editForm.get('paymentMethod').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="paymentMethodOption.id === editForm.get('paymentMethod').value?.id ? editForm.get('paymentMethod').value : paymentMethodOption" *ngFor="let paymentMethodOption of paymentmethods; trackBy: trackPaymentMethodById">{{paymentMethodOption.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('paymentMethod').invalid && (editForm.get('paymentMethod').dirty || editForm.get('paymentMethod').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('paymentMethod').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

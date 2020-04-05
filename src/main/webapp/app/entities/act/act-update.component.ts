@@ -18,6 +18,8 @@ import { IPatient } from 'app/shared/model/patient.model';
 import { PatientService } from 'app/entities/patient/patient.service';
 import { IReceiptAct } from 'app/shared/model/receipt-act.model';
 import { ReceiptActService } from 'app/entities/receipt-act/receipt-act.service';
+import { IPaymentMethod } from 'app/shared/model/payment-method.model';
+import { PaymentMethodService } from 'app/entities/payment-method/payment-method.service';
 
 @Component({
   selector: 'jhi-act-update',
@@ -36,6 +38,8 @@ export class ActUpdateComponent implements OnInit {
 
   receiptacts: IReceiptAct[];
 
+  paymentmethods: IPaymentMethod[];
+
   declarationNumber: String;
 
   editForm = this.fb.group({
@@ -45,7 +49,8 @@ export class ActUpdateComponent implements OnInit {
     actype: [null, Validators.required],
     doctor: [null, Validators.required],
     patient: [],
-    receiptAct: []
+    receiptAct: [],
+    paymentMethod: [null, Validators.required]
   });
 
   constructor(
@@ -56,6 +61,7 @@ export class ActUpdateComponent implements OnInit {
     protected doctorService: DoctorService,
     protected patientService: PatientService,
     protected receiptActService: ReceiptActService,
+    protected paymentMethodService: PaymentMethodService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {
@@ -97,6 +103,12 @@ export class ActUpdateComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+    this.paymentMethodService
+      .query()
+      .subscribe(
+        (res: HttpResponse<IPaymentMethod[]>) => (this.paymentmethods = res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   updateForm(act: IAct) {
@@ -107,7 +119,8 @@ export class ActUpdateComponent implements OnInit {
       actype: act.actype,
       doctor: act.doctor,
       patient: act.patient,
-      receiptAct: act.receiptAct
+      receiptAct: act.receiptAct,
+      paymentMethod: act.paymentMethod
     });
   }
 
@@ -134,7 +147,8 @@ export class ActUpdateComponent implements OnInit {
       actype: this.editForm.get(['actype']).value,
       doctor: this.editForm.get(['doctor']).value,
       patient: this.editForm.get(['patient']).value,
-      receiptAct: this.editForm.get(['receiptAct']).value
+      receiptAct: this.editForm.get(['receiptAct']).value,
+      paymentMethod: this.editForm.get(['paymentMethod']).value
     };
   }
 
@@ -179,5 +193,8 @@ export class ActUpdateComponent implements OnInit {
     } else {
       this.declarationNumber = 'Non declaré';
     }
+  }
+  trackPaymentMethodById(index: number, item: IPaymentMethod) {
+    return item.id;
   }
 }

@@ -5,7 +5,9 @@ import fr.hospitalsystem.app.domain.Act;
 import fr.hospitalsystem.app.domain.MedicalService;
 import fr.hospitalsystem.app.domain.Actype;
 import fr.hospitalsystem.app.domain.Doctor;
+import fr.hospitalsystem.app.domain.PaymentMethod;
 import fr.hospitalsystem.app.repository.ActRepository;
+import fr.hospitalsystem.app.repository.ReceiptActRepository;
 import fr.hospitalsystem.app.repository.SessionRepository;
 import fr.hospitalsystem.app.repository.search.ActSearchRepository;
 import fr.hospitalsystem.app.service.ActService;
@@ -54,7 +56,10 @@ public class ActResourceIT {
     private ActService actService;
 
     @Autowired
-    private SessionRepository sessionRepository;
+    private  SessionRepository sessionRepository;
+
+    @Autowired
+    private ReceiptActRepository receiptActRepository;
 
     /**
      * This repository is mocked in the fr.hospitalsystem.app.repository.search test package.
@@ -86,7 +91,7 @@ public class ActResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ActResource actResource = new ActResource(sessionRepository, actService);
+        final ActResource actResource = new ActResource(sessionRepository, actService, receiptActRepository);
         this.restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -134,6 +139,16 @@ public class ActResourceIT {
             doctor = TestUtil.findAll(em, Doctor.class).get(0);
         }
         act.setDoctor(doctor);
+        // Add required entity
+        PaymentMethod paymentMethod;
+        if (TestUtil.findAll(em, PaymentMethod.class).isEmpty()) {
+            paymentMethod = PaymentMethodResourceIT.createEntity(em);
+            em.persist(paymentMethod);
+            em.flush();
+        } else {
+            paymentMethod = TestUtil.findAll(em, PaymentMethod.class).get(0);
+        }
+        act.setPaymentMethod(paymentMethod);
         return act;
     }
     /**
@@ -175,6 +190,16 @@ public class ActResourceIT {
             doctor = TestUtil.findAll(em, Doctor.class).get(0);
         }
         act.setDoctor(doctor);
+        // Add required entity
+        PaymentMethod paymentMethod;
+        if (TestUtil.findAll(em, PaymentMethod.class).isEmpty()) {
+            paymentMethod = PaymentMethodResourceIT.createUpdatedEntity(em);
+            em.persist(paymentMethod);
+            em.flush();
+        } else {
+            paymentMethod = TestUtil.findAll(em, PaymentMethod.class).get(0);
+        }
+        act.setPaymentMethod(paymentMethod);
         return act;
     }
 

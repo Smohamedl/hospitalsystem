@@ -38,5 +38,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="receipt_act"/>
 
+        <addForeignKeyConstraint baseColumnNames="payment_method_id"
+                                 baseTableName="act"
+                                 constraintName="fk_act_payment_method_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="payment_method"/>
+
     </changeSet>
 </databaseChangeLog>
