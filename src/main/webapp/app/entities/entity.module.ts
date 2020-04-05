@@ -65,6 +65,30 @@ import { RouterModule } from '@angular/router';
       {
         path: 'payment-method',
         loadChildren: () => import('./payment-method/payment-method.module').then(m => m.HospitalsystemPaymentMethodModule)
+      },
+      {
+        path: 'stock',
+        loadChildren: () => import('./stock/stock.module').then(m => m.HospitalsystemStockModule)
+      },
+      {
+        path: 'product',
+        loadChildren: () => import('./product/product.module').then(m => m.HospitalsystemProductModule)
+      },
+      {
+        path: 'category',
+        loadChildren: () => import('./category/category.module').then(m => m.HospitalsystemCategoryModule)
+      },
+      {
+        path: 'provider',
+        loadChildren: () => import('./provider/provider.module').then(m => m.HospitalsystemProvidedrModule)
+      },
+      {
+        path: 'order',
+        loadChildren: () => import('./order/order.module').then(m => m.HospitalsystemOrderModule)
+      },
+      {
+        path: 'quantity-price',
+        loadChildren: () => import('./quantity-price/quantity-price.module').then(m => m.HospitalsystemQuantityPriceModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

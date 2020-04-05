@@ -23,6 +23,12 @@
         "socialOrganizationRegimen": "Social Organization Regimen",
         "socialOrganizationDetails": "Social Organization Details",
         "paymentMethod": "Payment Method",
+        "stock": "Stock",
+        "product": "Product",
+        "category": "Category",
+        "provider": "Provider",
+        "order": "Order",
+        "quantityPrice": "Quantity Price",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

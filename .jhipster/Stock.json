@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": false,
+            "otherEntityRelationshipName": "stock"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20200405153257",
+    "dto": "no",
+    "searchEngine": "elasticsearch",
+    "service": "no",
+    "entityTableName": "stock",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

@@ -111,7 +111,7 @@ public class UserJWTController {
             session.setCreated_by(user.get().getLogin());
             session.setCreated_date(Instant.now());
 
-            sessionRepository.save(session);
+            sessionRepository.saveAndFlush(session);
             httpSession.setAttribute("SessionUser", session);
         }
     }

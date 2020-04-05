@@ -1,0 +1,25 @@
+{
+  "hospitalsystemApp": {
+    "provider": {
+      "home": {
+        "title": "Provider",
+        "createLabel": "Créer un nouveau Provider",
+        "createOrEditLabel": "Créer ou éditer un Provider",
+        "search": "Recherche pour Provider",
+        "notFound": "Aucun Provider trouvé"
+      },
+      "created": "Un nouveau Provider a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Provider avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Provider avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Provider {{ id }} ?"
+      },
+      "detail": {
+        "title": "Provider"
+      },
+      "name": "Name",
+      "tel": "Tel",
+      "adress": "Adress"
+    }
+  }
+}
