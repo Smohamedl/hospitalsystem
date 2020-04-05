@@ -45,6 +45,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.hospitalsystem.app.domain.Act;
+import fr.hospitalsystem.app.domain.Actype;
 import fr.hospitalsystem.app.domain.ReceiptAct;
 import fr.hospitalsystem.app.repository.ActRepository;
 import fr.hospitalsystem.app.repository.PatientRepository;
@@ -165,7 +166,7 @@ public class ReceiptActResource {
 
         ReceiptAct receiptAct = receiptActRepository.findById(id).get();
 
-        if (!receiptAct.isPaid()) {
+        if (!receiptAct.isPaid() && !receiptAct.isPaidDoctor()) {
             receiptActRepository.deleteById(id);
             receiptActSearchRepository.deleteById(id);
         }
@@ -250,8 +251,17 @@ public class ReceiptActResource {
             document.open();
             Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
 
-            String content = "HospitalSystem" + "\n " + new Date() + "\n --------------------------------------\n" + act.getPatientName() + " "
-                    + act.getActype().getName();
+            // =====================
+            // contenu du recu
+            String content = "HospitalSystem \n ";
+            content += new Date() + "\n";
+            if (act.getPatientName() != null)
+                content += "Patient : " + act.getPatientName() + "\n";
+            for (Actype actype : act.getActypes()) {
+                content += actype.getName() + " : " + actype.getPrice() + " UM" + "\n";
+            }
+            content += "\nTotal : " + act.getReceiptAct().getTotal();
+            // =======================
 
             Paragraph paragraph = new Paragraph(content);
             document.add(paragraph);

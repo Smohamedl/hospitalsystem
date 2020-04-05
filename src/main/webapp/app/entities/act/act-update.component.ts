@@ -10,14 +10,15 @@ import { IAct, Act } from 'app/shared/model/act.model';
 import { ActService } from './act.service';
 import { IMedicalService } from 'app/shared/model/medical-service.model';
 import { MedicalServiceService } from 'app/entities/medical-service/medical-service.service';
-import { IActype } from 'app/shared/model/actype.model';
-import { ActypeService } from 'app/entities/actype/actype.service';
 import { IDoctor } from 'app/shared/model/doctor.model';
 import { DoctorService } from 'app/entities/doctor/doctor.service';
 import { IPatient } from 'app/shared/model/patient.model';
 import { PatientService } from 'app/entities/patient/patient.service';
 import { IReceiptAct } from 'app/shared/model/receipt-act.model';
 import { ReceiptActService } from 'app/entities/receipt-act/receipt-act.service';
+import { IActype } from 'app/shared/model/actype.model';
+import { ActypeService } from 'app/entities/actype/actype.service';
+import {FormArray, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'jhi-act-update',
@@ -28,38 +29,42 @@ export class ActUpdateComponent implements OnInit {
 
   medicalservices: IMedicalService[];
 
-  actypes: IActype[];
-
   doctors: IDoctor[];
 
   patients: IPatient[];
 
   receiptacts: IReceiptAct[];
 
+  actypes: IActype[];
+
+  mactypes:  IActype[][];
+
   editForm = this.fb.group({
     id: [],
     patientName: [null, [Validators.required]],
     medicalService: [null, Validators.required],
-    actype: [null, Validators.required],
     doctor: [null, Validators.required],
     patient: [],
-    receiptAct: []
+    receiptAct: [],
+    formActypes: new FormArray([]),
+    formMedicalServices: new FormArray([])
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected actService: ActService,
     protected medicalServiceService: MedicalServiceService,
-    protected actypeService: ActypeService,
     protected doctorService: DoctorService,
     protected patientService: PatientService,
     protected receiptActService: ReceiptActService,
+    protected actypeService: ActypeService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
+    this.mactypes = [];
     this.activatedRoute.data.subscribe(({ act }) => {
       this.updateForm(act);
     });
@@ -69,9 +74,6 @@ export class ActUpdateComponent implements OnInit {
         (res: HttpResponse<IMedicalService[]>) => (this.medicalservices = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-    this.actypeService
-      .query()
-      .subscribe((res: HttpResponse<IActype[]>) => (this.actypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.doctorService
       .query()
       .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
@@ -93,6 +95,9 @@ export class ActUpdateComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+    this.actypeService
+      .query()
+      .subscribe((res: HttpResponse<IActype[]>) => (this.actypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(act: IAct) {
@@ -100,10 +105,11 @@ export class ActUpdateComponent implements OnInit {
       id: act.id,
       patientName: act.patientName,
       medicalService: act.medicalService,
-      actype: act.actype,
       doctor: act.doctor,
       patient: act.patient,
-      receiptAct: act.receiptAct
+      receiptAct: act.receiptAct,
+      formActypes: new FormArray([]),
+      formMedicalServices: new FormArray([])
     });
   }
 
@@ -114,6 +120,7 @@ export class ActUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const act = this.createFromForm();
+    console.log("############ " + act);
     if (act.id !== undefined) {
       this.subscribeToSaveResponse(this.actService.update(act));
     } else {
@@ -127,10 +134,10 @@ export class ActUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       patientName: this.editForm.get(['patientName']).value,
       medicalService: this.editForm.get(['medicalService']).value,
-      actype: this.editForm.get(['actype']).value,
       doctor: this.editForm.get(['doctor']).value,
       patient: this.editForm.get(['patient']).value,
-      receiptAct: this.editForm.get(['receiptAct']).value
+      receiptAct: this.editForm.get(['receiptAct']).value,
+      actypes : this.editForm.get(['formActypes']).value
     };
   }
 
@@ -146,15 +153,12 @@ export class ActUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
+  
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
   trackMedicalServiceById(index: number, item: IMedicalService) {
-    return item.id;
-  }
-
-  trackActypeById(index: number, item: IActype) {
     return item.id;
   }
 
@@ -169,4 +173,38 @@ export class ActUpdateComponent implements OnInit {
   trackReceiptActById(index: number, item: IReceiptAct) {
     return item.id;
   }
+
+  trackActypeById(index: number, item: IActype) {
+    return item.id;
+  }
+    
+  get formActypes(): FormArray { return this.editForm.get('formActypes') as FormArray; }
+  
+  get formMedicalServices() : FormArray { return this.editForm.get('formMedicalServices') as FormArray; }
+  
+  addCity() { 
+    // get actypes 
+    this.actypeService
+    .query()
+    .subscribe((res: HttpResponse<IActype[]>) => (this.mactypes.push(res.body)), (res: HttpErrorResponse) => this.onError(res.message));
+    
+    this.formMedicalServices.push(new FormControl());
+    this.formActypes.push(new FormControl());
+    
+  }
+  
+  onChangeService() {
+    this.doctorService
+      .findByService(this.editForm.get(['medicalService']).value.name)
+      .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+  
+  onChangeAddedService(index: number) {
+    console.log("################## index " + index);
+    
+    this.actypeService
+      .findByService(this.editForm.get(['formMedicalServices']).at(index).value.name)
+      .subscribe((res: HttpResponse<IActype[]>) => (this.mactypes[index] = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+  
 }

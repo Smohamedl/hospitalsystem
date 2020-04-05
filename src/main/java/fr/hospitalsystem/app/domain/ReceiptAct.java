@@ -3,6 +3,7 @@ package fr.hospitalsystem.app.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,7 +47,7 @@ public class ReceiptAct implements Serializable {
     @Column(name = "date")
     private LocalDate date;
 
-    @OneToOne(mappedBy = "receiptAct", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "receiptAct", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @JsonBackReference
     private Act act;
 

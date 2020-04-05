@@ -10,8 +10,8 @@
         "patient": "Patient",
         "medicalService": "Medical Service",
         "doctor": "Doctor",
-        "actype": "Actype",
-        "act": "Act",
+        "actype": "Creation d'acte",
+        "act": "Ajout d'acte",
         "guardSchedule": "Guard Schedule",
         "guard": "Guard",
         "hospitalization": "Hospitalization",
@@ -112,7 +112,8 @@
       "open": "Ouvrir",
       "save": "Sauvegarder",
       "view": "Voir",
-      "download": "Telecharger"
+      "download": "Telecharger",
+      "addactype": "Ajouter un acte"
     },
     "detail": {
       "field": "Champs",

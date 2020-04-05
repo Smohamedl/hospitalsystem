@@ -10,8 +10,8 @@
         "patient": "Patient",
         "medicalService": "Medical Service",
         "doctor": "Doctor",
-        "actype": "Actype",
-        "act": "Act",
+        "actype": "Act creation",
+        "act": "Add act",
         "guardSchedule": "Guard Schedule",
         "guard": "Guard",
         "hospitalization": "Hospitalization",
@@ -110,7 +110,8 @@
       "open": "Open",
       "save": "Save",
       "view": "View",
-      "download": "Download"
+      "download": "Download",
+      "addactype": "Add an act"
     },
     "detail": {
       "field": "Field",

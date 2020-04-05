@@ -15,12 +15,6 @@
                         <a [routerLink]="['/medical-service', act.medicalService?.id, 'view']">{{act.medicalService?.name}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="hospitalsystemApp.act.actype">Actype</span></dt>
-                <dd>
-                    <div *ngIf="act.actype">
-                        <a [routerLink]="['/actype', act.actype?.id, 'view']">{{act.actype?.name}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="hospitalsystemApp.act.doctor">Doctor</span></dt>
                 <dd>
                     <div *ngIf="act.doctor">
@@ -38,6 +32,12 @@
                     <div *ngIf="act.receiptAct">
                         <a [routerLink]="['/receipt-act', act.receiptAct?.id, 'view']">{{act.receiptAct?.id}}</a>
                     </div>
+                </dd>
+                <dt><span jhiTranslate="hospitalsystemApp.act.actypes">Actypes</span></dt>
+                <dd>
+                    <span *ngFor="let actypes of act.actypes; let last = last">
+                        <a [routerLink]="['/actype', actypes?.id, 'view' ]">{{actypes.name}}</a>{{last ? '' : ', '}}
+                    </span>
                 </dd>
             </dl>
 

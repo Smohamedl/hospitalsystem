@@ -3,8 +3,8 @@ package fr.hospitalsystem.app.web.rest;
 import fr.hospitalsystem.app.HospitalsystemApp;
 import fr.hospitalsystem.app.domain.Act;
 import fr.hospitalsystem.app.domain.MedicalService;
-import fr.hospitalsystem.app.domain.Actype;
 import fr.hospitalsystem.app.domain.Doctor;
+import fr.hospitalsystem.app.domain.Actype;
 import fr.hospitalsystem.app.repository.ActRepository;
 import fr.hospitalsystem.app.repository.search.ActSearchRepository;
 import fr.hospitalsystem.app.service.ActService;
@@ -12,6 +12,7 @@ import fr.hospitalsystem.app.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,6 +50,12 @@ public class ActResourceIT {
 
     @Autowired
     private ActRepository actRepository;
+
+    @Mock
+    private ActRepository actRepositoryMock;
+
+    @Mock
+    private ActService actServiceMock;
 
     @Autowired
     private ActService actService;
@@ -111,16 +119,6 @@ public class ActResourceIT {
         }
         act.setMedicalService(medicalService);
         // Add required entity
-        Actype actype;
-        if (TestUtil.findAll(em, Actype.class).isEmpty()) {
-            actype = ActypeResourceIT.createEntity(em);
-            em.persist(actype);
-            em.flush();
-        } else {
-            actype = TestUtil.findAll(em, Actype.class).get(0);
-        }
-        act.setActype(actype);
-        // Add required entity
         Doctor doctor;
         if (TestUtil.findAll(em, Doctor.class).isEmpty()) {
             doctor = DoctorResourceIT.createEntity(em);
@@ -130,6 +128,16 @@ public class ActResourceIT {
             doctor = TestUtil.findAll(em, Doctor.class).get(0);
         }
         act.setDoctor(doctor);
+        // Add required entity
+        Actype actype;
+        if (TestUtil.findAll(em, Actype.class).isEmpty()) {
+            actype = ActypeResourceIT.createEntity(em);
+            em.persist(actype);
+            em.flush();
+        } else {
+            actype = TestUtil.findAll(em, Actype.class).get(0);
+        }
+        act.getActypes().add(actype);
         return act;
     }
     /**
@@ -152,16 +160,6 @@ public class ActResourceIT {
         }
         act.setMedicalService(medicalService);
         // Add required entity
-        Actype actype;
-        if (TestUtil.findAll(em, Actype.class).isEmpty()) {
-            actype = ActypeResourceIT.createUpdatedEntity(em);
-            em.persist(actype);
-            em.flush();
-        } else {
-            actype = TestUtil.findAll(em, Actype.class).get(0);
-        }
-        act.setActype(actype);
-        // Add required entity
         Doctor doctor;
         if (TestUtil.findAll(em, Doctor.class).isEmpty()) {
             doctor = DoctorResourceIT.createUpdatedEntity(em);
@@ -171,6 +169,16 @@ public class ActResourceIT {
             doctor = TestUtil.findAll(em, Doctor.class).get(0);
         }
         act.setDoctor(doctor);
+        // Add required entity
+        Actype actype;
+        if (TestUtil.findAll(em, Actype.class).isEmpty()) {
+            actype = ActypeResourceIT.createUpdatedEntity(em);
+            em.persist(actype);
+            em.flush();
+        } else {
+            actype = TestUtil.findAll(em, Actype.class).get(0);
+        }
+        act.getActypes().add(actype);
         return act;
     }
 
@@ -255,6 +263,39 @@ public class ActResourceIT {
             .andExpect(jsonPath("$.[*].patientName").value(hasItem(DEFAULT_PATIENT_NAME)));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllActsWithEagerRelationshipsIsEnabled() throws Exception {
+        ActResource actResource = new ActResource(actServiceMock);
+        when(actServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restActMockMvc.perform(get("/api/acts?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(actServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllActsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        ActResource actResource = new ActResource(actServiceMock);
+            when(actServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restActMockMvc.perform(get("/api/acts?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(actServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getAct() throws Exception {

@@ -1,6 +1,8 @@
 package fr.hospitalsystem.app.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -50,11 +54,6 @@ public class Act implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JsonIgnoreProperties("acts")
-    private Actype actype;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @NotNull
-    @JsonIgnoreProperties("acts")
     private Doctor doctor;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -65,6 +64,12 @@ public class Act implements Serializable {
     @JoinColumn(unique = true)
     @JsonBackReference
     private ReceiptAct receiptAct;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @NotNull
+    @JoinTable(name = "act_actypes", joinColumns = @JoinColumn(name = "act_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "actypes_id", referencedColumnName = "id"))
+    private Set<Actype> actypes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -99,19 +104,6 @@ public class Act implements Serializable {
 
     public void setMedicalService(MedicalService medicalService) {
         this.medicalService = medicalService;
-    }
-
-    public Actype getActype() {
-        return actype;
-    }
-
-    public Act actype(Actype actype) {
-        this.actype = actype;
-        return this;
-    }
-
-    public void setActype(Actype actype) {
-        this.actype = actype;
     }
 
     public Doctor getDoctor() {
@@ -152,6 +144,31 @@ public class Act implements Serializable {
     public void setReceiptAct(ReceiptAct receiptAct) {
         this.receiptAct = receiptAct;
     }
+
+    public Set<Actype> getActypes() {
+        return actypes;
+    }
+
+    public Act actypes(Set<Actype> actypes) {
+        this.actypes = actypes;
+        return this;
+    }
+
+    public Act addActypes(Actype actype) {
+        this.actypes.add(actype);
+        // actype.getActs().add(this);
+        return this;
+    }
+
+    public Act removeActypes(Actype actype) {
+        this.actypes.remove(actype);
+        // actype.getActs().remove(this);
+        return this;
+    }
+
+    public void setActypes(Set<Actype> actypes) {
+        this.actypes = actypes;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -174,5 +191,4 @@ public class Act implements Serializable {
     public String toString() {
         return "Act{" + "id=" + getId() + ", patientName='" + getPatientName() + "'" + "}";
     }
-
 }

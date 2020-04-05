@@ -22,9 +22,6 @@
             <column name="medical_service_id" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="actype_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
             <column name="doctor_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -40,6 +37,17 @@
 
     <changeSet id="20191201211545-1-relations" author="jhipster">
 
+        <createTable tableName="act_actypes">
+            <column name="actypes_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="act_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="act_id, actypes_id" tableName="act_actypes"/>
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 
@@ -59,7 +67,6 @@
             <column name="id" type="numeric"/>
             <column name="patient_name" type="string"/>
             <column name="medical_service_id" type="numeric"/>
-            <column name="actype_id" type="numeric"/>
             <column name="doctor_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>

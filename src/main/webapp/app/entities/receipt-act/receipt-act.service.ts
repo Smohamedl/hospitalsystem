@@ -13,6 +13,7 @@ import { HttpHeaders} from '@angular/common/http';
 
 type EntityResponseType = HttpResponse<IReceiptAct>;
 type EntityArrayResponseType = HttpResponse<IReceiptAct[]>;
+type EntityResponseBlobType = HttpResponse<Blob>;
 
 @Injectable({ providedIn: 'root' })
 export class ReceiptActService {
@@ -52,10 +53,10 @@ export class ReceiptActService {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
   
-  download(id: number): Observable<HttpResponse<any>> {
+  download(id: number): Observable<EntityResponseBlobType> {
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/pdf; charset=utf-8');
-    return this.http.get<any>(`${this.resourceUrl}/download/${id}`, {headers,
+    return this.http.get(`${this.resourceUrl}/download/${id}`, {headers,
       observe: 'response',
       responseType: 'blob' });
   }

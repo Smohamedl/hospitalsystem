@@ -14,12 +14,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="medical_service"/>
 
-        <addForeignKeyConstraint baseColumnNames="actype_id"
-                                 baseTableName="act"
-                                 constraintName="fk_act_actype_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="actype"/>
-
         <addForeignKeyConstraint baseColumnNames="doctor_id"
                                  baseTableName="act"
                                  constraintName="fk_act_doctor_id"
@@ -38,5 +32,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="receipt_act"/>
 
+        <addForeignKeyConstraint baseColumnNames="act_id"
+                                 baseTableName="act_actypes"
+                                 constraintName="fk_act_actypes_act_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="act"/>
+
+        <addForeignKeyConstraint baseColumnNames="actypes_id"
+                                 baseTableName="act_actypes"
+                                 constraintName="fk_act_actypes_actypes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="actype"/>
+        
     </changeSet>
 </databaseChangeLog>

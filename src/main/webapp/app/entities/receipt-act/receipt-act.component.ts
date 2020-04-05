@@ -313,4 +313,9 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   trackDoctorById(index: number, item: IDoctor) {
     return item.id;
   }
+  
+  protected onSaveSuccess() {
+    this.isSaving = false;
+    this.previousState();
+  }
 }

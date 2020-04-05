@@ -36,7 +36,6 @@
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="patientName"><span jhiTranslate="hospitalsystemApp.act.patientName">Patient Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="medicalService.name"><span jhiTranslate="hospitalsystemApp.act.medicalService">Medical Service</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="actype.name"><span jhiTranslate="hospitalsystemApp.act.actype">Actype</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="doctor.name"><span jhiTranslate="hospitalsystemApp.act.doctor">Doctor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="patient.name"><span jhiTranslate="hospitalsystemApp.act.patient">Patient</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="receiptAct.id"><span jhiTranslate="hospitalsystemApp.act.receiptAct">Receipt Act</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -50,11 +49,6 @@
                 <td>
                     <div *ngIf="act.medicalService">
                         <a [routerLink]="['/medical-service', act.medicalService?.id, 'view' ]" >{{act.medicalService?.name}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="act.actype">
-                        <a [routerLink]="['/actype', act.actype?.id, 'view' ]" >{{act.actype?.name}}</a>
                     </div>
                 </td>
                 <td>

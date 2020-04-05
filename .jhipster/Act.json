@@ -13,16 +13,6 @@
             "otherEntityRelationshipName": "act"
         },
         {
-            "relationshipName": "actype",
-            "otherEntityName": "actype",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name",
-            "otherEntityRelationshipName": "act"
-        },
-        {
             "relationshipName": "doctor",
             "otherEntityName": "doctor",
             "relationshipType": "many-to-one",
@@ -47,6 +37,17 @@
             "ownerSide": true,
             "useJPADerivedIdentifier": false,
             "otherEntityRelationshipName": "act"
+        },
+        {
+            "relationshipName": "actypes",
+            "otherEntityName": "actype",
+            "relationshipType": "many-to-many",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "acts"
         }
     ],
     "fields": [
