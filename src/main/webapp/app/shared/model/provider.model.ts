@@ -1,10 +1,10 @@
-export interface IProvidedr {
+export interface IProvider {
   id?: number;
   name?: string;
   tel?: string;
   adress?: string;
 }
 
-export class Providedr implements IProvidedr {
+export class Provider implements IProvider {
   constructor(public id?: number, public name?: string, public tel?: string, public adress?: string) {}
 }

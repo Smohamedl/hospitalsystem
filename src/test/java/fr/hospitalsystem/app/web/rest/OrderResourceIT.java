@@ -40,12 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = HospitalsystemApp.class)
 public class OrderResourceIT {
 
-    private static final Integer DEFAULT_QUANTITY = 1;
-    private static final Integer UPDATED_QUANTITY = 2;
-
-    private static final Long DEFAULT_PRICE = 1L;
-    private static final Long UPDATED_PRICE = 2L;
-
     @Autowired
     private OrderRepository orderRepository;
 
@@ -95,9 +89,7 @@ public class OrderResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Order createEntity(EntityManager em) {
-        Order order = new Order()
-            .quantity(DEFAULT_QUANTITY)
-            .price(DEFAULT_PRICE);
+        Order order = new Order();
         // Add required entity
         Provider provider;
         if (TestUtil.findAll(em, Provider.class).isEmpty()) {
@@ -117,9 +109,7 @@ public class OrderResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Order createUpdatedEntity(EntityManager em) {
-        Order order = new Order()
-            .quantity(UPDATED_QUANTITY)
-            .price(UPDATED_PRICE);
+        Order order = new Order();
         // Add required entity
         Provider provider;
         if (TestUtil.findAll(em, Provider.class).isEmpty()) {
@@ -153,8 +143,6 @@ public class OrderResourceIT {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeCreate + 1);
         Order testOrder = orderList.get(orderList.size() - 1);
-        assertThat(testOrder.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
-        assertThat(testOrder.getPrice()).isEqualTo(DEFAULT_PRICE);
 
         // Validate the Order in Elasticsearch
         verify(mockOrderSearchRepository, times(1)).save(testOrder);
@@ -185,42 +173,6 @@ public class OrderResourceIT {
 
     @Test
     @Transactional
-    public void checkQuantityIsRequired() throws Exception {
-        int databaseSizeBeforeTest = orderRepository.findAll().size();
-        // set the field null
-        order.setQuantity(null);
-
-        // Create the Order, which fails.
-
-        restOrderMockMvc.perform(post("/api/orders")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(order)))
-            .andExpect(status().isBadRequest());
-
-        List<Order> orderList = orderRepository.findAll();
-        assertThat(orderList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPriceIsRequired() throws Exception {
-        int databaseSizeBeforeTest = orderRepository.findAll().size();
-        // set the field null
-        order.setPrice(null);
-
-        // Create the Order, which fails.
-
-        restOrderMockMvc.perform(post("/api/orders")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(order)))
-            .andExpect(status().isBadRequest());
-
-        List<Order> orderList = orderRepository.findAll();
-        assertThat(orderList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllOrders() throws Exception {
         // Initialize the database
         orderRepository.saveAndFlush(order);
@@ -229,9 +181,7 @@ public class OrderResourceIT {
         restOrderMockMvc.perform(get("/api/orders?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().intValue())))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().intValue())));
     }
     
     @Test
@@ -244,9 +194,7 @@ public class OrderResourceIT {
         restOrderMockMvc.perform(get("/api/orders/{id}", order.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(order.getId().intValue()))
-            .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()));
+            .andExpect(jsonPath("$.id").value(order.getId().intValue()));
     }
 
     @Test
@@ -269,9 +217,6 @@ public class OrderResourceIT {
         Order updatedOrder = orderRepository.findById(order.getId()).get();
         // Disconnect from session so that the updates on updatedOrder are not directly saved in db
         em.detach(updatedOrder);
-        updatedOrder
-            .quantity(UPDATED_QUANTITY)
-            .price(UPDATED_PRICE);
 
         restOrderMockMvc.perform(put("/api/orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -282,8 +227,6 @@ public class OrderResourceIT {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeUpdate);
         Order testOrder = orderList.get(orderList.size() - 1);
-        assertThat(testOrder.getQuantity()).isEqualTo(UPDATED_QUANTITY);
-        assertThat(testOrder.getPrice()).isEqualTo(UPDATED_PRICE);
 
         // Validate the Order in Elasticsearch
         verify(mockOrderSearchRepository, times(1)).save(testOrder);
@@ -342,8 +285,6 @@ public class OrderResourceIT {
         restOrderMockMvc.perform(get("/api/_search/orders?query=id:" + order.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().intValue())))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().intValue())));
     }
 }

@@ -5,24 +5,24 @@ import { JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Providedr } from 'app/shared/model/provider.model';
+import { Provider } from 'app/shared/model/provider.model';
 import { ProviderService } from './provider.service';
 import { ProviderComponent } from './provider.component';
 import { ProviderDetailComponent } from './provider-detail.component';
 import { ProviderUpdateComponent } from './provider-update.component';
-import { ProvidedrDeletePopupComponent } from './provider-delete-dialog.component';
-import { IProvidedr } from 'app/shared/model/provider.model';
+import { ProviderDeletePopupComponent } from './provider-delete-dialog.component';
+import { IProvider } from 'app/shared/model/provider.model';
 
 @Injectable({ providedIn: 'root' })
-export class ProvidedrResolve implements Resolve<IProvidedr> {
+export class ProvidedrResolve implements Resolve<IProvider> {
   constructor(private service: ProviderService) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IProvidedr> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IProvider> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(map((providedr: HttpResponse<Providedr>) => providedr.body));
+      return this.service.find(id).pipe(map((providedr: HttpResponse<Provider>) => providedr.body));
     }
-    return of(new Providedr());
+    return of(new Provider());
   }
 }
 
@@ -81,7 +81,7 @@ export const providerRoute: Routes = [
 export const providedrPopupRoute: Routes = [
   {
     path: ':id/delete',
-    component: ProvidedrDeletePopupComponent,
+    component: ProviderDeletePopupComponent,
     resolve: {
       providedr: ProvidedrResolve
     },

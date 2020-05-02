@@ -2,14 +2,14 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
 import { ProviderService } from 'app/entities/provider/provider.service';
-import { IProvidedr, Providedr } from 'app/shared/model/provider.model';
+import { IProvider, Provider } from 'app/shared/model/provider.model';
 
 describe('Service Tests', () => {
   describe('Provider Service', () => {
     let injector: TestBed;
     let service: ProviderService;
     let httpMock: HttpTestingController;
-    let elemDefault: IProvidedr;
+    let elemDefault: IProvider;
     let expectedResult;
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ProviderService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Providedr(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Provider(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -45,7 +45,7 @@ describe('Service Tests', () => {
         );
         const expected = Object.assign({}, returnedFromService);
         service
-          .create(new Providedr(null))
+          .create(new Provider(null))
           .pipe(take(1))
           .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'POST' });

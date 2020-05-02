@@ -34,8 +34,6 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="quantity"><span jhiTranslate="hospitalsystemApp.order.quantity">Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="price"><span jhiTranslate="hospitalsystemApp.order.price">Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="provider.name"><span jhiTranslate="hospitalsystemApp.order.provider">Provider</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
@@ -43,8 +41,6 @@
             <tbody>
             <tr *ngFor="let order of orders ;trackBy: trackId">
                 <td><a [routerLink]="['/order', order.id, 'view' ]">{{order.id}}</a></td>
-                <td>{{order.quantity}}</td>
-                <td>{{order.price}}</td>
                 <td>
                     <div *ngIf="order.provider">
                         <a [routerLink]="['/provider', order.provider?.id, 'view' ]" >{{order.provider?.name}}</a>

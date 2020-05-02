@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
-import { IProvidedr } from 'app/shared/model/provider.model';
+import { IProvider } from 'app/shared/model/provider.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ProviderService } from './provider.service';
@@ -14,7 +14,7 @@ import { ProviderService } from './provider.service';
   templateUrl: './provider.component.html'
 })
 export class ProviderComponent implements OnInit, OnDestroy {
-  providedrs: IProvidedr[];
+  providedrs: IProvider[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -57,7 +57,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
           size: this.itemsPerPage,
           sort: this.sort()
         })
-        .subscribe((res: HttpResponse<IProvidedr[]>) => this.paginateProvidedrs(res.body, res.headers));
+        .subscribe((res: HttpResponse<IProvider[]>) => this.paginateProvidedrs(res.body, res.headers));
       return;
     }
     this.providedrService
@@ -66,7 +66,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<IProvidedr[]>) => this.paginateProvidedrs(res.body, res.headers));
+      .subscribe((res: HttpResponse<IProvider[]>) => this.paginateProvidedrs(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -127,7 +127,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IProvidedr) {
+  trackId(index: number, item: IProvider) {
     return item.id;
   }
 
@@ -143,7 +143,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateProvidedrs(data: IProvidedr[], headers: HttpHeaders) {
+  protected paginateProvidedrs(data: IProvider[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.providedrs = data;

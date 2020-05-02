@@ -7,6 +7,12 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entités",
+        "gestionPatient": "Patients",
+        "gestionAct": "Actes",
+        "gestionGarde": "Gardes",
+        "gestionHospitalisation": "Hospitalisations",
+        "gestionSessions": "Sessions",
+        "gestionDoctors": "Doctors",
         "patient": "Patient",
         "medicalService": "Medical Service",
         "doctor": "Doctor",
@@ -41,7 +47,7 @@
         "register": "Créer un compte"
       },
       "admin": {
-        "main": "Administration",
+        "main": "Admin",
         "userManagement": "Gestion des utilisateurs",
         "tracker": "Suivi des utilisateurs",
         "metrics": "Métriques",
@@ -113,6 +119,7 @@
   },
   "entity": {
     "action": {
+      "addProduct": "Ajouter un Produit",
       "addblob": "Ajouter blob",
       "addimage": "Ajouter image",
       "back": "Retour",

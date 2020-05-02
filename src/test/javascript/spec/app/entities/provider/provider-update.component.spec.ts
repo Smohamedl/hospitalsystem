@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { HospitalsystemTestModule } from '../../../test.module';
 import { ProviderUpdateComponent } from 'app/entities/provider/provider-update.component';
 import { ProviderService } from 'app/entities/provider/provider.service';
-import { Providedr } from 'app/shared/model/provider.model';
+import { Provider } from 'app/shared/model/provider.model';
 
 describe('Component Tests', () => {
   describe('Provider Management Update Component', () => {
@@ -31,7 +31,7 @@ describe('Component Tests', () => {
     describe('save', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
-        const entity = new Providedr(123);
+        const entity = new Provider(123);
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -45,7 +45,7 @@ describe('Component Tests', () => {
 
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
-        const entity = new Providedr();
+        const entity = new Provider();
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN

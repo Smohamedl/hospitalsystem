@@ -27,21 +27,14 @@ public class Order implements Serializable {
     @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
-    @NotNull
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
-
-    @NotNull
-    @Column(name = "price", nullable = false)
-    private Long price;
-
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JsonIgnoreProperties("orders")
     private Provider provider;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @NotNull
     private Set<QuantityPrice> quantityPrices = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -51,32 +44,6 @@ public class Order implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public Order quantity(Integer quantity) {
-        this.quantity = quantity;
-        return this;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public Order price(Long price) {
-        this.price = price;
-        return this;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
     }
 
     public Provider getProvider() {
@@ -137,9 +104,9 @@ public class Order implements Serializable {
     @Override
     public String toString() {
         return "Order{" +
-            "id=" + getId() +
-            ", quantity=" + getQuantity() +
-            ", price=" + getPrice() +
-            "}";
+            "id=" + id +
+            ", provider=" + provider +
+            ", quantityPrices=" + quantityPrices.toString() +
+            '}';
     }
 }

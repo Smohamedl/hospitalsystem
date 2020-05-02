@@ -5,7 +5,7 @@ import { HospitalsystemSharedModule } from 'app/shared/shared.module';
 import { ProviderComponent } from './provider.component';
 import { ProviderDetailComponent } from './provider-detail.component';
 import { ProviderUpdateComponent } from './provider-update.component';
-import { ProvidedrDeletePopupComponent, ProviderDeleteDialogComponent } from './provider-delete-dialog.component';
+import { ProviderDeletePopupComponent, ProviderDeleteDialogComponent } from './provider-delete-dialog.component';
 import { providerRoute, providedrPopupRoute } from './provider.route';
 
 const ENTITY_STATES = [...providerRoute, ...providedrPopupRoute];
@@ -17,7 +17,7 @@ const ENTITY_STATES = [...providerRoute, ...providedrPopupRoute];
     ProviderDetailComponent,
     ProviderUpdateComponent,
     ProviderDeleteDialogComponent,
-    ProvidedrDeletePopupComponent
+    ProviderDeletePopupComponent
   ],
   entryComponents: [ProviderDeleteDialogComponent]
 })

@@ -46,7 +46,7 @@ public class Doctor implements Serializable {
     @Column(name = "tel")
     private String tel;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     private MedicalService medicalService;
 

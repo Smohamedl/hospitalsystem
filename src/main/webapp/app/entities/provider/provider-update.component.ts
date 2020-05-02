@@ -5,11 +5,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IProvidedr, Providedr } from 'app/shared/model/provider.model';
+import { IProvider, Provider } from 'app/shared/model/provider.model';
 import { ProviderService } from './provider.service';
 
 @Component({
-  selector: 'jhi-providedr-update',
+  selector: 'jhi-Provider-update',
   templateUrl: './provider-update.component.html'
 })
 export class ProviderUpdateComponent implements OnInit {
@@ -22,21 +22,21 @@ export class ProviderUpdateComponent implements OnInit {
     adress: []
   });
 
-  constructor(protected providedrService: ProviderService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(protected providerService: ProviderService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ providedr }) => {
-      this.updateForm(providedr);
+    this.activatedRoute.data.subscribe(({ provider }) => {
+      this.updateForm(provider);
     });
   }
 
-  updateForm(providedr: IProvidedr) {
+  updateForm(provider: IProvider) {
     this.editForm.patchValue({
-      id: providedr.id,
-      name: providedr.name,
-      tel: providedr.tel,
-      adress: providedr.adress
+      id: provider.id,
+      name: provider.name,
+      tel: provider.tel,
+      adress: provider.adress
     });
   }
 
@@ -46,17 +46,17 @@ export class ProviderUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    const providedr = this.createFromForm();
-    if (providedr.id !== undefined) {
-      this.subscribeToSaveResponse(this.providedrService.update(providedr));
+    const provider = this.createFromForm();
+    if (provider.id !== undefined) {
+      this.subscribeToSaveResponse(this.providerService.update(provider));
     } else {
-      this.subscribeToSaveResponse(this.providedrService.create(providedr));
+      this.subscribeToSaveResponse(this.providerService.create(provider));
     }
   }
 
-  private createFromForm(): IProvidedr {
+  private createFromForm(): IProvider {
     return {
-      ...new Providedr(),
+      ...new Provider(),
       id: this.editForm.get(['id']).value,
       name: this.editForm.get(['name']).value,
       tel: this.editForm.get(['tel']).value,
@@ -64,7 +64,7 @@ export class ProviderUpdateComponent implements OnInit {
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IProvidedr>>) {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IProvider>>) {
     result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
 

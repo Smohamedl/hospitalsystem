@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
-import { IProvidedr } from 'app/shared/model/provider.model';
+import { IProvider } from 'app/shared/model/provider.model';
 
-type EntityResponseType = HttpResponse<IProvidedr>;
-type EntityArrayResponseType = HttpResponse<IProvidedr[]>;
+type EntityResponseType = HttpResponse<IProvider>;
+type EntityArrayResponseType = HttpResponse<IProvider[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProviderService {
@@ -16,21 +16,21 @@ export class ProviderService {
 
   constructor(protected http: HttpClient) {}
 
-  create(providedr: IProvidedr): Observable<EntityResponseType> {
-    return this.http.post<IProvidedr>(this.resourceUrl, providedr, { observe: 'response' });
+  create(provider: IProvider): Observable<EntityResponseType> {
+    return this.http.post<IProvider>(this.resourceUrl, provider, { observe: 'response' });
   }
 
-  update(providedr: IProvidedr): Observable<EntityResponseType> {
-    return this.http.put<IProvidedr>(this.resourceUrl, providedr, { observe: 'response' });
+  update(provider: IProvider): Observable<EntityResponseType> {
+    return this.http.put<IProvider>(this.resourceUrl, provider, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IProvidedr>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http.get<IProvider>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IProvidedr[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<IProvider[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {
@@ -39,6 +39,6 @@ export class ProviderService {
 
   search(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IProvidedr[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
+    return this.http.get<IProvider[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
   }
 }

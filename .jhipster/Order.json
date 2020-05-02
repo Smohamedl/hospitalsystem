@@ -19,22 +19,7 @@
             "otherEntityRelationshipName": "order"
         }
     ],
-    "fields": [
-        {
-            "fieldName": "quantity",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "price",
-            "fieldType": "Long",
-            "fieldValidateRules": [
-                "required"
-            ]
-        }
-    ],
+    "fields": [],
     "changelogDate": "20200405160024",
     "dto": "no",
     "searchEngine": "elasticsearch",

@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IProvidedr } from 'app/shared/model/provider.model';
+import { IProvider } from 'app/shared/model/provider.model';
 
 @Component({
-  selector: 'jhi-providedr-detail',
+  selector: 'jhi-Provider-detail',
   templateUrl: './provider-detail.component.html'
 })
 export class ProviderDetailComponent implements OnInit {
-  providedr: IProvidedr;
+  Provider: IProvider;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(({ providedr }) => {
-      this.providedr = providedr;
+    this.activatedRoute.data.subscribe(({ Provider }) => {
+      this.Provider = Provider;
     });
   }
 

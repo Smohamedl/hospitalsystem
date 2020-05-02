@@ -26,7 +26,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -97,9 +101,16 @@ public class UserJWTController {
             }
         }
 
-
         HttpSession httpSession = httpSessionFactory.getObject();
         Session curentSession = (Session) httpSession.getAttribute("SessionUser");
+
+        if (curentSession == null){
+            Date date = Calendar.getInstance().getTime();
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String today = formatter.format(date);
+
+            curentSession = sessionRepository.findOneByCreateDate(today, login);
+        }
 
         if (isNeedSession && curentSession == null){
             Session session = new Session();

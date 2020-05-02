@@ -4,13 +4,13 @@ import { of } from 'rxjs';
 
 import { HospitalsystemTestModule } from '../../../test.module';
 import { ProviderDetailComponent } from 'app/entities/provider/provider-detail.component';
-import { Providedr } from 'app/shared/model/provider.model';
+import { Provider } from 'app/shared/model/provider.model';
 
 describe('Component Tests', () => {
   describe('Provider Management Detail Component', () => {
     let comp: ProviderDetailComponent;
     let fixture: ComponentFixture<ProviderDetailComponent>;
-    const route = ({ data: of({ providedr: new Providedr(123) }) } as any) as ActivatedRoute;
+    const route = ({ data: of({ providedr: new Provider(123) }) } as any) as ActivatedRoute;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -32,7 +32,7 @@ describe('Component Tests', () => {
         comp.ngOnInit();
 
         // THEN
-        expect(comp.providedr).toEqual(jasmine.objectContaining({ id: 123 }));
+        expect(comp.Provider).toEqual(jasmine.objectContaining({ id: 123 }));
       });
     });
   });

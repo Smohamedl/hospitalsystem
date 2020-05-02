@@ -6,7 +6,7 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { HospitalsystemTestModule } from '../../../test.module';
 import { ProviderComponent } from 'app/entities/provider/provider.component';
 import { ProviderService } from 'app/entities/provider/provider.service';
-import { Providedr } from 'app/shared/model/provider.model';
+import { Provider } from 'app/shared/model/provider.model';
 
 describe('Component Tests', () => {
   describe('Provider Management Component', () => {
@@ -50,7 +50,7 @@ describe('Component Tests', () => {
       spyOn(service, 'query').and.returnValue(
         of(
           new HttpResponse({
-            body: [new Providedr(123)],
+            body: [new Provider(123)],
             headers
           })
         )
@@ -70,7 +70,7 @@ describe('Component Tests', () => {
       spyOn(service, 'query').and.returnValue(
         of(
           new HttpResponse({
-            body: [new Providedr(123)],
+            body: [new Provider(123)],
             headers
           })
         )
@@ -100,7 +100,7 @@ describe('Component Tests', () => {
       spyOn(service, 'query').and.returnValue(
         of(
           new HttpResponse({
-            body: [new Providedr(123)],
+            body: [new Provider(123)],
             headers
           })
         )
