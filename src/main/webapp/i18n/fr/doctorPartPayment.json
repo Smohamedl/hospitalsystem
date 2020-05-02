@@ -1,0 +1,26 @@
+{
+  "hospitalsystemApp": {
+    "doctorPartPayment": {
+      "home": {
+        "title": "DoctorPartPayments",
+        "createLabel": "Créer un nouveau Doctor Part Payment",
+        "createOrEditLabel": "Créer ou éditer un Doctor Part Payment",
+        "search": "Recherche pour Doctor Part Payment",
+        "notFound": "Aucun Doctor Part Payment trouvé"
+      },
+      "created": "Un nouveau Doctor Part Payment a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Doctor Part Payment avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Doctor Part Payment avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Doctor Part Payment {{ id }} ?"
+      },
+      "detail": {
+        "title": "Doctor Part Payment"
+      },
+      "total": "Total",
+      "reference": "Reference",
+      "date": "Date",
+      "doctor": "Doctor"
+    }
+  }
+}

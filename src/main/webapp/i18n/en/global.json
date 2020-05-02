@@ -18,6 +18,8 @@
         "receiptAct": "Receipt Act",
         "socialOrganization": "Social Organization",
         "session": "Session",
+        "doctorMonthlyPayment": "Doctor Monthly Payment",
+        "doctorPartPayment": "Doctor Part Payment",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -47,7 +47,7 @@ public class ReceiptAct implements Serializable {
     @Column(name = "date")
     private LocalDate date;
 
-    @OneToOne(mappedBy = "receiptAct", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    @OneToOne(mappedBy = "receiptAct", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     @JsonBackReference
     private Act act;
 

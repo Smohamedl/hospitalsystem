@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +47,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.hospitalsystem.app.domain.Act;
 import fr.hospitalsystem.app.domain.Actype;
+import fr.hospitalsystem.app.domain.DoctorPartPayment;
 import fr.hospitalsystem.app.domain.ReceiptAct;
 import fr.hospitalsystem.app.repository.ActRepository;
+import fr.hospitalsystem.app.repository.DoctorPartPaymentRepository;
 import fr.hospitalsystem.app.repository.PatientRepository;
 import fr.hospitalsystem.app.repository.ReceiptActRepository;
 import fr.hospitalsystem.app.repository.search.ReceiptActSearchRepository;
@@ -79,12 +82,15 @@ public class ReceiptActResource {
 
     private final ActRepository actRepository;
 
+    private final DoctorPartPaymentRepository doctorPartPaymentRepository;
+
     public ReceiptActResource(ReceiptActRepository receiptActRepository, ReceiptActSearchRepository receiptActSearchRepository,
-            PatientRepository patientRepository, ActRepository actRepository) {
+            PatientRepository patientRepository, ActRepository actRepository, DoctorPartPaymentRepository doctorPartPaymentRepository) {
         this.receiptActRepository = receiptActRepository;
         this.receiptActSearchRepository = receiptActSearchRepository;
         this.patientRepository = patientRepository;
         this.actRepository = actRepository;
+        this.doctorPartPaymentRepository = doctorPartPaymentRepository;
     }
 
     /**
@@ -121,7 +127,21 @@ public class ReceiptActResource {
         if (receiptAct.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        ReceiptAct oldResult = receiptActRepository.findById(receiptAct.getId()).get();
+        Boolean oldReceiptIsPaidDoctor = oldResult.isPaidDoctor();
+        receiptAct.setAct(oldResult.getAct());
         ReceiptAct result = receiptActRepository.save(receiptAct);
+
+        /** Update doctor month total if paid is set to true for the first time */
+        if (!oldReceiptIsPaidDoctor && result.isPaidDoctor()) {
+            LocalDate localDate = LocalDate.now().withDayOfMonth(1);
+            DoctorPartPayment doctorPartPayment = this.doctorPartPaymentRepository.findOneByDate(localDate, result.getAct().getDoctor()).get();
+            doctorPartPayment.setTotal(doctorPartPayment.getTotal() + result.getTotal());
+
+            this.doctorPartPaymentRepository.save(doctorPartPayment);
+        }
+
         receiptActSearchRepository.save(result);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, receiptAct.getId().toString()))
                 .body(result);

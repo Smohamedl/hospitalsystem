@@ -1,0 +1,26 @@
+{
+  "hospitalsystemApp": {
+    "doctorMonthlyPayment": {
+      "home": {
+        "title": "Doctor Monthly Payments",
+        "createLabel": "Create a new Doctor Monthly Payment",
+        "createOrEditLabel": "Create or edit a Doctor Monthly Payment",
+        "search": "Search for Doctor Monthly Payment",
+        "notFound": "No Doctor Monthly Payments found"
+      },
+      "created": "A new Doctor Monthly Payment is created with identifier {{ param }}",
+      "updated": "A Doctor Monthly Payment is updated with identifier {{ param }}",
+      "deleted": "A Doctor Monthly Payment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Doctor Monthly Payment {{ id }}?"
+      },
+      "detail": {
+        "title": "Doctor Monthly Payment"
+      },
+      "paid": "Paid",
+      "date": "Date",
+      "reference": "Reference",
+      "doctor": "Doctor"
+    }
+  }
+}

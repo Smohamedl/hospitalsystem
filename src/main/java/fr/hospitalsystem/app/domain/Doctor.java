@@ -46,8 +46,18 @@ public class Doctor implements Serializable {
     @Column(name = "tel")
     private String tel;
 
+    @NotNull
+    @DecimalMin(value = "0")
+    @Column(name = "salary", nullable = false)
+    private Double salary;
+
+    @NotNull
+    @Column(name = "part_of_hospital_income", nullable = false)
+    private Boolean partOfHospitalIncome;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @NotNull
+    @JsonIgnoreProperties("doctors")
     private MedicalService medicalService;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -137,6 +147,32 @@ public class Doctor implements Serializable {
         this.tel = tel;
     }
 
+    public Double getSalary() {
+        return salary;
+    }
+
+    public Doctor salary(Double salary) {
+        this.salary = salary;
+        return this;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public Boolean isPartOfHospitalIncome() {
+        return partOfHospitalIncome;
+    }
+
+    public Doctor partOfHospitalIncome(Boolean partOfHospitalIncome) {
+        this.partOfHospitalIncome = partOfHospitalIncome;
+        return this;
+    }
+
+    public void setPartOfHospitalIncome(Boolean partOfHospitalIncome) {
+        this.partOfHospitalIncome = partOfHospitalIncome;
+    }
+
     public MedicalService getMedicalService() {
         return medicalService;
     }
@@ -177,6 +213,8 @@ public class Doctor implements Serializable {
             ", specialist='" + isSpecialist() + "'" +
             ", address='" + getAddress() + "'" +
             ", tel='" + getTel() + "'" +
+            ", salary=" + getSalary() +
+            ", partOfHospitalIncome='" + isPartOfHospitalIncome() + "'" +
             "}";
     }
 }

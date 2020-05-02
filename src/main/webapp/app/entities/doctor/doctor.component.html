@@ -40,6 +40,8 @@
             <th scope="col"  jhiSortBy="specialist"><span jhiTranslate="hospitalsystemApp.doctor.specialist">Specialist</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="address"><span jhiTranslate="hospitalsystemApp.doctor.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="tel"><span jhiTranslate="hospitalsystemApp.doctor.tel">Tel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="salary"><span jhiTranslate="hospitalsystemApp.doctor.salary">Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="partOfHospitalIncome"><span jhiTranslate="hospitalsystemApp.doctor.partOfHospitalIncome">Part Of Hospital Income</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="medicalService.name"><span jhiTranslate="hospitalsystemApp.doctor.medicalService">Medical Service</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
@@ -53,6 +55,8 @@
                 <td>{{doctor.specialist}}</td>
                 <td>{{doctor.address}}</td>
                 <td>{{doctor.tel}}</td>
+                <td>{{doctor.salary}}</td>
+                <td>{{doctor.partOfHospitalIncome}}</td>
                 <td>
                     <div *ngIf="doctor.medicalService">
                         <a [routerLink]="['/medical-service', doctor.medicalService?.id, 'view' ]" >{{doctor.medicalService?.name}}</a>

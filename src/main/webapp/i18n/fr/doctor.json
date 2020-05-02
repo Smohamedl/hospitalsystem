@@ -23,6 +23,8 @@
       "specialist": "Specialist",
       "address": "Address",
       "tel": "Tel",
+      "salary": "Salary",
+      "partOfHospitalIncome": "Part Of Hospital Income",
       "medicalService": "Medical Service"
     }
   }

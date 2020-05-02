@@ -40,6 +40,7 @@ import org.springframework.validation.Validator;
 import fr.hospitalsystem.app.HospitalsystemApp;
 import fr.hospitalsystem.app.domain.ReceiptAct;
 import fr.hospitalsystem.app.repository.ActRepository;
+import fr.hospitalsystem.app.repository.DoctorPartPaymentRepository;
 import fr.hospitalsystem.app.repository.PatientRepository;
 import fr.hospitalsystem.app.repository.ReceiptActRepository;
 import fr.hospitalsystem.app.repository.search.ReceiptActSearchRepository;
@@ -95,6 +96,9 @@ public class ReceiptActResourceIT {
     @Autowired
     private ActRepository actRepository;
 
+    @Autowired
+    private DoctorPartPaymentRepository doctorPartPaymentRepository;
+
     private MockMvc restReceiptActMockMvc;
 
     private ReceiptAct receiptAct;
@@ -103,7 +107,7 @@ public class ReceiptActResourceIT {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         final ReceiptActResource receiptActResource = new ReceiptActResource(receiptActRepository, mockReceiptActSearchRepository, patientRepository,
-                actRepository);
+                actRepository, doctorPartPaymentRepository);
         this.restReceiptActMockMvc = MockMvcBuilders.standaloneSetup(receiptActResource).setCustomArgumentResolvers(pageableArgumentResolver)
                 .setControllerAdvice(exceptionTranslator).setConversionService(createFormattingConversionService())
                 .setMessageConverters(jacksonMessageConverter).setValidator(validator).build();

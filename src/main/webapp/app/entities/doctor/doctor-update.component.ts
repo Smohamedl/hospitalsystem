@@ -28,6 +28,8 @@ export class DoctorUpdateComponent implements OnInit {
     specialist: [],
     address: [],
     tel: [],
+    salary: [null, [Validators.required, Validators.min(0)]],
+    partOfHospitalIncome: [null, [Validators.required]],
     medicalService: [null, Validators.required]
   });
 
@@ -61,6 +63,8 @@ export class DoctorUpdateComponent implements OnInit {
       specialist: doctor.specialist,
       address: doctor.address,
       tel: doctor.tel,
+      salary: doctor.salary,
+      partOfHospitalIncome: doctor.partOfHospitalIncome,
       medicalService: doctor.medicalService
     });
   }
@@ -89,6 +93,8 @@ export class DoctorUpdateComponent implements OnInit {
       specialist: this.editForm.get(['specialist']).value,
       address: this.editForm.get(['address']).value,
       tel: this.editForm.get(['tel']).value,
+      salary: this.editForm.get(['salary']).value,
+      partOfHospitalIncome: this.editForm.get(['partOfHospitalIncome']).value,
       medicalService: this.editForm.get(['medicalService']).value
     };
   }
