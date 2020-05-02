@@ -6,6 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginService } from 'app/core/login/login.service';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-login-modal',
@@ -28,6 +29,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
     private renderer: Renderer,
     private router: Router,
     public activeModal: NgbActiveModal,
+    private accountService: AccountService,
     private fb: FormBuilder
   ) {}
 
@@ -55,6 +57,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
         () => {
           this.authenticationError = false;
           this.activeModal.dismiss('login success');
+
           if (
             this.router.url === '/account/register' ||
             this.router.url.startsWith('/account/activate') ||

@@ -24,6 +24,7 @@
       "receiptAct": "Receipt Act",
       "actypes": "Actypes",
       "actype": "Act"
+      "paymentMethod": "Payment Method"
     }
   }
 }

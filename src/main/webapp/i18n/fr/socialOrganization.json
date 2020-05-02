@@ -17,7 +17,8 @@
       "detail": {
         "title": "Social Organization"
       },
-      "name": "Name"
+      "name": "Name",
+      "socialOrganizationRegimen": "Social Organization Regimen"
     }
   }
 }

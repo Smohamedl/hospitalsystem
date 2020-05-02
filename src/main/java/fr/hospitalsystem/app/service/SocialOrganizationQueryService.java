@@ -93,6 +93,10 @@ public class SocialOrganizationQueryService extends QueryService<SocialOrganizat
             if (criteria.getName() != null) {
                 // specification = specification.and(buildStringSpecification(criteria.getName(), SocialOrganization_.name));
             }
+            if (criteria.getSocialOrganizationRegimenId() != null) {
+                specification = specification.and(buildSpecification(criteria.getSocialOrganizationRegimenId(),
+                    root -> root.join(SocialOrganization_.socialOrganizationRegimen, JoinType.LEFT).get(SocialOrganizationRegimen_.id)));
+            }
         }
         return specification;
     }

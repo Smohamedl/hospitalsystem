@@ -1,7 +1,14 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "socialOrganizationRegimen",
+            "otherEntityName": "socialOrganizationRegimen",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "socialOrganization"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",

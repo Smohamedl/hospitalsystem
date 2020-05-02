@@ -11,6 +11,7 @@ import fr.hospitalsystem.app.web.rest.vm.LoginVM;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,6 +51,9 @@ public class UserJWTController {
 
     @Autowired
     private SessionRepository sessionRepository;
+
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 
     public UserJWTController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
         this.tokenProvider = tokenProvider;
@@ -69,6 +78,13 @@ public class UserJWTController {
         return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
     }
 
+    @GetMapping("/logout")
+    public void logout() {
+        System.out.println("Logout");
+        HttpSession httpSession = httpSessionFactory.getObject();
+        httpSession.invalidate();
+    }
+
     private void createSession(String login){
         Optional<User> user = userRepository.findOneWithAuthoritiesByLogin(login);
 
@@ -79,23 +95,35 @@ public class UserJWTController {
         // Create new session if is Cassier user
         boolean isNeedSession = false;
         for (GrantedAuthority auth : grantedAuthorities){
-            if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER)){
+            if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER) || auth.getAuthority().equals(AuthoritiesConstants.ADMIN)){
                 isNeedSession = true;
                 break;
             }
         }
-        if (isNeedSession){
+
+        HttpSession httpSession = httpSessionFactory.getObject();
+        Session curentSession = (Session) httpSession.getAttribute("SessionUser");
+
+        if (curentSession == null){
+            Date date = Calendar.getInstance().getTime();
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String today = formatter.format(date);
+
+            curentSession = sessionRepository.findOneByCreateDate(today, login);
+        }
+
+        if (isNeedSession && curentSession == null){
             Session session = new Session();
-            session.setTotal(0);
-            session.setTotalCash(0);
-            session.setTotalCheck(0);
-            session.setTotalPC(0);
+            session.setTotal(0.0);
+            session.setTotalCash(0.0);
+            session.setTotalCheck(0.0);
+            session.setTotalPC(0.0);
             session.setJhi_user(user.get());
             session.setCreated_by(user.get().getLogin());
             session.setCreated_date(Instant.now());
 
-            sessionRepository.save(session);
-            System.out.println("Instantion of new session for " + user.get().getLogin());
+            sessionRepository.saveAndFlush(session);
+            httpSession.setAttribute("SessionUser", session);
         }
     }
     /**

@@ -19,6 +19,8 @@ import { ReceiptActService } from 'app/entities/receipt-act/receipt-act.service'
 import { IActype } from 'app/shared/model/actype.model';
 import { ActypeService } from 'app/entities/actype/actype.service';
 import {FormArray, FormControl} from '@angular/forms';
+import { IPaymentMethod } from 'app/shared/model/payment-method.model';
+import { PaymentMethodService } from 'app/entities/payment-method/payment-method.service';
 
 @Component({
   selector: 'jhi-act-update',
@@ -38,6 +40,10 @@ export class ActUpdateComponent implements OnInit {
   actypes: IActype[];
 
   mactypes:  IActype[][];
+  
+  paymentmethods: IPaymentMethod[];
+
+  declarationNumber: String;
 
   editForm = this.fb.group({
     id: [],
@@ -47,7 +53,8 @@ export class ActUpdateComponent implements OnInit {
     patient: [],
     receiptAct: [],
     formActypes: new FormArray([]),
-    formMedicalServices: new FormArray([])
+    formMedicalServices: new FormArray([]),
+    paymentMethod: [null, Validators.required]
   });
 
   constructor(
@@ -58,9 +65,12 @@ export class ActUpdateComponent implements OnInit {
     protected patientService: PatientService,
     protected receiptActService: ReceiptActService,
     protected actypeService: ActypeService,
+    protected paymentMethodService: PaymentMethodService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.declarationNumber = 'Non declaré';
+  }
 
   ngOnInit() {
     this.isSaving = false;
@@ -98,6 +108,13 @@ export class ActUpdateComponent implements OnInit {
     this.actypeService
       .query()
       .subscribe((res: HttpResponse<IActype[]>) => (this.actypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+    
+    this.paymentMethodService
+      .query()
+      .subscribe(
+        (res: HttpResponse<IPaymentMethod[]>) => (this.paymentmethods = res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   updateForm(act: IAct) {
@@ -109,7 +126,8 @@ export class ActUpdateComponent implements OnInit {
       patient: act.patient,
       receiptAct: act.receiptAct,
       formActypes: new FormArray([]),
-      formMedicalServices: new FormArray([])
+      formMedicalServices: new FormArray([]),
+      paymentMethod: act.paymentMethod
     });
   }
 
@@ -137,7 +155,8 @@ export class ActUpdateComponent implements OnInit {
       doctor: this.editForm.get(['doctor']).value,
       patient: this.editForm.get(['patient']).value,
       receiptAct: this.editForm.get(['receiptAct']).value,
-      actypes : this.editForm.get(['formActypes']).value
+      actypes : this.editForm.get(['formActypes']).value,
+      paymentMethod: this.editForm.get(['paymentMethod']).value
     };
   }
 
@@ -207,4 +226,14 @@ export class ActUpdateComponent implements OnInit {
       .subscribe((res: HttpResponse<IActype[]>) => (this.mactypes[index] = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
   
+  somethingChanged() {
+    if (this.editForm.get('patient').value.socialOrganizationDetails != null) {
+      this.declarationNumber = this.editForm.get('patient').value.socialOrganizationDetails.registrationNumber;
+    } else {
+      this.declarationNumber = 'Non declaré';
+    }
+  }
+  trackPaymentMethodById(index: number, item: IPaymentMethod) {
+    return item.id;
+  }
 }

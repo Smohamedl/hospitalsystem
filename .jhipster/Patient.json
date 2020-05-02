@@ -1,7 +1,18 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "socialOrganizationDetails",
+            "otherEntityName": "socialOrganizationDetails",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [],
+            "otherEntityField": "matriculeNumber",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": false,
+            "otherEntityRelationshipName": "patient"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",

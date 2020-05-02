@@ -105,7 +105,13 @@ public class UserService {
             }
         });
         User newUser = new User();
-        String encryptedPassword = passwordEncoder.encode(password);
+        String encryptedPassword;
+        if (userDTO.getPassword() != null){
+            encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        } else {
+            encryptedPassword = passwordEncoder.encode(password);
+        }
+
         newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
@@ -115,9 +121,9 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(true);
         // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
+        newUser.setActivationKey(null);
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
@@ -125,6 +131,7 @@ public class UserService {
         userSearchRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
+
         return newUser;
     }
 
@@ -151,10 +158,18 @@ public class UserService {
             user.setLangKey(userDTO.getLangKey());
         }
         String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
-        user.setPassword(encryptedPassword);
+        user.setActivated(false);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
-        user.setActivated(true);
+        if (userDTO.getPassword() != null){
+            encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+            user.setActivated(true);
+            user.setResetKey(null);
+            user.setResetDate(null);
+        }
+
+        user.setPassword(encryptedPassword);
+
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO.getAuthorities().stream()
                 .map(authorityRepository::findById)

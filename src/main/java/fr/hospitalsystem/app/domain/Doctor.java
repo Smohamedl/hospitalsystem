@@ -45,7 +45,7 @@ public class Doctor implements Serializable {
 
     @Column(name = "tel")
     private String tel;
-
+  
     @NotNull
     @DecimalMin(value = "0")
     @Column(name = "salary", nullable = false)
@@ -55,7 +55,7 @@ public class Doctor implements Serializable {
     @Column(name = "part_of_hospital_income", nullable = false)
     private Boolean partOfHospitalIncome;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JsonIgnoreProperties("doctors")
     private MedicalService medicalService;

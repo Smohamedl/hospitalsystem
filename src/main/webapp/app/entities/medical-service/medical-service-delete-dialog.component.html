@@ -12,7 +12,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
-        <button id="jhi-confirm-delete-medicalService" type="submit" class="btn btn-danger">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"  id="jhi-confirm-delete-medicalService" type="submit" class="btn btn-danger">
             <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
         </button>
     </div>

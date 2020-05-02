@@ -21,7 +21,7 @@
         <span jhiTranslate="hospitalsystemApp.receiptAct.home.notFound">No receiptActs found</span>
     </div>
     <div class="table-responsive" *ngIf="receiptActs?.length > 0">
-    
+
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-guard-heading" jhiTranslate="hospitalsystemApp.guard.home.chooseDoctor">Choix du medecin</h2>
             <div>
@@ -64,7 +64,7 @@
                 </button>
             </div>
         </form>
-        
+
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
