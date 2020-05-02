@@ -1,0 +1,71 @@
+<div (contextmenu)="__elementSelectionService.select('1768711294',$event)" [ngStyle]="__elementSelectionService.getStyles('1768711294')"(click)='__elementSelectionService.clear()'>
+    <h2 id="page-heading" (contextmenu)="__elementSelectionService.select('729512627',$event)" [ngStyle]="__elementSelectionService.getStyles('729512627')">
+        <span jhiTranslate="hospitalsystemApp.guardSchedule.home.title" (contextmenu)="__elementSelectionService.select('566142006',$event)" [ngStyle]="__elementSelectionService.getStyles('566142006')">Guard Schedules</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-guard-schedule" [routerLink]="['/guard-schedule/new']" (contextmenu)="__elementSelectionService.select('322736400',$event)" [ngStyle]="__elementSelectionService.getStyles('322736400')">
+            <fa-icon [icon]="'plus'" (contextmenu)="__elementSelectionService.select('1324650704',$event)" [ngStyle]="__elementSelectionService.getStyles('1324650704')"></fa-icon>
+            <span class="hidden-sm-down" jhiTranslate="hospitalsystemApp.guardSchedule.home.createLabel" (contextmenu)="__elementSelectionService.select('1051383135',$event)" [ngStyle]="__elementSelectionService.getStyles('1051383135')">
+            Create a new Guard Schedule
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error (contextmenu)="__elementSelectionService.select('1784760744',$event)" [ngStyle]="__elementSelectionService.getStyles('1784760744')"></jhi-alert-error>
+    <jhi-alert (contextmenu)="__elementSelectionService.select('497218021',$event)" [ngStyle]="__elementSelectionService.getStyles('497218021')"></jhi-alert>
+    <div class="row" (contextmenu)="__elementSelectionService.select('2000322705',$event)" [ngStyle]="__elementSelectionService.getStyles('2000322705')">
+        <div class="col-sm-12" (contextmenu)="__elementSelectionService.select('533897988',$event)" [ngStyle]="__elementSelectionService.getStyles('533897988')">
+            <form name="searchForm" class="form-inline" (contextmenu)="__elementSelectionService.select('2132710751',$event)" [ngStyle]="__elementSelectionService.getStyles('2132710751')">
+                <div class="input-group w-100 mt-3" (contextmenu)="__elementSelectionService.select('1975086720',$event)" [ngStyle]="__elementSelectionService.getStyles('1975086720')">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'hospitalsystemApp.guardSchedule.home.search' | translate }}" (contextmenu)="__elementSelectionService.select('1445217966',$event)" [ngStyle]="__elementSelectionService.getStyles('1445217966')">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)" (contextmenu)="__elementSelectionService.select('1558447597',$event)" [ngStyle]="__elementSelectionService.getStyles('1558447597')">
+                        <fa-icon [icon]="'search'" (contextmenu)="__elementSelectionService.select('1474025283',$event)" [ngStyle]="__elementSelectionService.getStyles('1474025283')"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch" (contextmenu)="__elementSelectionService.select('1764257366',$event)" [ngStyle]="__elementSelectionService.getStyles('1764257366')">
+                        <fa-icon [icon]="'trash-alt'" (contextmenu)="__elementSelectionService.select('491607275',$event)" [ngStyle]="__elementSelectionService.getStyles('491607275')"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br (contextmenu)="__elementSelectionService.select('1643831746',$event)" [ngStyle]="__elementSelectionService.getStyles('1643831746')">
+    <div class="alert alert-warning" *ngIf="guardSchedules?.length === 0" (contextmenu)="__elementSelectionService.select('1754420081',$event)" [ngStyle]="__elementSelectionService.getStyles('1754420081')">
+        <span jhiTranslate="hospitalsystemApp.guardSchedule.home.notFound" (contextmenu)="__elementSelectionService.select('1113770731',$event)" [ngStyle]="__elementSelectionService.getStyles('1113770731')">No guardSchedules found</span>
+    </div>
+    <div class="table-responsive" *ngIf="guardSchedules?.length &#62; 0" (contextmenu)="__elementSelectionService.select('897524800',$event)" [ngStyle]="__elementSelectionService.getStyles('897524800')">
+        <table class="table table-striped" aria-describedby="page-heading" (contextmenu)="__elementSelectionService.select('62732252',$event)" [ngStyle]="__elementSelectionService.getStyles('62732252')">
+            <thead (contextmenu)="__elementSelectionService.select('2043606273',$event)" [ngStyle]="__elementSelectionService.getStyles('2043606273')">
+            <tr (contextmenu)="__elementSelectionService.select('766463297',$event)" [ngStyle]="__elementSelectionService.getStyles('766463297')">
+            <th scope="col" (contextmenu)="__elementSelectionService.select('1639850384',$event)" [ngStyle]="__elementSelectionService.getStyles('1639850384')"><span jhiTranslate="global.field.id" (contextmenu)="__elementSelectionService.select('198699436',$event)" [ngStyle]="__elementSelectionService.getStyles('198699436')">ID</span></th>
+            <th scope="col" (contextmenu)="__elementSelectionService.select('88040234',$event)" [ngStyle]="__elementSelectionService.getStyles('88040234')"><span jhiTranslate="hospitalsystemApp.guardSchedule.payement" (contextmenu)="__elementSelectionService.select('1378739081',$event)" [ngStyle]="__elementSelectionService.getStyles('1378739081')">Payement</span></th>
+            <th scope="col" (contextmenu)="__elementSelectionService.select('1116728061',$event)" [ngStyle]="__elementSelectionService.getStyles('1116728061')"><span jhiTranslate="hospitalsystemApp.guardSchedule.start" (contextmenu)="__elementSelectionService.select('1981931913',$event)" [ngStyle]="__elementSelectionService.getStyles('1981931913')">Start</span></th>
+            <th scope="col" (contextmenu)="__elementSelectionService.select('150596180',$event)" [ngStyle]="__elementSelectionService.getStyles('150596180')"><span jhiTranslate="hospitalsystemApp.guardSchedule.end" (contextmenu)="__elementSelectionService.select('896889193',$event)" [ngStyle]="__elementSelectionService.getStyles('896889193')">End</span></th>
+            <th scope="col" (contextmenu)="__elementSelectionService.select('135314744',$event)" [ngStyle]="__elementSelectionService.getStyles('135314744')"><span jhiTranslate="hospitalsystemApp.guardSchedule.name" (contextmenu)="__elementSelectionService.select('1908684826',$event)" [ngStyle]="__elementSelectionService.getStyles('1908684826')">Name</span></th>
+            <th scope="col" (contextmenu)="__elementSelectionService.select('917030716',$event)" [ngStyle]="__elementSelectionService.getStyles('917030716')"></th>
+            </tr>
+            </thead>
+            <tbody (contextmenu)="__elementSelectionService.select('675808953',$event)" [ngStyle]="__elementSelectionService.getStyles('675808953')">
+            <tr *ngFor="let guardSchedule of guardSchedules ;trackBy: trackId" (contextmenu)="__elementSelectionService.select('624723957',$event)" [ngStyle]="__elementSelectionService.getStyles('624723957')">
+                <td (contextmenu)="__elementSelectionService.select('1978171296',$event)" [ngStyle]="__elementSelectionService.getStyles('1978171296')"><a [routerLink]="['/guard-schedule', guardSchedule.id, 'view' ]" (contextmenu)="__elementSelectionService.select('84526854',$event)" [ngStyle]="__elementSelectionService.getStyles('84526854')">{{guardSchedule.id}}</a></td>
+                <td (contextmenu)="__elementSelectionService.select('1830581456',$event)" [ngStyle]="__elementSelectionService.getStyles('1830581456')">{{guardSchedule.payement}}</td>
+                <td (contextmenu)="__elementSelectionService.select('744379817',$event)" [ngStyle]="__elementSelectionService.getStyles('744379817')">{{guardSchedule.start}}</td>
+                <td (contextmenu)="__elementSelectionService.select('444414717',$event)" [ngStyle]="__elementSelectionService.getStyles('444414717')">{{guardSchedule.end}}</td>
+                <td (contextmenu)="__elementSelectionService.select('1359478595',$event)" [ngStyle]="__elementSelectionService.getStyles('1359478595')">{{guardSchedule.name}}</td>
+                <td class="text-right" (contextmenu)="__elementSelectionService.select('1597225799',$event)" [ngStyle]="__elementSelectionService.getStyles('1597225799')">
+                    <div class="btn-group" (contextmenu)="__elementSelectionService.select('18763285',$event)" [ngStyle]="__elementSelectionService.getStyles('18763285')">
+                        <button type="submit" [routerLink]="['/guard-schedule', guardSchedule.id, 'view' ]" class="btn btn-info btn-sm" (contextmenu)="__elementSelectionService.select('1917269529',$event)" [ngStyle]="__elementSelectionService.getStyles('1917269529')">
+                            <fa-icon [icon]="'eye'" (contextmenu)="__elementSelectionService.select('483668725',$event)" [ngStyle]="__elementSelectionService.getStyles('483668725')"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view" (contextmenu)="__elementSelectionService.select('1585400747',$event)" [ngStyle]="__elementSelectionService.getStyles('1585400747')">View</span>
+                        </button>
+                        <button type="submit" [routerLink]="['/guard-schedule', guardSchedule.id, 'edit']" class="btn btn-primary btn-sm" (contextmenu)="__elementSelectionService.select('769841303',$event)" [ngStyle]="__elementSelectionService.getStyles('769841303')">
+                            <fa-icon [icon]="'pencil-alt'" (contextmenu)="__elementSelectionService.select('1725879500',$event)" [ngStyle]="__elementSelectionService.getStyles('1725879500')"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit" (contextmenu)="__elementSelectionService.select('1537216888',$event)" [ngStyle]="__elementSelectionService.getStyles('1537216888')">Edit</span>
+                        </button>
+                        <button type="submit" [routerLink]="['/guard-schedule', { outlets: { popup: guardSchedule.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm" (contextmenu)="__elementSelectionService.select('2141600692',$event)" [ngStyle]="__elementSelectionService.getStyles('2141600692')">
+                            <fa-icon [icon]="'times'" (contextmenu)="__elementSelectionService.select('1153131191',$event)" [ngStyle]="__elementSelectionService.getStyles('1153131191')"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete" (contextmenu)="__elementSelectionService.select('1423160920',$event)" [ngStyle]="__elementSelectionService.getStyles('1423160920')">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

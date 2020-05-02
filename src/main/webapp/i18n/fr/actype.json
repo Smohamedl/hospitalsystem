@@ -1,0 +1,25 @@
+{
+  "hospitalsystemApp": {
+    "actype": {
+      "home": {
+        "title": "Actypes",
+        "createLabel": "Créer un nouveau Actype",
+        "createOrEditLabel": "Créer ou éditer un Actype",
+        "search": "Recherche pour Actype",
+        "notFound": "Aucun Actype trouvé"
+      },
+      "created": "Un nouveau Actype a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Actype avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Actype avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Actype {{ id }} ?"
+      },
+      "detail": {
+        "title": "Actype"
+      },
+      "name": "Name",
+      "price": "Price",
+      "medicalService": "Medical Service"
+    }
+  }
+}

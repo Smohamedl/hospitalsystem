@@ -1,0 +1,55 @@
+<div *ngIf="audits" (contextmenu)="__elementSelectionService.select('365028705',$event)" [ngStyle]="__elementSelectionService.getStyles('365028705')"(click)='__elementSelectionService.clear()'>
+    <h2 id="audits-page-heading" jhiTranslate="audits.title" (contextmenu)="__elementSelectionService.select('1341559179',$event)" [ngStyle]="__elementSelectionService.getStyles('1341559179')">Audits</h2>
+
+    <div class="row" (contextmenu)="__elementSelectionService.select('1426497529',$event)" [ngStyle]="__elementSelectionService.getStyles('1426497529')">
+        <div class="col-md-5" (contextmenu)="__elementSelectionService.select('1218069785',$event)" [ngStyle]="__elementSelectionService.getStyles('1218069785')">
+            <h4 jhiTranslate="audits.filter.title" (contextmenu)="__elementSelectionService.select('198704923',$event)" [ngStyle]="__elementSelectionService.getStyles('198704923')">Filter by date</h4>
+            <div class="input-group mb-3" (contextmenu)="__elementSelectionService.select('1884708131',$event)" [ngStyle]="__elementSelectionService.getStyles('1884708131')">
+                <div class="input-group-prepend" (contextmenu)="__elementSelectionService.select('298777991',$event)" [ngStyle]="__elementSelectionService.getStyles('298777991')">
+                    <span class="input-group-text" jhiTranslate="audits.filter.from" (contextmenu)="__elementSelectionService.select('191283242',$event)" [ngStyle]="__elementSelectionService.getStyles('191283242')">from</span>
+                </div>
+                <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" (ngModelChange)="transition()" required (contextmenu)="__elementSelectionService.select('1065208186',$event)" [ngStyle]="__elementSelectionService.getStyles('1065208186')">
+
+                <div class="input-group-append" (contextmenu)="__elementSelectionService.select('2097165555',$event)" [ngStyle]="__elementSelectionService.getStyles('2097165555')">
+                    <span class="input-group-text" jhiTranslate="audits.filter.to" (contextmenu)="__elementSelectionService.select('457493521',$event)" [ngStyle]="__elementSelectionService.getStyles('457493521')">To</span>
+                </div>
+                <input type="date" class="form-control" name="end" [(ngModel)]="toDate" (ngModelChange)="transition()" required (contextmenu)="__elementSelectionService.select('639510723',$event)" [ngStyle]="__elementSelectionService.getStyles('639510723')">
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" *ngIf="audits?.length === 0" (contextmenu)="__elementSelectionService.select('2012812131',$event)" [ngStyle]="__elementSelectionService.getStyles('2012812131')">
+        <span jhiTranslate="audits.notFound" (contextmenu)="__elementSelectionService.select('195172035',$event)" [ngStyle]="__elementSelectionService.getStyles('195172035')">No audit found</span>
+    </div>
+    <div class="table-responsive" *ngIf="audits?.length &#62; 0" (contextmenu)="__elementSelectionService.select('909862882',$event)" [ngStyle]="__elementSelectionService.getStyles('909862882')">
+        <table class="table table-sm table-striped" aria-describedby="audits-page-heading" (contextmenu)="__elementSelectionService.select('1630800342',$event)" [ngStyle]="__elementSelectionService.getStyles('1630800342')">
+            <thead (contextmenu)="__elementSelectionService.select('1592355992',$event)" [ngStyle]="__elementSelectionService.getStyles('1592355992')">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)" (contextmenu)="__elementSelectionService.select('1164340616',$event)" [ngStyle]="__elementSelectionService.getStyles('1164340616')">
+                <th scope="col" jhiSortBy="auditEventDate" (contextmenu)="__elementSelectionService.select('680466097',$event)" [ngStyle]="__elementSelectionService.getStyles('680466097')"><span jhiTranslate="audits.table.header.date" (contextmenu)="__elementSelectionService.select('1765064911',$event)" [ngStyle]="__elementSelectionService.getStyles('1765064911')">Date</span><fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('2083319005',$event)" [ngStyle]="__elementSelectionService.getStyles('2083319005')"></fa-icon></th>
+                <th scope="col" jhiSortBy="principal" (contextmenu)="__elementSelectionService.select('173069565',$event)" [ngStyle]="__elementSelectionService.getStyles('173069565')"><span jhiTranslate="audits.table.header.principal" (contextmenu)="__elementSelectionService.select('1522164120',$event)" [ngStyle]="__elementSelectionService.getStyles('1522164120')">User</span><fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('357032120',$event)" [ngStyle]="__elementSelectionService.getStyles('357032120')"></fa-icon></th>
+                <th scope="col" jhiSortBy="auditEventType" (contextmenu)="__elementSelectionService.select('244759753',$event)" [ngStyle]="__elementSelectionService.getStyles('244759753')"><span jhiTranslate="audits.table.header.status" (contextmenu)="__elementSelectionService.select('40728282',$event)" [ngStyle]="__elementSelectionService.getStyles('40728282')">State</span><fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('189948334',$event)" [ngStyle]="__elementSelectionService.getStyles('189948334')"></fa-icon></th>
+                <th scope="col" (contextmenu)="__elementSelectionService.select('565842524',$event)" [ngStyle]="__elementSelectionService.getStyles('565842524')"><span jhiTranslate="audits.table.header.data" (contextmenu)="__elementSelectionService.select('443650646',$event)" [ngStyle]="__elementSelectionService.getStyles('443650646')">Extra data</span></th>
+            </tr>
+            </thead>
+            <tbody (contextmenu)="__elementSelectionService.select('1942223972',$event)" [ngStyle]="__elementSelectionService.getStyles('1942223972')">
+            <tr *ngFor="let audit of audits" (contextmenu)="__elementSelectionService.select('1803857059',$event)" [ngStyle]="__elementSelectionService.getStyles('1803857059')">
+                <td (contextmenu)="__elementSelectionService.select('442329981',$event)" [ngStyle]="__elementSelectionService.getStyles('442329981')"><span (contextmenu)="__elementSelectionService.select('212379970',$event)" [ngStyle]="__elementSelectionService.getStyles('212379970')">{{audit.timestamp| date:'medium'}}</span></td>
+                <td (contextmenu)="__elementSelectionService.select('1617187951',$event)" [ngStyle]="__elementSelectionService.getStyles('1617187951')"><small (contextmenu)="__elementSelectionService.select('776674676',$event)" [ngStyle]="__elementSelectionService.getStyles('776674676')">{{audit.principal}}</small></td>
+                <td (contextmenu)="__elementSelectionService.select('1606196547',$event)" [ngStyle]="__elementSelectionService.getStyles('1606196547')">{{audit.type}}</td>
+                <td (contextmenu)="__elementSelectionService.select('370662735',$event)" [ngStyle]="__elementSelectionService.getStyles('370662735')">
+                    <span *ngIf="audit.data" ng-show="audit.data.message" (contextmenu)="__elementSelectionService.select('1410475214',$event)" [ngStyle]="__elementSelectionService.getStyles('1410475214')">{{audit.data.message}}</span>
+                    <span *ngIf="audit.data" ng-show="audit.data.remoteAddress" (contextmenu)="__elementSelectionService.select('583283589',$event)" [ngStyle]="__elementSelectionService.getStyles('583283589')"><span jhiTranslate="audits.table.data.remoteAddress" (contextmenu)="__elementSelectionService.select('430564379',$event)" [ngStyle]="__elementSelectionService.getStyles('430564379')">Remote Address</span> {{audit.data.remoteAddress}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="audits?.length === 0" (contextmenu)="__elementSelectionService.select('830259140',$event)" [ngStyle]="__elementSelectionService.getStyles('830259140')">
+        <div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('1955453297',$event)" [ngStyle]="__elementSelectionService.getStyles('1955453297')">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage" (contextmenu)="__elementSelectionService.select('2010547326',$event)" [ngStyle]="__elementSelectionService.getStyles('2010547326')"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('554250147',$event)" [ngStyle]="__elementSelectionService.getStyles('554250147')">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)" (contextmenu)="__elementSelectionService.select('1969170137',$event)" [ngStyle]="__elementSelectionService.getStyles('1969170137')"></ngb-pagination>
+        </div>
+    </div>
+</div>

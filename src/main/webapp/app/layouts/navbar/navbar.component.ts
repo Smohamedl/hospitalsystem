@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageService, JhiEventManager } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
@@ -10,6 +10,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { LoginService } from 'app/core/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { Session } from 'app/shared/model/session.model';
 
 @Component({
   selector: 'jhi-navbar',
@@ -23,8 +24,10 @@ export class NavbarComponent implements OnInit {
   swaggerEnabled: boolean;
   modalRef: NgbModalRef;
   version: string;
+  session: Session;
 
   constructor(
+    private eventManager: JhiEventManager,
     private loginService: LoginService,
     private languageService: JhiLanguageService,
     private languageHelper: JhiLanguageHelper,
@@ -36,6 +39,20 @@ export class NavbarComponent implements OnInit {
   ) {
     this.version = VERSION ? (VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION) : '';
     this.isNavbarCollapsed = true;
+
+    this.eventManager.subscribe('authenticationSuccess', () => {
+      console.log('authenticationSuccess called');
+      this.accountService.getCurrentSession().subscribe(session => {
+        localStorage.setItem('User_Session', JSON.stringify(session));
+      });
+    });
+
+    setInterval(() => {
+      this.accountService.getCurrentSession().subscribe(result => {
+        localStorage.setItem('User_Session', JSON.stringify(result));
+      });
+      this.loadSession();
+    }, 30 * 1000);
   }
 
   ngOnInit() {
@@ -45,8 +62,12 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.swaggerEnabled = profileInfo.swaggerEnabled;
     });
+    this.loadSession();
   }
 
+  loadSession() {
+    this.session = JSON.parse(localStorage.getItem('User_Session'));
+  }
   changeLanguage(languageKey: string) {
     this.sessionStorage.store('locale', languageKey);
     this.languageService.changeLanguage(languageKey);
@@ -68,6 +89,7 @@ export class NavbarComponent implements OnInit {
     this.collapseNavbar();
     this.loginService.logout();
     this.router.navigate(['']);
+    localStorage.removeItem('User_Session');
   }
 
   toggleNavbar() {

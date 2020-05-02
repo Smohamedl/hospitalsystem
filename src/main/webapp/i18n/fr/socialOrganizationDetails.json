@@ -1,0 +1,25 @@
+{
+  "hospitalsystemApp": {
+    "socialOrganizationDetails": {
+      "home": {
+        "title": "SocialOrganizationDetails",
+        "createLabel": "Créer un nouveau Social Organization Details",
+        "createOrEditLabel": "Créer ou éditer un Social Organization Details",
+        "search": "Recherche pour Social Organization Details",
+        "notFound": "Aucun Social Organization Details trouvé"
+      },
+      "created": "Un nouveau Social Organization Details a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Social Organization Details avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Social Organization Details avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Social Organization Details {{ id }} ?"
+      },
+      "detail": {
+        "title": "Social Organization Details"
+      },
+      "registrationNumber": "Registration Number",
+      "matriculeNumber": "Matricule Number",
+      "socialOrganizationRegimen": "Social Organization Regimen"
+    }
+  }
+}

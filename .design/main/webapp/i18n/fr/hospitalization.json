@@ -1,0 +1,26 @@
+{
+  "hospitalsystemApp": {
+    "hospitalization": {
+      "home": {
+        "title": "Hospitalizations",
+        "createLabel": "Créer un nouveau Hospitalization",
+        "createOrEditLabel": "Créer ou éditer un Hospitalization",
+        "search": "Recherche pour Hospitalization",
+        "notFound": "Aucun Hospitalization trouvé"
+      },
+      "created": "Un nouveau Hospitalization a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Hospitalization avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Hospitalization avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Hospitalization {{ id }} ?"
+      },
+      "detail": {
+        "title": "Hospitalization"
+      },
+      "date": "Date",
+      "description": "Description",
+      "patient": "Patient",
+      "medicalService": "Medical Service"
+    }
+  }
+}

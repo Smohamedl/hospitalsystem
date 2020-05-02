@@ -2,16 +2,19 @@ package fr.hospitalsystem.app.config;
 
 import java.time.Duration;
 
-import org.ehcache.config.builders.*;
+import fr.hospitalsystem.app.domain.Provider;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.jsr107.Eh107Configuration;
-
 import org.hibernate.cache.jcache.ConfigSettings;
-import io.github.jhipster.config.JHipsterProperties;
-
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import io.github.jhipster.config.JHipsterProperties;
 
 @Configuration
 @EnableCaching
@@ -23,10 +26,8 @@ public class CacheConfiguration {
         JHipsterProperties.Cache.Ehcache ehcache = jHipsterProperties.getCache().getEhcache();
 
         jcacheConfiguration = Eh107Configuration.fromEhcacheCacheConfiguration(
-            CacheConfigurationBuilder.newCacheConfigurationBuilder(Object.class, Object.class,
-                ResourcePoolsBuilder.heap(ehcache.getMaxEntries()))
-                .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(ehcache.getTimeToLiveSeconds())))
-                .build());
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(Object.class, Object.class, ResourcePoolsBuilder.heap(ehcache.getMaxEntries()))
+                        .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(ehcache.getTimeToLiveSeconds()))).build());
     }
 
     @Bean
@@ -42,6 +43,31 @@ public class CacheConfiguration {
             createCache(cm, fr.hospitalsystem.app.domain.User.class.getName());
             createCache(cm, fr.hospitalsystem.app.domain.Authority.class.getName());
             createCache(cm, fr.hospitalsystem.app.domain.User.class.getName() + ".authorities");
+            createCache(cm, fr.hospitalsystem.app.domain.Patient.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.MedicalService.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Doctor.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Actype.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Act.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.GuardSchedule.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Guard.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Hospitalization.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.ReceiptAct.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.SocialOrganization.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Session.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.SocialOrganizationRegimen.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.SocialOrganization.class.getName() + ".socialOrganizationRegimen");
+            createCache(cm, fr.hospitalsystem.app.domain.SocialOrganizationDetails.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.PaymentMethod.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.PaymentMethod.class.getName() + ".acts");
+            createCache(cm, fr.hospitalsystem.app.domain.Stock.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Product.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Category.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Category.class.getName() + ".products");
+            createCache(cm, Provider.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Order.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.QuantityPrice.class.getName());
+            createCache(cm, fr.hospitalsystem.app.domain.Product.class.getName() + ".quantityPrices");
+            createCache(cm, fr.hospitalsystem.app.domain.Order.class.getName() + ".quantityPrices");
             // jhipster-needle-ehcache-add-entry
         };
     }

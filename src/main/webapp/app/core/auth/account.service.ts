@@ -7,6 +7,7 @@ import { shareReplay, tap, catchError } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { Account } from 'app/core/user/account.model';
+import { Session } from 'app/shared/model/session.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -23,6 +24,10 @@ export class AccountService {
 
   save(account: Account): Observable<Account> {
     return this.http.post<Account>(SERVER_API_URL + 'api/account', account);
+  }
+
+  getCurrentSession(): Observable<Session> {
+    return this.http.get<Session>(SERVER_API_URL + 'api/currentsession');
   }
 
   authenticate(identity) {

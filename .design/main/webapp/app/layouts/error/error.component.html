@@ -1,0 +1,19 @@
+<div (contextmenu)="__elementSelectionService.select('1230822673',$event)" [ngStyle]="__elementSelectionService.getStyles('1230822673')"(click)='__elementSelectionService.clear()'>
+    <div class="row" (contextmenu)="__elementSelectionService.select('970707481',$event)" [ngStyle]="__elementSelectionService.getStyles('970707481')">
+        <div class="col-md-4" (contextmenu)="__elementSelectionService.select('381695078',$event)" [ngStyle]="__elementSelectionService.getStyles('381695078')">
+            <span class="hipster img-fluid rounded" (contextmenu)="__elementSelectionService.select('1181758528',$event)" [ngStyle]="__elementSelectionService.getStyles('1181758528')"></span>
+        </div>
+        <div class="col-md-8" (contextmenu)="__elementSelectionService.select('1978608906',$event)" [ngStyle]="__elementSelectionService.getStyles('1978608906')">
+            <h1 jhiTranslate="error.title" (contextmenu)="__elementSelectionService.select('306406068',$event)" [ngStyle]="__elementSelectionService.getStyles('306406068')">Error Page!</h1>
+
+            <div [hidden]="!errorMessage" (contextmenu)="__elementSelectionService.select('95881118',$event)" [ngStyle]="__elementSelectionService.getStyles('95881118')">
+                <div class="alert alert-danger" (contextmenu)="__elementSelectionService.select('1109586268',$event)" [ngStyle]="__elementSelectionService.getStyles('1109586268')">{{errorMessage}}
+                </div>
+            </div>
+            <div [hidden]="!error403" class="alert alert-danger" jhiTranslate="error.http.403" (contextmenu)="__elementSelectionService.select('1311314799',$event)" [ngStyle]="__elementSelectionService.getStyles('1311314799')">You are not authorized to access this page.
+            </div>
+            <div [hidden]="!error404" class="alert alert-danger" jhiTranslate="error.http.404" (contextmenu)="__elementSelectionService.select('1198952156',$event)" [ngStyle]="__elementSelectionService.getStyles('1198952156')">The page does not exist.
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-act-heading" jhiTranslate="hospitalsystemApp.act.home.createOrEditLabel">Create or edit a Act</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.patientName" for="field_patientName">Patient Name</label>
+                    <input type="text" class="form-control" name="patientName" id="field_patientName"
+                           formControlName="patientName"/>
+                    <div *ngIf="editForm.get('patientName').invalid && (editForm.get('patientName').dirty || editForm.get('patientName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('patientName').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.medicalService" for="field_medicalService">Medical Service</label>
+                    <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService">
+                        <option *ngIf="!editForm.get('medicalService').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="medicalServiceOption.id === editForm.get('medicalService').value?.id ? editForm.get('medicalService').value : medicalServiceOption" *ngFor="let medicalServiceOption of medicalservices; trackBy: trackMedicalServiceById">{{medicalServiceOption.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('medicalService').invalid && (editForm.get('medicalService').dirty || editForm.get('medicalService').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('medicalService').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.actype" for="field_actype">Actype</label>
+                    <select class="form-control" id="field_actype" name="actype" formControlName="actype">
+                        <option *ngIf="!editForm.get('actype').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="actypeOption.id === editForm.get('actype').value?.id ? editForm.get('actype').value : actypeOption" *ngFor="let actypeOption of actypes; trackBy: trackActypeById">{{actypeOption.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('actype').invalid && (editForm.get('actype').dirty || editForm.get('actype').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('actype').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.doctor" for="field_doctor">Doctor</label>
+                    <select class="form-control" id="field_doctor" name="doctor" formControlName="doctor">
+                        <option *ngIf="!editForm.get('doctor').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="doctorOption.id === editForm.get('doctor').value?.id ? editForm.get('doctor').value : doctorOption" *ngFor="let doctorOption of doctors; trackBy: trackDoctorById">{{doctorOption.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('doctor').invalid && (editForm.get('doctor').dirty || editForm.get('doctor').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('doctor').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.patient" for="field_patient">Patient</label>
+                    <select class="form-control" id="field_patient" name="patient" formControlName="patient" (change)="somethingChanged()">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="patientOption.id === editForm.get('patient').value?.id ? editForm.get('patient').value : patientOption" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.name}}</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="id" jhiTranslate="global.field.ndeclaration">Declaration N°</label>
+                    <input type="text" class="form-control" value='{{declarationNumber}}' readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.paymentMethod" for="field_paymentMethod">Payment Method</label>
+                    <select class="form-control" id="field_paymentMethod" name="paymentMethod" formControlName="paymentMethod">
+                        <option *ngIf="!editForm.get('paymentMethod').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="paymentMethodOption.id === editForm.get('paymentMethod').value?.id ? editForm.get('paymentMethod').value : paymentMethodOption" *ngFor="let paymentMethodOption of paymentmethods; trackBy: trackPaymentMethodById">{{paymentMethodOption.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('paymentMethod').invalid && (editForm.get('paymentMethod').dirty || editForm.get('paymentMethod').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('paymentMethod').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
