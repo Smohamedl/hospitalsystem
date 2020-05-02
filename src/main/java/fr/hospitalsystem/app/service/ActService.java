@@ -60,6 +60,16 @@ public class ActService {
 
 
     /**
+     * Get all the acts with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    public Page<Act> findAllWithEagerRelationships(Pageable pageable) {
+        return actRepository.findAllWithEagerRelationships(pageable);
+    }
+    
+
+    /**
      * Get one act by id.
      *
      * @param id the id of the entity.
@@ -68,7 +78,7 @@ public class ActService {
     @Transactional(readOnly = true)
     public Optional<Act> findOne(Long id) {
         log.debug("Request to get Act : {}", id);
-        return actRepository.findById(id);
+        return actRepository.findOneWithEagerRelationships(id);
     }
 
     /**

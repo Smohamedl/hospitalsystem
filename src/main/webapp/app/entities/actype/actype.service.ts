@@ -27,6 +27,10 @@ export class ActypeService {
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IActype>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+  
+  findByService(_service: string):  Observable<EntityArrayResponseType>{
+    return this.http.get<IActype[]>(`${this.resourceUrl}/service/${_service}`, {observe: 'response' });
+  }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);

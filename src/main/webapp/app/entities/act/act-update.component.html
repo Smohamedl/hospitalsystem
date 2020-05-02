@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.medicalService" for="field_medicalService">Medical Service</label>
-                    <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService">
+                    <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService" (change)="onChangeService()">
                         <option *ngIf="!editForm.get('medicalService').value" [ngValue]="null" selected></option>
                         <option [ngValue]="medicalServiceOption.id === editForm.get('medicalService').value?.id ? editForm.get('medicalService').value : medicalServiceOption" *ngFor="let medicalServiceOption of medicalservices; trackBy: trackMedicalServiceById">{{medicalServiceOption.name}}</option>
                     </select>
@@ -31,19 +31,6 @@
                 <div *ngIf="editForm.get('medicalService').invalid && (editForm.get('medicalService').dirty || editForm.get('medicalService').touched)">
                     <small class="form-text text-danger"
                            *ngIf="editForm.get('medicalService').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.actype" for="field_actype">Actype</label>
-                    <select class="form-control" id="field_actype" name="actype" formControlName="actype">
-                        <option *ngIf="!editForm.get('actype').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="actypeOption.id === editForm.get('actype').value?.id ? editForm.get('actype').value : actypeOption" *ngFor="let actypeOption of actypes; trackBy: trackActypeById">{{actypeOption.name}}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('actype').invalid && (editForm.get('actype').dirty || editForm.get('actype').touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('actype').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>
@@ -67,7 +54,29 @@
                         <option [ngValue]="patientOption.id === editForm.get('patient').value?.id ? editForm.get('patient').value : patientOption" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.name}}</option>
                     </select>
                 </div>
-
+                 <div formArrayName="formMedicalServices">
+                    <div *ngFor="let medicalService of formMedicalServices.controls; index as i">
+                        <div class="form-group">
+                            <label class="form-control-label"  for="field_medicalService"><span jhiTranslate="hospitalsystemApp.act.medicalService">Medical Service</span> {{i+1}}</label>
+                            <select class="form-control" id="field_medicalService_{{i}}" name="medicalService" [formControlName]="i" (change)="onChangeAddedService(i)">
+                                <option *ngIf="!editForm.get('medicalService').value" [ngValue]="null" selected></option>
+                                <option [ngValue]="medicalServiceOption.id === editForm.get('formMedicalServices').at(i).value?.id ? editForm.get('formMedicalServices').at(i).value : medicalServiceOption" *ngFor="let medicalServiceOption of medicalservices; trackBy: trackMedicalServiceById">{{medicalServiceOption.name}}</option>
+                            </select>
+                        </div>
+                      </div>
+                  </div>
+                 <div formArrayName="formActypes">
+                    <div *ngFor="let actype of formActypes.controls; index as i">
+                      
+                      <div class="form-group">
+                        <label class="form-control-label" for="field_actype"><span jhiTranslate="hospitalsystemApp.act.actype">Act</span> {{i + 1}}</label>
+                            <select class="form-control" id="field_actype_{{i}}" name="actype" [formControlName]="i" >
+                                <option *ngIf="!editForm.get('formActypes').at(i).value" [ngValue]="null" selected></option>
+                                <option [ngValue]="actypeOption.id === editForm.get('formActypes').at(i).value?.id ?  editForm.get('formActypes').at(i).value : actypeOption" *ngFor="let actypeOption of mactypes[i]; trackBy: trackActypeById">{{actypeOption.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                 </div>
                 <div>
                     <label for="id" jhiTranslate="global.field.ndeclaration">Declaration N°</label>
                     <input type="text" class="form-control" value='{{declarationNumber}}' readonly />
@@ -87,10 +96,13 @@
                 </div>
             </div>
             <div>
+                <button type="button" id="add-field" class="btn btn-success"  (click)="addCity()">
+                    <fa-icon [icon]="'add'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.addactype">Add an Act</span>
+                </button>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

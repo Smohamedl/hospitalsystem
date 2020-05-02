@@ -25,6 +25,8 @@
     <include file="config/liquibase/changelog/20200331013012_added_entity_ReceiptAct.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200331001030_added_entity_SocialOrganization.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200331003100_added_entity_Session.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200418231813_added_entity_DoctorMonthlyPayment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200419051505_added_entity_DoctorPartPayment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200403122217_added_entity_SocialOrganizationRegimen.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200403125000_added_entity_SocialOrganizationDetails.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200405015339_added_entity_PaymentMethod.xml" relativeToChangelogFile="false"/>
@@ -42,6 +44,8 @@
     <include file="config/liquibase/changelog/20200324211529_added_entity_constraints_Hospitalization.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200331013012_added_entity_constraints_ReceiptAct.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200331003100_added_entity_constraints_Session.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200418231813_added_entity_constraints_DoctorMonthlyPayment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200419051505_added_entity_constraints_DoctorPartPayment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200403122217_added_entity_constraints_SocialOrganizationRegimen.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191123052800_added_entity_constraints_Patient.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200403125000_added_entity_constraints_SocialOrganizationDetails.xml" relativeToChangelogFile="false"/>

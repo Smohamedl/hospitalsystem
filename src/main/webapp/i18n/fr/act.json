@@ -19,10 +19,11 @@
       },
       "patientName": "Patient Name",
       "medicalService": "Medical Service",
-      "actype": "Actype",
       "doctor": "Doctor",
       "patient": "Patient",
       "receiptAct": "Receipt Act",
+      "actypes": "Actypes",
+      "actype": "Acte",
       "paymentMethod": "Payment Method"
     }
   }

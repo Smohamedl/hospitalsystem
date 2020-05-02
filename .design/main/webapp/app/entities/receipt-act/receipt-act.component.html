@@ -1,114 +1,109 @@
-<div (contextmenu)="__elementSelectionService.select('1524570876',$event)" [ngStyle]="__elementSelectionService.getStyles('1524570876')"(click)='__elementSelectionService.clear()'>
-    <h2 id="page-heading" (contextmenu)="__elementSelectionService.select('215624426',$event)" [ngStyle]="__elementSelectionService.getStyles('215624426')">
-        <span jhiTranslate="hospitalsystemApp.receiptAct.home.title" (contextmenu)="__elementSelectionService.select('779147639',$event)" [ngStyle]="__elementSelectionService.getStyles('779147639')">Receipt Acts</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-receipt-act" [routerLink]="['/receipt-act/new']" (contextmenu)="__elementSelectionService.select('2031289584',$event)" [ngStyle]="__elementSelectionService.getStyles('2031289584')">
-            <fa-icon [icon]="'plus'" (contextmenu)="__elementSelectionService.select('643600556',$event)" [ngStyle]="__elementSelectionService.getStyles('643600556')"></fa-icon>
-            <span class="hidden-sm-down" jhiTranslate="hospitalsystemApp.receiptAct.home.createLabel" (contextmenu)="__elementSelectionService.select('2064413687',$event)" [ngStyle]="__elementSelectionService.getStyles('2064413687')">
-            Create a new Receipt Act
-            </span>
-        </button>
-    </h2>
-    <jhi-alert-error (contextmenu)="__elementSelectionService.select('1402971776',$event)" [ngStyle]="__elementSelectionService.getStyles('1402971776')"></jhi-alert-error>
-    <jhi-alert (contextmenu)="__elementSelectionService.select('852106375',$event)" [ngStyle]="__elementSelectionService.getStyles('852106375')"></jhi-alert>
-    <div class="row" (contextmenu)="__elementSelectionService.select('1884369794',$event)" [ngStyle]="__elementSelectionService.getStyles('1884369794')">
-        <div class="col-sm-12" (contextmenu)="__elementSelectionService.select('1759143348',$event)" [ngStyle]="__elementSelectionService.getStyles('1759143348')">
-            <form name="searchForm" class="form-inline" (contextmenu)="__elementSelectionService.select('1189045641',$event)" [ngStyle]="__elementSelectionService.getStyles('1189045641')">
-                <div class="input-group w-100 mt-3" (contextmenu)="__elementSelectionService.select('613644273',$event)" [ngStyle]="__elementSelectionService.getStyles('613644273')">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'hospitalsystemApp.receiptAct.home.search' | translate }}" (contextmenu)="__elementSelectionService.select('1571261890',$event)" [ngStyle]="__elementSelectionService.getStyles('1571261890')">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)" (contextmenu)="__elementSelectionService.select('1726723079',$event)" [ngStyle]="__elementSelectionService.getStyles('1726723079')">
-                        <fa-icon [icon]="'search'" (contextmenu)="__elementSelectionService.select('1529181822',$event)" [ngStyle]="__elementSelectionService.getStyles('1529181822')"></fa-icon>
+<div (contextmenu)="__elementSelectionService.select('353510732',$event)" [ngStyle]="__elementSelectionService.getStyles('353510732')"(click)='__elementSelectionService.clear()'>
+    <jhi-alert-error (contextmenu)="__elementSelectionService.select('1146456065',$event)" [ngStyle]="__elementSelectionService.getStyles('1146456065')"></jhi-alert-error>
+    <jhi-alert (contextmenu)="__elementSelectionService.select('1113535653',$event)" [ngStyle]="__elementSelectionService.getStyles('1113535653')"></jhi-alert>
+    <div class="row" (contextmenu)="__elementSelectionService.select('383579372',$event)" [ngStyle]="__elementSelectionService.getStyles('383579372')">
+        <div class="col-sm-12" (contextmenu)="__elementSelectionService.select('1728435344',$event)" [ngStyle]="__elementSelectionService.getStyles('1728435344')">
+            <form name="searchForm" class="form-inline" (contextmenu)="__elementSelectionService.select('1663977411',$event)" [ngStyle]="__elementSelectionService.getStyles('1663977411')">
+                <div class="input-group w-100 mt-3" (contextmenu)="__elementSelectionService.select('1471284649',$event)" [ngStyle]="__elementSelectionService.getStyles('1471284649')">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'hospitalsystemApp.receiptAct.home.search' | translate }}" (contextmenu)="__elementSelectionService.select('1912040816',$event)" [ngStyle]="__elementSelectionService.getStyles('1912040816')">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)" (contextmenu)="__elementSelectionService.select('2141299408',$event)" [ngStyle]="__elementSelectionService.getStyles('2141299408')">
+                        <fa-icon [icon]="'search'" (contextmenu)="__elementSelectionService.select('1688729131',$event)" [ngStyle]="__elementSelectionService.getStyles('1688729131')"></fa-icon>
                     </button>
-                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch" (contextmenu)="__elementSelectionService.select('1681309204',$event)" [ngStyle]="__elementSelectionService.getStyles('1681309204')">
-                        <fa-icon [icon]="'trash-alt'" (contextmenu)="__elementSelectionService.select('94303949',$event)" [ngStyle]="__elementSelectionService.getStyles('94303949')"></fa-icon>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch" (contextmenu)="__elementSelectionService.select('1200697019',$event)" [ngStyle]="__elementSelectionService.getStyles('1200697019')">
+                        <fa-icon [icon]="'trash-alt'" (contextmenu)="__elementSelectionService.select('726858145',$event)" [ngStyle]="__elementSelectionService.getStyles('726858145')"></fa-icon>
                     </button>
                 </div>
             </form>
         </div>
     </div>
-    <br (contextmenu)="__elementSelectionService.select('1047405045',$event)" [ngStyle]="__elementSelectionService.getStyles('1047405045')">
-    <div class="alert alert-warning" *ngIf="receiptActs?.length === 0" (contextmenu)="__elementSelectionService.select('1309161152',$event)" [ngStyle]="__elementSelectionService.getStyles('1309161152')">
-        <span jhiTranslate="hospitalsystemApp.receiptAct.home.notFound" (contextmenu)="__elementSelectionService.select('530577163',$event)" [ngStyle]="__elementSelectionService.getStyles('530577163')">No receiptActs found</span>
+    <br (contextmenu)="__elementSelectionService.select('459732487',$event)" [ngStyle]="__elementSelectionService.getStyles('459732487')">
+    <div class="alert alert-warning" *ngIf="receiptActs?.length === 0" (contextmenu)="__elementSelectionService.select('951989610',$event)" [ngStyle]="__elementSelectionService.getStyles('951989610')">
+        <span jhiTranslate="hospitalsystemApp.receiptAct.home.notFound" (contextmenu)="__elementSelectionService.select('1124077075',$event)" [ngStyle]="__elementSelectionService.getStyles('1124077075')">No receiptActs found</span>
     </div>
-    <div class="table-responsive" *ngIf="receiptActs?.length &#62; 0" (contextmenu)="__elementSelectionService.select('1841648299',$event)" [ngStyle]="__elementSelectionService.getStyles('1841648299')">
+    <div class="table-responsive" *ngIf="receiptActs?.length &#62; 0" (contextmenu)="__elementSelectionService.select('350498846',$event)" [ngStyle]="__elementSelectionService.getStyles('350498846')">
     
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" (contextmenu)="__elementSelectionService.select('585869167',$event)" [ngStyle]="__elementSelectionService.getStyles('585869167')">
-            <h2 id="jhi-guard-heading" jhiTranslate="hospitalsystemApp.guard.home.chooseDoctor" (contextmenu)="__elementSelectionService.select('769276868',$event)" [ngStyle]="__elementSelectionService.getStyles('769276868')">Choix du medecin</h2>
-            <div (contextmenu)="__elementSelectionService.select('1302181595',$event)" [ngStyle]="__elementSelectionService.getStyles('1302181595')">
-                <jhi-alert-error (contextmenu)="__elementSelectionService.select('168486345',$event)" [ngStyle]="__elementSelectionService.getStyles('168486345')"></jhi-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value" (contextmenu)="__elementSelectionService.select('1965423416',$event)" [ngStyle]="__elementSelectionService.getStyles('1965423416')">
-                    <label for="id" jhiTranslate="global.field.id" (contextmenu)="__elementSelectionService.select('165538371',$event)" [ngStyle]="__elementSelectionService.getStyles('165538371')">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly (contextmenu)="__elementSelectionService.select('693550797',$event)" [ngStyle]="__elementSelectionService.getStyles('693550797')">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" (contextmenu)="__elementSelectionService.select('1051968187',$event)" [ngStyle]="__elementSelectionService.getStyles('1051968187')">
+            <h2 id="jhi-guard-heading" jhiTranslate="hospitalsystemApp.guard.home.chooseDoctor" (contextmenu)="__elementSelectionService.select('1656691579',$event)" [ngStyle]="__elementSelectionService.getStyles('1656691579')">Choix du medecin</h2>
+            <div (contextmenu)="__elementSelectionService.select('1630321306',$event)" [ngStyle]="__elementSelectionService.getStyles('1630321306')">
+                <jhi-alert-error (contextmenu)="__elementSelectionService.select('2105596264',$event)" [ngStyle]="__elementSelectionService.getStyles('2105596264')"></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value" (contextmenu)="__elementSelectionService.select('1782316621',$event)" [ngStyle]="__elementSelectionService.getStyles('1782316621')">
+                    <label for="id" jhiTranslate="global.field.id" (contextmenu)="__elementSelectionService.select('2059027172',$event)" [ngStyle]="__elementSelectionService.getStyles('2059027172')">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly (contextmenu)="__elementSelectionService.select('1325513327',$event)" [ngStyle]="__elementSelectionService.getStyles('1325513327')">
                 </div>
 
-                <div class="form-group" (contextmenu)="__elementSelectionService.select('1957638787',$event)" [ngStyle]="__elementSelectionService.getStyles('1957638787')">
-                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.guard.medicalService" for="field_medicalService" (contextmenu)="__elementSelectionService.select('772401941',$event)" [ngStyle]="__elementSelectionService.getStyles('772401941')">Doctor Medical Service</label>
-                    <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService" (change)="onChangeService()" (contextmenu)="__elementSelectionService.select('1222673253',$event)" [ngStyle]="__elementSelectionService.getStyles('1222673253')">
-                        <option *ngIf="!editForm.get('medicalService').value" [ngValue]="null" selected (contextmenu)="__elementSelectionService.select('1423764578',$event)" [ngStyle]="__elementSelectionService.getStyles('1423764578')"></option>
-                        <option [ngValue]="medicalServiceOption.id === editForm.get('medicalService').value?.id ? editForm.get('medicalService').value : medicalServiceOption" *ngFor="let medicalServiceOption of medicalservices; trackBy: trackMedicalServiceById" (contextmenu)="__elementSelectionService.select('1500182352',$event)" [ngStyle]="__elementSelectionService.getStyles('1500182352')">{{medicalServiceOption.name}}</option>
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('813622718',$event)" [ngStyle]="__elementSelectionService.getStyles('813622718')">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.guard.medicalService" for="field_medicalService" (contextmenu)="__elementSelectionService.select('911093116',$event)" [ngStyle]="__elementSelectionService.getStyles('911093116')">Doctor Medical Service</label>
+                    <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService" (change)="onChangeService()" (contextmenu)="__elementSelectionService.select('925031206',$event)" [ngStyle]="__elementSelectionService.getStyles('925031206')">
+                        <option *ngIf="!editForm.get('medicalService').value" [ngValue]="null" selected (contextmenu)="__elementSelectionService.select('710675835',$event)" [ngStyle]="__elementSelectionService.getStyles('710675835')"></option>
+                        <option [ngValue]="medicalServiceOption.id === editForm.get('medicalService').value?.id ? editForm.get('medicalService').value : medicalServiceOption" *ngFor="let medicalServiceOption of medicalservices; trackBy: trackMedicalServiceById" (contextmenu)="__elementSelectionService.select('883664912',$event)" [ngStyle]="__elementSelectionService.getStyles('883664912')">{{medicalServiceOption.name}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('medicalService').invalid &#38;&#38; (editForm.get('medicalService').dirty || editForm.get('medicalService').touched)" (contextmenu)="__elementSelectionService.select('953876011',$event)" [ngStyle]="__elementSelectionService.getStyles('953876011')">
-                    <small class="form-text text-danger" *ngIf="editForm.get('medicalService').errors.required" jhiTranslate="entity.validation.required" (contextmenu)="__elementSelectionService.select('1961732606',$event)" [ngStyle]="__elementSelectionService.getStyles('1961732606')">
+                <div *ngIf="editForm.get('medicalService').invalid &#38;&#38; (editForm.get('medicalService').dirty || editForm.get('medicalService').touched)" (contextmenu)="__elementSelectionService.select('877502104',$event)" [ngStyle]="__elementSelectionService.getStyles('877502104')">
+                    <small class="form-text text-danger" *ngIf="editForm.get('medicalService').errors.required" jhiTranslate="entity.validation.required" (contextmenu)="__elementSelectionService.select('2092331399',$event)" [ngStyle]="__elementSelectionService.getStyles('2092331399')">
                         This field is required.
                     </small>
                 </div>
-                <div class="form-group" (contextmenu)="__elementSelectionService.select('1205990653',$event)" [ngStyle]="__elementSelectionService.getStyles('1205990653')">
-                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.guard.doctor" for="field_doctor" (contextmenu)="__elementSelectionService.select('1237277478',$event)" [ngStyle]="__elementSelectionService.getStyles('1237277478')">Doctor</label>
-                    <select class="form-control" id="field_doctor" name="doctor" formControlName="doctor" (contextmenu)="__elementSelectionService.select('645648284',$event)" [ngStyle]="__elementSelectionService.getStyles('645648284')">
-                        <option *ngIf="!editForm.get('doctor').value" [ngValue]="null" selected (contextmenu)="__elementSelectionService.select('1061171444',$event)" [ngStyle]="__elementSelectionService.getStyles('1061171444')"></option>
-                        <option [ngValue]="doctorOption.id === editForm.get('doctor').value?.id ? editForm.get('doctor').value : doctorOption" *ngFor="let doctorOption of doctors; trackBy: trackDoctorById" (contextmenu)="__elementSelectionService.select('2001632765',$event)" [ngStyle]="__elementSelectionService.getStyles('2001632765')">{{doctorOption.name}}</option>
+                <div class="form-group" (contextmenu)="__elementSelectionService.select('180105455',$event)" [ngStyle]="__elementSelectionService.getStyles('180105455')">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.guard.doctor" for="field_doctor" (contextmenu)="__elementSelectionService.select('1569725388',$event)" [ngStyle]="__elementSelectionService.getStyles('1569725388')">Doctor</label>
+                    <select class="form-control" id="field_doctor" name="doctor" formControlName="doctor" (contextmenu)="__elementSelectionService.select('2053297236',$event)" [ngStyle]="__elementSelectionService.getStyles('2053297236')">
+                        <option *ngIf="!editForm.get('doctor').value" [ngValue]="null" selected (contextmenu)="__elementSelectionService.select('621732170',$event)" [ngStyle]="__elementSelectionService.getStyles('621732170')"></option>
+                        <option [ngValue]="doctorOption.id === editForm.get('doctor').value?.id ? editForm.get('doctor').value : doctorOption" *ngFor="let doctorOption of doctors; trackBy: trackDoctorById" (contextmenu)="__elementSelectionService.select('589956383',$event)" [ngStyle]="__elementSelectionService.getStyles('589956383')">{{doctorOption.name}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('doctor').invalid &#38;&#38; (editForm.get('doctor').dirty || editForm.get('doctor').touched)" (contextmenu)="__elementSelectionService.select('1142648409',$event)" [ngStyle]="__elementSelectionService.getStyles('1142648409')">
-                    <small class="form-text text-danger" *ngIf="editForm.get('doctor').errors.required" jhiTranslate="entity.validation.required" (contextmenu)="__elementSelectionService.select('1021599337',$event)" [ngStyle]="__elementSelectionService.getStyles('1021599337')">
+                <div *ngIf="editForm.get('doctor').invalid &#38;&#38; (editForm.get('doctor').dirty || editForm.get('doctor').touched)" (contextmenu)="__elementSelectionService.select('1799150121',$event)" [ngStyle]="__elementSelectionService.getStyles('1799150121')">
+                    <small class="form-text text-danger" *ngIf="editForm.get('doctor').errors.required" jhiTranslate="entity.validation.required" (contextmenu)="__elementSelectionService.select('1165066553',$event)" [ngStyle]="__elementSelectionService.getStyles('1165066553')">
                         This field is required.
                     </small>
                 </div>
             </div>
-            <div (contextmenu)="__elementSelectionService.select('43847313',$event)" [ngStyle]="__elementSelectionService.getStyles('43847313')">
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary" (contextmenu)="__elementSelectionService.select('112732842',$event)" [ngStyle]="__elementSelectionService.getStyles('112732842')">
-                    <fa-icon [icon]="'save'" (contextmenu)="__elementSelectionService.select('432989570',$event)" [ngStyle]="__elementSelectionService.getStyles('432989570')"></fa-icon>&#160;<span jhiTranslate="entity.action.save" (contextmenu)="__elementSelectionService.select('130541508',$event)" [ngStyle]="__elementSelectionService.getStyles('130541508')">Rechercher</span>
+            <div (contextmenu)="__elementSelectionService.select('2116834072',$event)" [ngStyle]="__elementSelectionService.getStyles('2116834072')">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary" (contextmenu)="__elementSelectionService.select('2047824003',$event)" [ngStyle]="__elementSelectionService.getStyles('2047824003')">
+                    <fa-icon [icon]="'save'" (contextmenu)="__elementSelectionService.select('415175891',$event)" [ngStyle]="__elementSelectionService.getStyles('415175891')"></fa-icon>&#160;<span jhiTranslate="entity.action.save" (contextmenu)="__elementSelectionService.select('688577164',$event)" [ngStyle]="__elementSelectionService.getStyles('688577164')">Rechercher</span>
                 </button>
             </div>
         </form>
         
-        <table class="table table-striped" aria-describedby="page-heading" (contextmenu)="__elementSelectionService.select('1833207851',$event)" [ngStyle]="__elementSelectionService.getStyles('1833207851')">
-            <thead (contextmenu)="__elementSelectionService.select('711856723',$event)" [ngStyle]="__elementSelectionService.getStyles('711856723')">
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)" (contextmenu)="__elementSelectionService.select('1155666025',$event)" [ngStyle]="__elementSelectionService.getStyles('1155666025')">
-            <th scope="col" jhiSortBy="id" (contextmenu)="__elementSelectionService.select('2082682614',$event)" [ngStyle]="__elementSelectionService.getStyles('2082682614')"><span jhiTranslate="global.field.id" (contextmenu)="__elementSelectionService.select('896531593',$event)" [ngStyle]="__elementSelectionService.getStyles('896531593')">ID</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('1867095293',$event)" [ngStyle]="__elementSelectionService.getStyles('1867095293')"></fa-icon></th>
-            <th scope="col" jhiSortBy="total" (contextmenu)="__elementSelectionService.select('1006413861',$event)" [ngStyle]="__elementSelectionService.getStyles('1006413861')"><span jhiTranslate="hospitalsystemApp.receiptAct.total" (contextmenu)="__elementSelectionService.select('1586343210',$event)" [ngStyle]="__elementSelectionService.getStyles('1586343210')">Total</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('348953030',$event)" [ngStyle]="__elementSelectionService.getStyles('348953030')"></fa-icon></th>
-            <th scope="col" jhiSortBy="paid" (contextmenu)="__elementSelectionService.select('927027670',$event)" [ngStyle]="__elementSelectionService.getStyles('927027670')"><span jhiTranslate="hospitalsystemApp.receiptAct.paid" (contextmenu)="__elementSelectionService.select('1772255899',$event)" [ngStyle]="__elementSelectionService.getStyles('1772255899')">Paid</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('1517649528',$event)" [ngStyle]="__elementSelectionService.getStyles('1517649528')"></fa-icon></th>
-            <th scope="col" jhiSortBy="paidDoctor" (contextmenu)="__elementSelectionService.select('713543257',$event)" [ngStyle]="__elementSelectionService.getStyles('713543257')"><span jhiTranslate="hospitalsystemApp.receiptAct.paidDoctor" (contextmenu)="__elementSelectionService.select('401990974',$event)" [ngStyle]="__elementSelectionService.getStyles('401990974')">Paid Doctor</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('1836655609',$event)" [ngStyle]="__elementSelectionService.getStyles('1836655609')"></fa-icon></th>
-            <th scope="col" jhiSortBy="date" (contextmenu)="__elementSelectionService.select('479073936',$event)" [ngStyle]="__elementSelectionService.getStyles('479073936')"><span jhiTranslate="hospitalsystemApp.receiptAct.date" (contextmenu)="__elementSelectionService.select('141551198',$event)" [ngStyle]="__elementSelectionService.getStyles('141551198')">Date</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('814427768',$event)" [ngStyle]="__elementSelectionService.getStyles('814427768')"></fa-icon></th>
-            <th scope="col" jhiSortBy="act.id" (contextmenu)="__elementSelectionService.select('340370811',$event)" [ngStyle]="__elementSelectionService.getStyles('340370811')"><span jhiTranslate="hospitalsystemApp.receiptAct.act" (contextmenu)="__elementSelectionService.select('2015304692',$event)" [ngStyle]="__elementSelectionService.getStyles('2015304692')">Act</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('255152063',$event)" [ngStyle]="__elementSelectionService.getStyles('255152063')"></fa-icon></th>
-            <th scope="col" (contextmenu)="__elementSelectionService.select('1722042575',$event)" [ngStyle]="__elementSelectionService.getStyles('1722042575')"></th>
+        <table class="table table-striped" aria-describedby="page-heading" (contextmenu)="__elementSelectionService.select('105814192',$event)" [ngStyle]="__elementSelectionService.getStyles('105814192')">
+            <thead (contextmenu)="__elementSelectionService.select('1928305964',$event)" [ngStyle]="__elementSelectionService.getStyles('1928305964')">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)" (contextmenu)="__elementSelectionService.select('1594451729',$event)" [ngStyle]="__elementSelectionService.getStyles('1594451729')">
+            <th scope="col" jhiSortBy="id" (contextmenu)="__elementSelectionService.select('1091333395',$event)" [ngStyle]="__elementSelectionService.getStyles('1091333395')"><span jhiTranslate="global.field.id" (contextmenu)="__elementSelectionService.select('1801372780',$event)" [ngStyle]="__elementSelectionService.getStyles('1801372780')">ID</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('908851520',$event)" [ngStyle]="__elementSelectionService.getStyles('908851520')"></fa-icon></th>
+            <th scope="col" jhiSortBy="total" (contextmenu)="__elementSelectionService.select('212379666',$event)" [ngStyle]="__elementSelectionService.getStyles('212379666')"><span jhiTranslate="hospitalsystemApp.receiptAct.total" (contextmenu)="__elementSelectionService.select('1936402206',$event)" [ngStyle]="__elementSelectionService.getStyles('1936402206')">Total</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('566839458',$event)" [ngStyle]="__elementSelectionService.getStyles('566839458')"></fa-icon></th>
+            <th scope="col" jhiSortBy="paid" (contextmenu)="__elementSelectionService.select('148817295',$event)" [ngStyle]="__elementSelectionService.getStyles('148817295')"><span jhiTranslate="hospitalsystemApp.receiptAct.paid" (contextmenu)="__elementSelectionService.select('615918892',$event)" [ngStyle]="__elementSelectionService.getStyles('615918892')">Paid</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('1008867799',$event)" [ngStyle]="__elementSelectionService.getStyles('1008867799')"></fa-icon></th>
+            <th scope="col" jhiSortBy="paidDoctor" (contextmenu)="__elementSelectionService.select('1771265954',$event)" [ngStyle]="__elementSelectionService.getStyles('1771265954')"><span jhiTranslate="hospitalsystemApp.receiptAct.paidDoctor" (contextmenu)="__elementSelectionService.select('1501087598',$event)" [ngStyle]="__elementSelectionService.getStyles('1501087598')">Paid Doctor</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('1807853656',$event)" [ngStyle]="__elementSelectionService.getStyles('1807853656')"></fa-icon></th>
+            <th scope="col" jhiSortBy="date" (contextmenu)="__elementSelectionService.select('1167968116',$event)" [ngStyle]="__elementSelectionService.getStyles('1167968116')"><span jhiTranslate="hospitalsystemApp.receiptAct.date" (contextmenu)="__elementSelectionService.select('971517059',$event)" [ngStyle]="__elementSelectionService.getStyles('971517059')">Date</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('1779177788',$event)" [ngStyle]="__elementSelectionService.getStyles('1779177788')"></fa-icon></th>
+            <th scope="col" jhiSortBy="act.id" (contextmenu)="__elementSelectionService.select('599824299',$event)" [ngStyle]="__elementSelectionService.getStyles('599824299')"><span jhiTranslate="hospitalsystemApp.receiptAct.act" (contextmenu)="__elementSelectionService.select('1812871780',$event)" [ngStyle]="__elementSelectionService.getStyles('1812871780')">Act</span> <fa-icon [icon]="'sort'" (contextmenu)="__elementSelectionService.select('374522267',$event)" [ngStyle]="__elementSelectionService.getStyles('374522267')"></fa-icon></th>
+            <th scope="col" (contextmenu)="__elementSelectionService.select('1701090934',$event)" [ngStyle]="__elementSelectionService.getStyles('1701090934')"></th>
             </tr>
             </thead>
-            <tbody (contextmenu)="__elementSelectionService.select('1059015453',$event)" [ngStyle]="__elementSelectionService.getStyles('1059015453')">
-            <tr *ngFor="let receiptAct of receiptActs ;trackBy: trackId" (contextmenu)="__elementSelectionService.select('1071593393',$event)" [ngStyle]="__elementSelectionService.getStyles('1071593393')">
-                <td (contextmenu)="__elementSelectionService.select('447926082',$event)" [ngStyle]="__elementSelectionService.getStyles('447926082')"><a [routerLink]="['/receipt-act', receiptAct.id, 'view' ]" (contextmenu)="__elementSelectionService.select('1586765547',$event)" [ngStyle]="__elementSelectionService.getStyles('1586765547')">{{receiptAct.id}}</a></td>
-                <td (contextmenu)="__elementSelectionService.select('454484359',$event)" [ngStyle]="__elementSelectionService.getStyles('454484359')">{{receiptAct.total}}</td>
-                <td (contextmenu)="__elementSelectionService.select('1571962859',$event)" [ngStyle]="__elementSelectionService.getStyles('1571962859')">{{receiptAct.paid}}</td>
-                <td (contextmenu)="__elementSelectionService.select('1375089600',$event)" [ngStyle]="__elementSelectionService.getStyles('1375089600')">{{receiptAct.paidDoctor}}</td>
-                <td (contextmenu)="__elementSelectionService.select('803937363',$event)" [ngStyle]="__elementSelectionService.getStyles('803937363')">{{receiptAct.date | date:'mediumDate'}}</td>
-                <td (contextmenu)="__elementSelectionService.select('56482544',$event)" [ngStyle]="__elementSelectionService.getStyles('56482544')">
-                    <div *ngIf="receiptAct.act" (contextmenu)="__elementSelectionService.select('1331486743',$event)" [ngStyle]="__elementSelectionService.getStyles('1331486743')">
-                        <a [routerLink]="['/act', receiptAct.act?.id, 'view' ]" (contextmenu)="__elementSelectionService.select('802464271',$event)" [ngStyle]="__elementSelectionService.getStyles('802464271')">{{receiptAct.act?.id}}</a>
+            <tbody (contextmenu)="__elementSelectionService.select('1297109251',$event)" [ngStyle]="__elementSelectionService.getStyles('1297109251')">
+            <tr *ngFor="let receiptAct of receiptActs ;trackBy: trackId" (contextmenu)="__elementSelectionService.select('1062687711',$event)" [ngStyle]="__elementSelectionService.getStyles('1062687711')">
+                <td (contextmenu)="__elementSelectionService.select('1227977865',$event)" [ngStyle]="__elementSelectionService.getStyles('1227977865')"><a [routerLink]="['/receipt-act', receiptAct.id, 'view' ]" (contextmenu)="__elementSelectionService.select('1655215743',$event)" [ngStyle]="__elementSelectionService.getStyles('1655215743')">{{receiptAct.id}}</a></td>
+                <td (contextmenu)="__elementSelectionService.select('344753302',$event)" [ngStyle]="__elementSelectionService.getStyles('344753302')">{{receiptAct.total}}</td>
+                <td (contextmenu)="__elementSelectionService.select('2101102147',$event)" [ngStyle]="__elementSelectionService.getStyles('2101102147')">{{receiptAct.paid}}</td>
+                <td (contextmenu)="__elementSelectionService.select('2016889932',$event)" [ngStyle]="__elementSelectionService.getStyles('2016889932')">{{receiptAct.paidDoctor}}</td>
+                <td (contextmenu)="__elementSelectionService.select('2113371761',$event)" [ngStyle]="__elementSelectionService.getStyles('2113371761')">{{receiptAct.date | date:'mediumDate'}}</td>
+                <td (contextmenu)="__elementSelectionService.select('1027461786',$event)" [ngStyle]="__elementSelectionService.getStyles('1027461786')">
+                    <div *ngIf="receiptAct.act" (contextmenu)="__elementSelectionService.select('1155886362',$event)" [ngStyle]="__elementSelectionService.getStyles('1155886362')">
+                        <a [routerLink]="['/act', receiptAct.act?.id, 'view' ]" (contextmenu)="__elementSelectionService.select('660696786',$event)" [ngStyle]="__elementSelectionService.getStyles('660696786')">{{receiptAct.act?.id}}</a>
                     </div>
                 </td>
-                <td class="text-right" (contextmenu)="__elementSelectionService.select('1487546914',$event)" [ngStyle]="__elementSelectionService.getStyles('1487546914')">
-                    <div class="btn-group" (contextmenu)="__elementSelectionService.select('894300573',$event)" [ngStyle]="__elementSelectionService.getStyles('894300573')">
-                        <button type="submit" [routerLink]="['/receipt-act', receiptAct.id, 'view' ]" class="btn btn-info btn-sm" (contextmenu)="__elementSelectionService.select('490337147',$event)" [ngStyle]="__elementSelectionService.getStyles('490337147')">
-                            <fa-icon [icon]="'eye'" (contextmenu)="__elementSelectionService.select('393735689',$event)" [ngStyle]="__elementSelectionService.getStyles('393735689')"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view" (contextmenu)="__elementSelectionService.select('512048639',$event)" [ngStyle]="__elementSelectionService.getStyles('512048639')">View</span>
+                <td class="text-right" (contextmenu)="__elementSelectionService.select('1734759917',$event)" [ngStyle]="__elementSelectionService.getStyles('1734759917')">
+                    <div class="btn-group" (contextmenu)="__elementSelectionService.select('866457353',$event)" [ngStyle]="__elementSelectionService.getStyles('866457353')">
+                        <button type="submit" [routerLink]="['/receipt-act', receiptAct.id, 'view' ]" class="btn btn-info btn-sm" (contextmenu)="__elementSelectionService.select('341207494',$event)" [ngStyle]="__elementSelectionService.getStyles('341207494')">
+                            <fa-icon [icon]="'eye'" (contextmenu)="__elementSelectionService.select('1623237506',$event)" [ngStyle]="__elementSelectionService.getStyles('1623237506')"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view" (contextmenu)="__elementSelectionService.select('1376349937',$event)" [ngStyle]="__elementSelectionService.getStyles('1376349937')">View</span>
                         </button>
-                        <button type="submit" [routerLink]="['/receipt-act', receiptAct.id, 'edit']" class="btn btn-primary btn-sm" (contextmenu)="__elementSelectionService.select('1142879915',$event)" [ngStyle]="__elementSelectionService.getStyles('1142879915')">
-                            <fa-icon [icon]="'pencil-alt'" (contextmenu)="__elementSelectionService.select('376334200',$event)" [ngStyle]="__elementSelectionService.getStyles('376334200')"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit" (contextmenu)="__elementSelectionService.select('1044497434',$event)" [ngStyle]="__elementSelectionService.getStyles('1044497434')">Edit</span>
+                        <button type="button" (click)="download(receiptAct.id)" class="btn btn-success btn-sm" (contextmenu)="__elementSelectionService.select('775042681',$event)" [ngStyle]="__elementSelectionService.getStyles('775042681')">
+                            <fa-icon [icon]="'file-download'" (contextmenu)="__elementSelectionService.select('527404810',$event)" [ngStyle]="__elementSelectionService.getStyles('527404810')"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.download" (contextmenu)="__elementSelectionService.select('423416100',$event)" [ngStyle]="__elementSelectionService.getStyles('423416100')">Download</span>
                         </button>
-                        <button type="submit" [routerLink]="['/receipt-act', { outlets: { popup: receiptAct.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm" (contextmenu)="__elementSelectionService.select('161246440',$event)" [ngStyle]="__elementSelectionService.getStyles('161246440')">
-                            <fa-icon [icon]="'times'" (contextmenu)="__elementSelectionService.select('973371614',$event)" [ngStyle]="__elementSelectionService.getStyles('973371614')"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete" (contextmenu)="__elementSelectionService.select('1597283649',$event)" [ngStyle]="__elementSelectionService.getStyles('1597283649')">Delete</span>
+                        <button type="submit" [routerLink]="['/receipt-act', receiptAct.id, 'edit']" class="btn btn-primary btn-sm" (contextmenu)="__elementSelectionService.select('651488348',$event)" [ngStyle]="__elementSelectionService.getStyles('651488348')">
+                            <fa-icon [icon]="'pencil-alt'" (contextmenu)="__elementSelectionService.select('145011637',$event)" [ngStyle]="__elementSelectionService.getStyles('145011637')"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit" (contextmenu)="__elementSelectionService.select('765012162',$event)" [ngStyle]="__elementSelectionService.getStyles('765012162')">Edit</span>
+                        </button>
+                        <button *ngIf="!receiptAct.paid" type="submit" [routerLink]="['/receipt-act', { outlets: { popup: receiptAct.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm" (contextmenu)="__elementSelectionService.select('39756621',$event)" [ngStyle]="__elementSelectionService.getStyles('39756621')">
+                            <fa-icon [icon]="'times'" (contextmenu)="__elementSelectionService.select('247481536',$event)" [ngStyle]="__elementSelectionService.getStyles('247481536')"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete" (contextmenu)="__elementSelectionService.select('899249312',$event)" [ngStyle]="__elementSelectionService.getStyles('899249312')">Delete</span>
                         </button>
                     </div>
                 </td>
@@ -116,12 +111,12 @@
             </tbody>
         </table>
     </div>
-    <div [hidden]="receiptActs?.length === 0" (contextmenu)="__elementSelectionService.select('1868952489',$event)" [ngStyle]="__elementSelectionService.getStyles('1868952489')">
-        <div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('99891585',$event)" [ngStyle]="__elementSelectionService.getStyles('99891585')">
-            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage" (contextmenu)="__elementSelectionService.select('481256297',$event)" [ngStyle]="__elementSelectionService.getStyles('481256297')"></jhi-item-count>
+    <div [hidden]="receiptActs?.length === 0" (contextmenu)="__elementSelectionService.select('319169565',$event)" [ngStyle]="__elementSelectionService.getStyles('319169565')">
+        <div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('1926176595',$event)" [ngStyle]="__elementSelectionService.getStyles('1926176595')">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage" (contextmenu)="__elementSelectionService.select('250498260',$event)" [ngStyle]="__elementSelectionService.getStyles('250498260')"></jhi-item-count>
         </div>
-        <div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('1728719656',$event)" [ngStyle]="__elementSelectionService.getStyles('1728719656')">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)" (contextmenu)="__elementSelectionService.select('657614043',$event)" [ngStyle]="__elementSelectionService.getStyles('657614043')"></ngb-pagination>
+        <div class="row justify-content-center" (contextmenu)="__elementSelectionService.select('2133739505',$event)" [ngStyle]="__elementSelectionService.getStyles('2133739505')">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)" (contextmenu)="__elementSelectionService.select('2083985255',$event)" [ngStyle]="__elementSelectionService.getStyles('2083985255')"></ngb-pagination>
         </div>
     </div>
 </div>

@@ -49,6 +49,15 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./session/session.module').then(m => m.HospitalsystemSessionModule)
       },
       {
+        path: 'doctor-monthly-payment',
+        loadChildren: () =>
+          import('./doctor-monthly-payment/doctor-monthly-payment.module').then(m => m.HospitalsystemDoctorMonthlyPaymentModule)
+      },
+      {
+        path: 'doctor-part-payment',
+        loadChildren: () => import('./doctor-part-payment/doctor-part-payment.module').then(m => m.HospitalsystemDoctorPartPaymentModule)
+      },
+      {
         path: 'social-organization-regimen',
         loadChildren: () =>
           import('./social-organization-regimen/social-organization-regimen.module').then(

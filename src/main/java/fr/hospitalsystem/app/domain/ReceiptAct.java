@@ -3,19 +3,21 @@ package fr.hospitalsystem.app.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * A ReceiptAct.
@@ -44,6 +46,10 @@ public class ReceiptAct implements Serializable {
 
     @Column(name = "date")
     private LocalDate date;
+
+    @OneToOne(mappedBy = "receiptAct", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+    @JsonBackReference
+    private Act act;
 
     /*
      * @OneToOne(fetch = FetchType.EAGER)
@@ -142,4 +148,13 @@ public class ReceiptAct implements Serializable {
         return "ReceiptAct{" + "id=" + getId() + ", total=" + getTotal() + ", paid='" + isPaid() + "'" + ", paidDoctor='" + isPaidDoctor() + "'"
                 + ", date='" + getDate() + "'" + "}";
     }
+
+    public Act getAct() {
+        return act;
+    }
+
+    public void setAct(Act act) {
+        this.act = act;
+    }
+
 }

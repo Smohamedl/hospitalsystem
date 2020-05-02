@@ -4,17 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
-import { IReceiptAct } from 'app/shared/model/receipt-act.model';
+import { IFixedDoctorPayment } from 'app/shared/model/fixed-doctor-payment.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { ReceiptActService } from './receipt-act.service';
+import { FixedDoctorPaymentService } from './fixed-doctor-payment.service';
 
 @Component({
-  selector: 'jhi-receipt-act',
-  templateUrl: './receipt-act.component.html'
+  selector: 'jhi-fixed-doctor-payment',
+  templateUrl: './fixed-doctor-payment.component.html'
 })
-export class ReceiptActComponent implements OnInit, OnDestroy {
-  receiptActs: IReceiptAct[];
+export class FixedDoctorPaymentComponent implements OnInit, OnDestroy {
+  fixedDoctorPayments: IFixedDoctorPayment[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -29,7 +29,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
-    protected receiptActService: ReceiptActService,
+    protected fixedDoctorPaymentService: FixedDoctorPaymentService,
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
@@ -50,23 +50,23 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
 
   loadAll() {
     if (this.currentSearch) {
-      this.receiptActService
+      this.fixedDoctorPaymentService
         .search({
           page: this.page - 1,
           query: this.currentSearch,
           size: this.itemsPerPage,
           sort: this.sort()
         })
-        .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+        .subscribe((res: HttpResponse<IFixedDoctorPayment[]>) => this.paginateFixedDoctorPayments(res.body, res.headers));
       return;
     }
-    this.receiptActService
+    this.fixedDoctorPaymentService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<IReceiptAct[]>) => this.paginateReceiptActs(res.body, res.headers));
+      .subscribe((res: HttpResponse<IFixedDoctorPayment[]>) => this.paginateFixedDoctorPayments(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -77,7 +77,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/receipt-act'], {
+    this.router.navigate(['/fixed-doctor-payment'], {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
@@ -92,7 +92,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.currentSearch = '';
     this.router.navigate([
-      '/receipt-act',
+      '/fixed-doctor-payment',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -108,7 +108,7 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.currentSearch = query;
     this.router.navigate([
-      '/receipt-act',
+      '/fixed-doctor-payment',
       {
         search: this.currentSearch,
         page: this.page,
@@ -120,19 +120,19 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.registerChangeInReceiptActs();
+    this.registerChangeInFixedDoctorPayments();
   }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IReceiptAct) {
+  trackId(index: number, item: IFixedDoctorPayment) {
     return item.id;
   }
 
-  registerChangeInReceiptActs() {
-    this.eventSubscriber = this.eventManager.subscribe('receiptActListModification', () => this.loadAll());
+  registerChangeInFixedDoctorPayments() {
+    this.eventSubscriber = this.eventManager.subscribe('fixedDoctorPaymentListModification', () => this.loadAll());
   }
 
   sort() {
@@ -143,9 +143,9 @@ export class ReceiptActComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateReceiptActs(data: IReceiptAct[], headers: HttpHeaders) {
+  protected paginateFixedDoctorPayments(data: IFixedDoctorPayment[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.receiptActs = data;
+    this.fixedDoctorPayments = data;
   }
 }

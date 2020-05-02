@@ -13,16 +13,6 @@
             "otherEntityRelationshipName": "act"
         },
         {
-            "relationshipName": "actype",
-            "otherEntityName": "actype",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name",
-            "otherEntityRelationshipName": "act"
-        },
-        {
             "relationshipName": "doctor",
             "otherEntityName": "doctor",
             "relationshipType": "many-to-one",
@@ -48,16 +38,27 @@
             "useJPADerivedIdentifier": false,
             "otherEntityRelationshipName": "act"
         },
-        {
-            "relationshipName": "paymentMethod",
-            "otherEntityName": "paymentMethod",
-            "relationshipType": "many-to-one",
+        	{
+            "relationshipName": "actypes",
+            "otherEntityName": "actype",
+            "relationshipType": "many-to-many",
             "relationshipValidateRules": [
                 "required"
             ],
             "otherEntityField": "name",
-            "otherEntityRelationshipName": "act"
-        }
+            "ownerSide": true,
+            "otherEntityRelationshipName": "acts"
+        },
+		{
+			 "relationshipName": "paymentMethod",
+            "otherEntityName": "paymentMethod",
+            "relationshipType": "many-to-one",
+			 "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+			"otherEntityRelationshipName": "act"
+		}
     ],
     "fields": [
         {

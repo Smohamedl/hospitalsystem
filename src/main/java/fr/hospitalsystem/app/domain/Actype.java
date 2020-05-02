@@ -1,13 +1,22 @@
 package fr.hospitalsystem.app.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import org.springframework.data.elasticsearch.annotations.FieldType;
-import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Actype.
@@ -105,10 +114,6 @@ public class Actype implements Serializable {
 
     @Override
     public String toString() {
-        return "Actype{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", price=" + getPrice() +
-            "}";
+        return "Actype{" + "id=" + getId() + ", name='" + getName() + "'" + ", price=" + getPrice() + "}";
     }
 }

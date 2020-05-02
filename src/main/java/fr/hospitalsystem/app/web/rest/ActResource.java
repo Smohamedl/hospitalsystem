@@ -3,7 +3,6 @@ package fr.hospitalsystem.app.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.hospitalsystem.app.domain.Act;
+import fr.hospitalsystem.app.domain.Actype;
 import fr.hospitalsystem.app.domain.ReceiptAct;
 import fr.hospitalsystem.app.service.ActService;
 import fr.hospitalsystem.app.web.rest.errors.BadRequestAlertException;
@@ -49,7 +49,6 @@ import io.github.jhipster.web.util.ResponseUtil;
 public class ActResource {
 
     private final Logger log = LoggerFactory.getLogger(ActResource.class);
-    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final String ENTITY_NAME = "act";
 
@@ -84,21 +83,18 @@ public class ActResource {
         if (act.getId() != null) {
             throw new BadRequestAlertException("A new act cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
-        double total = act.getActype().getPrice();
-        if (act.getPatient().getSocialOrganizationDetails() != null) {
-            total =  total * ( 1 - (act.getPatient().getSocialOrganizationDetails().getSocialOrganizationRegimen().getPercentage() / 100));
-        }
         ReceiptAct receiptAct = new ReceiptAct();
-        receiptAct.setDate(UPDATED_DATE);
+        receiptAct.setDate(LocalDate.now());
         receiptAct.setPaid(false);
         receiptAct.setPaidDoctor(false);
+
+        double total = 0;
+        for (Actype actype : act.getActypes()) {
+            total += actype.getPrice();
+        }
         receiptAct.setTotal(total);
 
-        receiptActRepository.save(receiptAct);
-
         act.setReceiptAct(receiptAct);
-
         Act result = actService.save(act);
 
         HttpSession httpSession = httpSessionFactory.getObject();
@@ -142,15 +138,20 @@ public class ActResource {
     /**
      * {@code GET  /acts} : get all the acts.
      *
-
+     * @param pageable  the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of acts in body.
      */
     @GetMapping("/acts")
-    public ResponseEntity<List<Act>> getAllActs(Pageable pageable) {
+    public ResponseEntity<List<Act>> getAllActs(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Acts");
-        Page<Act> page = actService.findAll(pageable);
+        Page<Act> page;
+        if (eagerload) {
+            page = actService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = actService.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

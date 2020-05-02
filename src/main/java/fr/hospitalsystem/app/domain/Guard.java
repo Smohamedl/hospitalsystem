@@ -44,7 +44,7 @@ public class Guard implements Serializable {
     @JsonIgnoreProperties("guards")
     private GuardSchedule guardSchedule;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @NotNull
     @JsonIgnoreProperties("guards")
     private MedicalService doctorMedicalService;

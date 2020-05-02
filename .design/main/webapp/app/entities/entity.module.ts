@@ -39,6 +39,8 @@ import { RouterModule } from '@angular/router';
       {
         path: 'receipt-act',
         loadChildren: () => import('./receipt-act/receipt-act.module').then(m => m.HospitalsystemReceiptActModule)
+      },
+      {
         path: 'social-organization',
         loadChildren: () => import('./social-organization/social-organization.module').then(m => m.HospitalsystemSocialOrganizationModule)
       },

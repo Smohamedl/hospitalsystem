@@ -8,6 +8,8 @@ export interface IDoctor {
   specialist?: boolean;
   address?: string;
   tel?: string;
+  salary?: number;
+  partOfHospitalIncome?: boolean;
   medicalService?: IMedicalService;
 }
 
@@ -20,8 +22,11 @@ export class Doctor implements IDoctor {
     public specialist?: boolean,
     public address?: string,
     public tel?: string,
+    public salary?: number,
+    public partOfHospitalIncome?: boolean,
     public medicalService?: IMedicalService
   ) {
     this.specialist = this.specialist || false;
+    this.partOfHospitalIncome = this.partOfHospitalIncome || false;
   }
 }

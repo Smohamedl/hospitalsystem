@@ -9,7 +9,8 @@
             "relationshipValidateRules": [
                 "required"
             ],
-            "otherEntityField": "name"
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "doctor"
         }
     ],
     "fields": [
@@ -45,6 +46,22 @@
         {
             "fieldName": "tel",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "salary",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "partOfHospitalIncome",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20191123055359",
