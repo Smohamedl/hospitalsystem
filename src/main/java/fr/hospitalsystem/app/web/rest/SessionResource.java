@@ -126,7 +126,7 @@ public class SessionResource {
              String today = formatter.format(date);
              String login = "";
 
-             session = sessionRepository.findOneByCreateDate(today, login);
+             session = sessionRepository.findOneByCreateDate(login);
 
              if (session == null) {
                  UserDetails userDetails = (UserDetails)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -291,7 +291,7 @@ public class ActResourceIT {
     }
     @SuppressWarnings({"unchecked"})
     public void getAllActsWithEagerRelationshipsIsEnabled() throws Exception {
-        ActResource actResource = new ActResource(actServiceMock);
+        ActResource actResource = new ActResource(sessionRepository, actService, receiptActRepository);
         when(actServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
@@ -308,7 +308,7 @@ public class ActResourceIT {
 
     @SuppressWarnings({"unchecked"})
     public void getAllActsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        ActResource actResource = new ActResource(actServiceMock);
+        ActResource actResource = new ActResource(sessionRepository, actService, receiptActRepository);
             when(actServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

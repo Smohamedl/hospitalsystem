@@ -18,7 +18,7 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     @Query("select d from Session d where d.created_by = ?1")
     Page<Session> findAllByCreated_by(String Created_by, Pageable pageable);
 
-    @Query("select d from Session d where d.created_by = ?2 and d.created_date like '?1%' ORDER BY  d.created_date desc")
-    Session findOneByCreateDate(String created_date, String created_by);
+    @Query("select d from Session d where d.created_by = ?1 ORDER BY  d.created_date desc")
+    Session findOneByCreateDate(String created_by);
 
 }

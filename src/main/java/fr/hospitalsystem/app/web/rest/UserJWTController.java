@@ -109,7 +109,7 @@ public class UserJWTController {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String today = formatter.format(date);
 
-            curentSession = sessionRepository.findOneByCreateDate(today, login);
+            curentSession = sessionRepository.findOneByCreateDate(login);
         }
 
         if (isNeedSession && curentSession == null){
