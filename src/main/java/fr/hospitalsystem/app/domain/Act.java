@@ -4,26 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -70,6 +58,11 @@ public class Act implements Serializable {
     @NotNull
     @JoinTable(name = "act_actypes", joinColumns = @JoinColumn(name = "act_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "actypes_id", referencedColumnName = "id"))
     private Set<Actype> actypes = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @NotNull
+    @JsonIgnoreProperties("acts")
+    private PaymentMethod paymentMethod;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -169,6 +162,19 @@ public class Act implements Serializable {
     public void setActypes(Set<Actype> actypes) {
         this.actypes = actypes;
     }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public Act paymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+        return this;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -189,6 +195,9 @@ public class Act implements Serializable {
 
     @Override
     public String toString() {
-        return "Act{" + "id=" + getId() + ", patientName='" + getPatientName() + "'" + "}";
+        return "Act{" +
+            "id=" + getId() +
+            ", patientName='" + getPatientName() + "'" +
+            "}";
     }
 }

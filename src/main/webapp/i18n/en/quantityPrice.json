@@ -1,0 +1,26 @@
+{
+  "hospitalsystemApp": {
+    "quantityPrice": {
+      "home": {
+        "title": "Quantity Prices",
+        "createLabel": "Create a new Quantity Price",
+        "createOrEditLabel": "Create or edit a Quantity Price",
+        "search": "Search for Quantity Price",
+        "notFound": "No Quantity Prices found"
+      },
+      "created": "A new Quantity Price is created with identifier {{ param }}",
+      "updated": "A Quantity Price is updated with identifier {{ param }}",
+      "deleted": "A Quantity Price is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Quantity Price {{ id }}?"
+      },
+      "detail": {
+        "title": "Quantity Price"
+      },
+      "quantity": "Quantity",
+      "price": "Price",
+      "product": "Product",
+      "order": "Order"
+    }
+  }
+}

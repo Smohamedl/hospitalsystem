@@ -58,6 +58,7 @@ public class ActService {
         return actRepository.findAll(pageable);
     }
 
+
     /**
      * Get all the acts with eager load of many-to-many relationships.
      *

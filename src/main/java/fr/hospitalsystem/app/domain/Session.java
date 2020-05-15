@@ -28,19 +28,19 @@ public class Session implements Serializable {
 
     @NotNull
     @Column(name = "total_cash", nullable = false)
-    private Integer totalCash;
+    private Double totalCash;
 
     @NotNull
     @Column(name = "total_pc", nullable = false)
-    private Integer totalPC;
+    private Double totalPC;
 
     @NotNull
     @Column(name = "total", nullable = false)
-    private Integer total;
+    private Double total;
 
     @NotNull
     @Column(name = "total_check", nullable = false)
-    private Integer totalCheck;
+    private Double totalCheck;
 
     @NotNull
     @Column(name = "created_by", nullable = false)
@@ -63,55 +63,55 @@ public class Session implements Serializable {
         this.id = id;
     }
 
-    public Integer getTotalCash() {
+    public Double getTotalCash() {
         return totalCash;
     }
 
-    public Session totalCash(Integer totalCash) {
+    public Session totalCash(Double totalCash) {
         this.totalCash = totalCash;
         return this;
     }
 
-    public void setTotalCash(Integer totalCash) {
+    public void setTotalCash(Double totalCash) {
         this.totalCash = totalCash;
     }
 
-    public Integer getTotalPC() {
+    public Double getTotalPC() {
         return totalPC;
     }
 
-    public Session totalPC(Integer totalPC) {
+    public Session totalPC(Double totalPC) {
         this.totalPC = totalPC;
         return this;
     }
 
-    public void setTotalPC(Integer totalPC) {
+    public void setTotalPC(Double totalPC) {
         this.totalPC = totalPC;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public Session total(Integer total) {
+    public Session total(Double total) {
         this.total = total;
         return this;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
-    public Integer getTotalCheck() {
+    public Double getTotalCheck() {
         return totalCheck;
     }
 
-    public Session totalCheck(Integer totalCheck) {
+    public Session totalCheck(Double totalCheck) {
         this.totalCheck = totalCheck;
         return this;
     }
 
-    public void setTotalCheck(Integer totalCheck) {
+    public void setTotalCheck(Double totalCheck) {
         this.totalCheck = totalCheck;
     }
 

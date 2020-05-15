@@ -15,6 +15,7 @@
       "title": "Utilisateur"
     },
     "login": "Login",
+    "password": "password",
     "firstName": "Prénom",
     "lastName": "Nom",
     "email": "Email",

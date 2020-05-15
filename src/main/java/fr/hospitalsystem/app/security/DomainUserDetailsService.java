@@ -61,29 +61,6 @@ public class DomainUserDetailsService implements UserDetailsService {
             .map(authority -> new SimpleGrantedAuthority(authority.getName()))
             .collect(Collectors.toList());
 
-        // Create new session if is Cassier user
-        /*boolean isNeedSession = false;
-        for (GrantedAuthority auth : grantedAuthorities){
-            if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER)){
-                isNeedSession = true;
-                break;
-            }
-        }
-        if (isNeedSession){
-            log.debug("New Session for {}", user.getLogin());
-            Session session = new Session();
-            session.setTotal(0);
-            session.setTotalCash(0);
-            session.setTotalCheck(0);
-            session.setTotalPC(0);
-            session.setJhi_user(user);
-            session.setCreated_by(user.getLogin());
-            session.setCreated_date(Instant.now());
-
-            sessionRepository.save(session);
-        }*/
-
-
         return new org.springframework.security.core.userdetails.User(user.getLogin(),
             user.getPassword(),
             grantedAuthorities);

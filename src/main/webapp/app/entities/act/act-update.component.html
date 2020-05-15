@@ -49,12 +49,12 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.patient" for="field_patient">Patient</label>
-                    <select class="form-control" id="field_patient" name="patient" formControlName="patient">
+                    <select class="form-control" id="field_patient" name="patient" formControlName="patient" (change)="somethingChanged()">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="patientOption.id === editForm.get('patient').value?.id ? editForm.get('patient').value : patientOption" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.name}}</option>
                     </select>
                 </div>
-                
+
                  <div formArrayName="formMedicalServices">
                     <div *ngFor="let medicalService of formMedicalServices.controls; index as i">
                         <div class="form-group">
@@ -68,7 +68,7 @@
                   </div>
                  <div formArrayName="formActypes">
                     <div *ngFor="let actype of formActypes.controls; index as i">
-                      
+
                       <div class="form-group">
                         <label class="form-control-label" for="field_actype"><span jhiTranslate="hospitalsystemApp.act.actype">Act</span> {{i + 1}}</label>
                             <select class="form-control" id="field_actype_{{i}}" name="actype" [formControlName]="i" >
@@ -78,6 +78,24 @@
                         </div>
                     </div>
                  </div>
+
+                <div>
+                    <label for="id" jhiTranslate="global.field.ndeclaration">Declaration N°</label>
+                    <input type="text" class="form-control" value='{{declarationNumber}}' readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.paymentMethod" for="field_paymentMethod">Payment Method</label>
+                    <select class="form-control" id="field_paymentMethod" name="paymentMethod" formControlName="paymentMethod">
+                        <option *ngIf="!editForm.get('paymentMethod').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="paymentMethodOption.id === editForm.get('paymentMethod').value?.id ? editForm.get('paymentMethod').value : paymentMethodOption" *ngFor="let paymentMethodOption of paymentmethods; trackBy: trackPaymentMethodById">{{paymentMethodOption.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('paymentMethod').invalid && (editForm.get('paymentMethod').dirty || editForm.get('paymentMethod').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('paymentMethod').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="add-field" class="btn btn-success"  (click)="addCity()">
@@ -86,7 +104,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

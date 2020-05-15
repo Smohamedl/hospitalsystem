@@ -1,4 +1,4 @@
-<div>
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'" >
     <h2 id="page-heading">
         <span jhiTranslate="hospitalsystemApp.medicalService.home.title">Medical Services</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-medical-service" [routerLink]="['/medical-service/new']">

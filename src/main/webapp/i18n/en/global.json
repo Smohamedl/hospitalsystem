@@ -7,6 +7,12 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "gestionPatient": "Patients",
+        "gestionAct": "Act",
+        "gestionGarde": "Guard",
+        "gestionHospitalisation": "Hospitalization",
+        "gestionSessions": "Sessions",
+        "gestionDoctors": "Doctors",
         "patient": "Patient",
         "medicalService": "Medical Service",
         "doctor": "Doctor",
@@ -18,6 +24,15 @@
         "receiptAct": "Receipt Act",
         "socialOrganization": "Social Organization",
         "session": "Session",
+        "socialOrganizationRegimen": "Social Organization Regimen",
+        "socialOrganizationDetails": "Social Organization Details",
+        "paymentMethod": "Payment Method",
+        "stock": "Stock",
+        "product": "Product",
+        "category": "Category",
+        "provider": "Provider",
+        "order": "Order",
+        "quantityPrice": "Quantity Price",
         "doctorMonthlyPayment": "Doctor Monthly Payment",
         "doctorPartPayment": "Doctor Part Payment",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
@@ -32,7 +47,7 @@
         "register": "Register"
       },
       "admin": {
-        "main": "Administration",
+        "main": "Admin",
         "userManagement": "User management",
         "tracker": "User tracker",
         "metrics": "Metrics",
@@ -94,7 +109,8 @@
       }
     },
     "field": {
-      "id": "ID"
+      "id": "ID",
+      "ndeclaration": "Declaration N°"
     },
     "ribbon": {
       "dev": "Development"
@@ -103,6 +119,7 @@
   },
   "entity": {
     "action": {
+      "addProduct": " add a Product",
       "addblob": "Add blob",
       "addimage": "Add image",
       "back": "Back",

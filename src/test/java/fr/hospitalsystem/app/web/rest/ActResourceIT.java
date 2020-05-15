@@ -4,8 +4,11 @@ import fr.hospitalsystem.app.HospitalsystemApp;
 import fr.hospitalsystem.app.domain.Act;
 import fr.hospitalsystem.app.domain.MedicalService;
 import fr.hospitalsystem.app.domain.Doctor;
+import fr.hospitalsystem.app.domain.PaymentMethod;
 import fr.hospitalsystem.app.domain.Actype;
 import fr.hospitalsystem.app.repository.ActRepository;
+import fr.hospitalsystem.app.repository.ReceiptActRepository;
+import fr.hospitalsystem.app.repository.SessionRepository;
 import fr.hospitalsystem.app.repository.search.ActSearchRepository;
 import fr.hospitalsystem.app.service.ActService;
 import fr.hospitalsystem.app.web.rest.errors.ExceptionTranslator;
@@ -60,6 +63,12 @@ public class ActResourceIT {
     @Autowired
     private ActService actService;
 
+    @Autowired
+    private  SessionRepository sessionRepository;
+
+    @Autowired
+    private ReceiptActRepository receiptActRepository;
+
     /**
      * This repository is mocked in the fr.hospitalsystem.app.repository.search test package.
      *
@@ -90,7 +99,7 @@ public class ActResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ActResource actResource = new ActResource(actService);
+        final ActResource actResource = new ActResource(sessionRepository, actService, receiptActRepository);
         this.restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -138,6 +147,16 @@ public class ActResourceIT {
             actype = TestUtil.findAll(em, Actype.class).get(0);
         }
         act.getActypes().add(actype);
+        // Add required entity
+        PaymentMethod paymentMethod;
+        if (TestUtil.findAll(em, PaymentMethod.class).isEmpty()) {
+            paymentMethod = PaymentMethodResourceIT.createEntity(em);
+            em.persist(paymentMethod);
+            em.flush();
+        } else {
+            paymentMethod = TestUtil.findAll(em, PaymentMethod.class).get(0);
+        }
+        act.setPaymentMethod(paymentMethod);
         return act;
     }
     /**
@@ -179,6 +198,16 @@ public class ActResourceIT {
             actype = TestUtil.findAll(em, Actype.class).get(0);
         }
         act.getActypes().add(actype);
+        // Add required entity
+        PaymentMethod paymentMethod;
+        if (TestUtil.findAll(em, PaymentMethod.class).isEmpty()) {
+            paymentMethod = PaymentMethodResourceIT.createUpdatedEntity(em);
+            em.persist(paymentMethod);
+            em.flush();
+        } else {
+            paymentMethod = TestUtil.findAll(em, PaymentMethod.class).get(0);
+        }
+        act.setPaymentMethod(paymentMethod);
         return act;
     }
 
@@ -262,10 +291,10 @@ public class ActResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(act.getId().intValue())))
             .andExpect(jsonPath("$.[*].patientName").value(hasItem(DEFAULT_PATIENT_NAME)));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllActsWithEagerRelationshipsIsEnabled() throws Exception {
-        ActResource actResource = new ActResource(actServiceMock);
+        ActResource actResource =new ActResource(sessionRepository, actService, receiptActRepository);
         when(actServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
@@ -282,7 +311,7 @@ public class ActResourceIT {
 
     @SuppressWarnings({"unchecked"})
     public void getAllActsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        ActResource actResource = new ActResource(actServiceMock);
+        ActResource actResource =new ActResource(sessionRepository, actService, receiptActRepository);
             when(actServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restActMockMvc = MockMvcBuilders.standaloneSetup(actResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

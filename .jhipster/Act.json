@@ -48,6 +48,16 @@
             "otherEntityField": "name",
             "ownerSide": true,
             "otherEntityRelationshipName": "acts"
+        },
+        {
+            "relationshipName": "paymentMethod",
+            "otherEntityName": "paymentMethod",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "act"
         }
     ],
     "fields": [

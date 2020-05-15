@@ -40,7 +40,7 @@ public class SocialOrganizationQueryService extends QueryService<SocialOrganizat
 
     /**
      * Return a {@link List} of {@link SocialOrganization} which matches the criteria from the database.
-     * 
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -53,7 +53,7 @@ public class SocialOrganizationQueryService extends QueryService<SocialOrganizat
 
     /**
      * Return a {@link Page} of {@link SocialOrganization} which matches the criteria from the database.
-     * 
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page     The page, which should be returned.
      * @return the matching entities.
@@ -67,7 +67,7 @@ public class SocialOrganizationQueryService extends QueryService<SocialOrganizat
 
     /**
      * Return the number of matching entities in the database.
-     * 
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the number of matching entities.
      */
@@ -80,7 +80,7 @@ public class SocialOrganizationQueryService extends QueryService<SocialOrganizat
 
     /**
      * Function to convert {@link SocialOrganizationCriteria} to a {@link Specification}
-     * 
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching {@link Specification} of the entity.
      */
@@ -92,6 +92,10 @@ public class SocialOrganizationQueryService extends QueryService<SocialOrganizat
             }
             if (criteria.getName() != null) {
                 // specification = specification.and(buildStringSpecification(criteria.getName(), SocialOrganization_.name));
+            }
+            if (criteria.getSocialOrganizationRegimenId() != null) {
+                /*specification = specification.and(buildSpecification(criteria.getSocialOrganizationRegimenId(),
+                    root -> root.join(SocialOrganization_.socialOrganizationRegimen, JoinType.LEFT).get(SocialOrganizationRegimen_.id)));*/
             }
         }
         return specification;

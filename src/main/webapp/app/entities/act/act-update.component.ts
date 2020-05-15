@@ -18,7 +18,9 @@ import { IReceiptAct } from 'app/shared/model/receipt-act.model';
 import { ReceiptActService } from 'app/entities/receipt-act/receipt-act.service';
 import { IActype } from 'app/shared/model/actype.model';
 import { ActypeService } from 'app/entities/actype/actype.service';
-import {FormArray, FormControl} from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
+import { IPaymentMethod } from 'app/shared/model/payment-method.model';
+import { PaymentMethodService } from 'app/entities/payment-method/payment-method.service';
 
 @Component({
   selector: 'jhi-act-update',
@@ -37,7 +39,11 @@ export class ActUpdateComponent implements OnInit {
 
   actypes: IActype[];
 
-  mactypes:  IActype[][];
+  mactypes: IActype[][];
+
+  paymentmethods: IPaymentMethod[];
+
+  declarationNumber: String;
 
   editForm = this.fb.group({
     id: [],
@@ -47,7 +53,8 @@ export class ActUpdateComponent implements OnInit {
     patient: [],
     receiptAct: [],
     formActypes: new FormArray([]),
-    formMedicalServices: new FormArray([])
+    formMedicalServices: new FormArray([]),
+    paymentMethod: [null, Validators.required]
   });
 
   constructor(
@@ -58,9 +65,12 @@ export class ActUpdateComponent implements OnInit {
     protected patientService: PatientService,
     protected receiptActService: ReceiptActService,
     protected actypeService: ActypeService,
+    protected paymentMethodService: PaymentMethodService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.declarationNumber = 'Non declaré';
+  }
 
   ngOnInit() {
     this.isSaving = false;
@@ -98,6 +108,12 @@ export class ActUpdateComponent implements OnInit {
     this.actypeService
       .query()
       .subscribe((res: HttpResponse<IActype[]>) => (this.actypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+    this.paymentMethodService
+      .query()
+      .subscribe(
+        (res: HttpResponse<IPaymentMethod[]>) => (this.paymentmethods = res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   updateForm(act: IAct) {
@@ -109,7 +125,8 @@ export class ActUpdateComponent implements OnInit {
       patient: act.patient,
       receiptAct: act.receiptAct,
       formActypes: new FormArray([]),
-      formMedicalServices: new FormArray([])
+      formMedicalServices: new FormArray([]),
+      paymentMethod: act.paymentMethod
     });
   }
 
@@ -120,7 +137,7 @@ export class ActUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const act = this.createFromForm();
-    console.log("############ " + act);
+    console.log('############ ' + act);
     if (act.id !== undefined) {
       this.subscribeToSaveResponse(this.actService.update(act));
     } else {
@@ -137,7 +154,8 @@ export class ActUpdateComponent implements OnInit {
       doctor: this.editForm.get(['doctor']).value,
       patient: this.editForm.get(['patient']).value,
       receiptAct: this.editForm.get(['receiptAct']).value,
-      actypes : this.editForm.get(['formActypes']).value
+      actypes: this.editForm.get(['formActypes']).value,
+      paymentMethod: this.editForm.get(['paymentMethod']).value
     };
   }
 
@@ -153,7 +171,7 @@ export class ActUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
-  
+
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
@@ -173,38 +191,53 @@ export class ActUpdateComponent implements OnInit {
   trackReceiptActById(index: number, item: IReceiptAct) {
     return item.id;
   }
+  somethingChanged() {
+    if (this.editForm.get('patient').value.socialOrganizationDetails != null) {
+      this.declarationNumber = this.editForm.get('patient').value.socialOrganizationDetails.registrationNumber;
+    } else {
+      this.declarationNumber = 'Non declaré';
+    }
+  }
+  trackPaymentMethodById(index: number, item: IPaymentMethod) {
+    return item.id;
+  }
 
   trackActypeById(index: number, item: IActype) {
     return item.id;
   }
-    
-  get formActypes(): FormArray { return this.editForm.get('formActypes') as FormArray; }
-  
-  get formMedicalServices() : FormArray { return this.editForm.get('formMedicalServices') as FormArray; }
-  
-  addCity() { 
-    // get actypes 
+
+  get formActypes(): FormArray {
+    return this.editForm.get('formActypes') as FormArray;
+  }
+
+  get formMedicalServices(): FormArray {
+    return this.editForm.get('formMedicalServices') as FormArray;
+  }
+
+  addCity() {
+    // get actypes
     this.actypeService
-    .query()
-    .subscribe((res: HttpResponse<IActype[]>) => (this.mactypes.push(res.body)), (res: HttpErrorResponse) => this.onError(res.message));
-    
+      .query()
+      .subscribe((res: HttpResponse<IActype[]>) => this.mactypes.push(res.body), (res: HttpErrorResponse) => this.onError(res.message));
+
     this.formMedicalServices.push(new FormControl());
     this.formActypes.push(new FormControl());
-    
   }
-  
+
   onChangeService() {
     this.doctorService
       .findByService(this.editForm.get(['medicalService']).value.name)
       .subscribe((res: HttpResponse<IDoctor[]>) => (this.doctors = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
-  
+
   onChangeAddedService(index: number) {
-    console.log("################## index " + index);
-    
+    console.log('################## index ' + index);
+
     this.actypeService
       .findByService(this.editForm.get(['formMedicalServices']).at(index).value.name)
-      .subscribe((res: HttpResponse<IActype[]>) => (this.mactypes[index] = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe(
+        (res: HttpResponse<IActype[]>) => (this.mactypes[index] = res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
-  
 }

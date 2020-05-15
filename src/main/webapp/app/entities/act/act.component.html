@@ -39,6 +39,7 @@
             <th scope="col"  jhiSortBy="doctor.name"><span jhiTranslate="hospitalsystemApp.act.doctor">Doctor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="patient.name"><span jhiTranslate="hospitalsystemApp.act.patient">Patient</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="receiptAct.id"><span jhiTranslate="hospitalsystemApp.act.receiptAct">Receipt Act</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="paymentMethod.name"><span jhiTranslate="hospitalsystemApp.act.paymentMethod">Payment Method</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -64,6 +65,11 @@
                 <td>
                     <div *ngIf="act.receiptAct">
                         <a [routerLink]="['/receipt-act', act.receiptAct?.id, 'view' ]" >{{act.receiptAct?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="act.paymentMethod">
+                        <a>{{act.paymentMethod?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

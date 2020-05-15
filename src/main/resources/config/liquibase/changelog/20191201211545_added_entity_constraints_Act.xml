@@ -7,7 +7,7 @@
         Added the constraints for entity Act.
     -->
     <changeSet id="20191201211545-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="medical_service_id"
                                  baseTableName="act"
                                  constraintName="fk_act_medical_service_id"
@@ -43,6 +43,12 @@
                                  constraintName="fk_act_actypes_actypes_id"
                                  referencedColumnNames="id"
                                  referencedTableName="actype"/>
-        
+
+        <addForeignKeyConstraint baseColumnNames="payment_method_id"
+                                 baseTableName="act"
+                                 constraintName="fk_act_payment_method_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="payment_method"/>
+
     </changeSet>
 </databaseChangeLog>

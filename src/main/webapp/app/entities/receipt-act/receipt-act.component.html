@@ -1,4 +1,13 @@
 <div>
+    <h2 id="page-heading">
+        <span jhiTranslate="hospitalsystemApp.receiptAct.home.title">Receipt Acts</span>
+<!--        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-receipt-act" [routerLink]="['/receipt-act/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="hospitalsystemApp.receiptAct.home.createLabel">
+            Create a new Receipt Act
+            </span>
+        </button>-->
+    </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <div class="row">
@@ -21,7 +30,7 @@
         <span jhiTranslate="hospitalsystemApp.receiptAct.home.notFound">No receiptActs found</span>
     </div>
     <div class="table-responsive" *ngIf="receiptActs?.length > 0">
-    
+
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-guard-heading" jhiTranslate="hospitalsystemApp.guard.home.chooseDoctor">Choix du medecin</h2>
             <div>
@@ -64,7 +73,7 @@
                 </button>
             </div>
         </form>
-        
+
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -97,7 +106,7 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button 
+                        <button
                             type="button"
                             (click)= "download(receiptAct.id)"
                              class="btn btn-success btn-sm">

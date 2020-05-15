@@ -6,10 +6,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import fr.hospitalsystem.app.domain.Session;
+import fr.hospitalsystem.app.repository.ReceiptActRepository;
+import fr.hospitalsystem.app.repository.SessionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,16 +57,24 @@ public class ActResource {
 
     private final ActService actService;
 
-    public ActResource(ActService actService) {
+    private final SessionRepository sessionRepository;
+
+    private final ReceiptActRepository receiptActRepository;
+
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
+
+    public ActResource(SessionRepository sessionRepository, ActService actService, ReceiptActRepository receiptActRepository) {
+        this.sessionRepository = sessionRepository;
         this.actService = actService;
+        this.receiptActRepository = receiptActRepository;
     }
 
     /**
      * {@code POST  /acts} : Create a new act.
      *
      * @param act the act to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new act, or with status {@code 400 (Bad Request)} if the
-     *         act has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new act, or with status {@code 400 (Bad Request)} if the act has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/acts")
@@ -77,20 +91,39 @@ public class ActResource {
         for (Actype actype : act.getActypes()) {
             total += actype.getPrice();
         }
+
+        if (act.getPatient().getSocialOrganizationDetails() != null) {
+            total = total * (1 - (act.getPatient().getSocialOrganizationDetails().getSocialOrganizationRegimen().getPercentage() / 100));
+        }
         receiptAct.setTotal(total);
 
         act.setReceiptAct(receiptAct);
         Act result = actService.save(act);
+
+        HttpSession httpSession = httpSessionFactory.getObject();
+        Session curentSession = (Session) httpSession.getAttribute("SessionUser");
+
+        if (act.getPaymentMethod().getName().equalsIgnoreCase("espece")){
+            curentSession.setTotalCash(curentSession.getTotalCash() + receiptAct.getTotal());
+        } else if (act.getPaymentMethod().getName().equalsIgnoreCase("cheque")){
+            curentSession.setTotalCheck(curentSession.getTotalCheck() + receiptAct.getTotal());
+        }
+
+        curentSession.setTotal(curentSession.getTotalCash() + curentSession.getTotalCheck());
+        sessionRepository.save(curentSession);
+
         return ResponseEntity.created(new URI("/api/acts/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString())).body(result);
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
      * {@code PUT  /acts} : Updates an existing act.
      *
      * @param act the act to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated act, or with status {@code 400 (Bad Request)} if the
-     *         act is not valid, or with status {@code 500 (Internal Server Error)} if the act couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated act,
+     * or with status {@code 400 (Bad Request)} if the act is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the act couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/acts")
@@ -100,8 +133,9 @@ public class ActResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Act result = actService.save(act);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, act.getId().toString()))
-                .body(result);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, act.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -151,9 +185,10 @@ public class ActResource {
     }
 
     /**
-     * {@code SEARCH  /_search/acts?query=:query} : search for the act corresponding to the query.
+     * {@code SEARCH  /_search/acts?query=:query} : search for the act corresponding
+     * to the query.
      *
-     * @param query    the query of the act search.
+     * @param query the query of the act search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */
