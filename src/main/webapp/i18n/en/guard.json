@@ -6,7 +6,8 @@
         "createLabel": "Create a new Guard",
         "createOrEditLabel": "Create or edit a Guard",
         "search": "Search for Guard",
-        "notFound": "No Guards found"
+        "notFound": "No Guards found",
+        "chooseDoctor": "Chose a doctor"
       },
       "created": "A new Guard is created with identifier {{ param }}",
       "updated": "A Guard is updated with identifier {{ param }}",

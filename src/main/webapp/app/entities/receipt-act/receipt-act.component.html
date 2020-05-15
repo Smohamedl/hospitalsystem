@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.guard.medicalService" for="field_medicalService">Doctor Medical Service</label>
+                    <label class="form-control-label" jhiTranslate="hospitalsystemApp.act.medicalService" for="field_medicalService">Doctor Medical Service</label>
                     <select class="form-control" id="field_medicalService" name="medicalService" formControlName="medicalService"  (change)="onChangeService()">
                         <option *ngIf="!editForm.get('medicalService').value" [ngValue]="null" selected></option>
                         <option [ngValue]="medicalServiceOption.id === editForm.get('medicalService').value?.id ? editForm.get('medicalService').value : medicalServiceOption" *ngFor="let medicalServiceOption of medicalservices; trackBy: trackMedicalServiceById">{{medicalServiceOption.name}}</option>

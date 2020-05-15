@@ -23,7 +23,8 @@
       "patient": "Patient",
       "receiptAct": "Receipt Act",
       "actypes": "Actypes",
-      "paymentMethod": "Payment Method"
+      "paymentMethod": "Payment Method",
+      "actype": "Act"
     }
   }
 }

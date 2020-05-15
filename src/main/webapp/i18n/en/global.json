@@ -48,6 +48,7 @@
       },
       "admin": {
         "main": "Admin",
+        "management": "Management",
         "userManagement": "User management",
         "tracker": "User tracker",
         "metrics": "Metrics",
