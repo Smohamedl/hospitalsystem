@@ -33,9 +33,9 @@
 
                             <div class="form-group">
                                 <label class="form-control-label" for="field_product_{{i}}"><span jhiTranslate="hospitalsystemApp.quantityPrice.product">Product</span> {{i + 1}}</label>
-                                <select class="form-control" id="field_product_{{i}}" name="product" [formControlName]="product">
+                                <select class="form-control" id="field_product_{{i}}" name="product">
                                     <option *ngIf="!editForm.get('formQuantityPrice').value" [ngValue]="null" selected></option>
-                                    <option [ngValue]="productOption.id === editForm.get('formQuantityPrice').at(i).value?.id  ? editForm.get('formQuantityPrice').at(i).value : productOption" *ngFor="let productOption of productsList; trackBy: trackProductById">{{productOption.name}}</option>
+                                    <option [ngValue]="productOption.id === editForm.get('formQuantityPrice')[i].value?.id  ? editForm.get('formQuantityPrice')[i].value : productOption" *ngFor="let productOption of productsList; trackBy: trackProductById">{{productOption.name}}</option>
                                 </select>
                             </div>
                         </div>

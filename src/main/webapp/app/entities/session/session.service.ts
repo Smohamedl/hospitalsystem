@@ -60,14 +60,14 @@ export class SessionService {
 
   protected convertDateFromClient(session: ISession): ISession {
     const copy: ISession = Object.assign({}, session, {
-      created_date: session.created_date != null && session.created_date.isValid() ? session.created_date.toJSON() : null
+      createdDate: session.createdDate != null && session.createdDate.isValid() ? session.createdDate.toJSON() : null
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.created_date = res.body.created_date != null ? moment(res.body.created_date) : null;
+      res.body.createdDate = res.body.createdDate != null ? moment(res.body.createdDate) : null;
     }
     return res;
   }
@@ -75,7 +75,7 @@ export class SessionService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((session: ISession) => {
-        session.created_date = session.created_date != null ? moment(session.created_date) : null;
+        session.createdDate = session.createdDate != null ? moment(session.createdDate) : null;
       });
     }
     return res;

@@ -54,7 +54,7 @@
                         <option [ngValue]="patientOption.id === editForm.get('patient').value?.id ? editForm.get('patient').value : patientOption" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.name}}</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <label for="id" jhiTranslate="global.field.ndeclaration">Declaration N°</label>
                     <input type="text" class="form-control" value='{{declarationNumber}}' readonly />
@@ -72,7 +72,7 @@
                         This field is required.
                     </small>
                 </div>
-                
+
                  <div formArrayName="formMedicalServices">
                     <div *ngFor="let medicalService of formMedicalServices.controls; index as i">
                         <div class="form-group">

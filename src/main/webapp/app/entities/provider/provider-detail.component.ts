@@ -8,13 +8,13 @@ import { IProvider } from 'app/shared/model/provider.model';
   templateUrl: './provider-detail.component.html'
 })
 export class ProviderDetailComponent implements OnInit {
-  Provider: IProvider;
+  provider: IProvider;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ Provider }) => {
-      this.Provider = Provider;
+      this.provider = Provider;
     });
   }
 

@@ -8,7 +8,7 @@ export interface ISession {
   total?: number;
   totalCheck?: number;
   created_by?: string;
-  created_date?: Moment;
+  createdDate?: Moment;
   jhi_user?: User;
 }
 
@@ -20,7 +20,7 @@ export class Session implements ISession {
     public total?: number,
     public totalCheck?: number,
     public created_by?: string,
-    public created_date?: Moment,
+    public createdDate?: Moment,
     public jhi_user?: User
   ) {}
 }

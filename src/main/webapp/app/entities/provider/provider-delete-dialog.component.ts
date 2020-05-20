@@ -12,7 +12,7 @@ import { ProviderService } from './provider.service';
   templateUrl: './provider-delete-dialog.component.html'
 })
 export class ProviderDeleteDialogComponent {
-  Provider: IProvider;
+  provider: IProvider;
 
   constructor(protected providerService: ProviderService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
 

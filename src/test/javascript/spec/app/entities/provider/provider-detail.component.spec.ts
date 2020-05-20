@@ -32,7 +32,7 @@ describe('Component Tests', () => {
         comp.ngOnInit();
 
         // THEN
-        expect(comp.Provider).toEqual(jasmine.objectContaining({ id: 123 }));
+        expect(comp.provider).toEqual(jasmine.objectContaining({ id: 123 }));
       });
     });
   });

@@ -149,13 +149,13 @@
                         <span jhiTranslate="global.menu.entities.gestionSessions">Sessions</span>
                     </span>
                 </a>
-                    
+
                     jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here
-            
+
             </li> -->
             <!-- END - Session Menu -->
 
-            
+
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                     <span>
@@ -353,5 +353,5 @@
     <div class="p-2">Total Cheques : {{session.totalCheck}}</div>
     <div class="p-2">Total : {{session.total}}</div>
     <div class="p-2">User : {{session.jhi_user.login}}</div>
-    <div class="p-2">Date d'ouverture : {{session.created_date | date :'short'}}</div>
+    <div class="p-2">Date d'ouverture : {{session.createdDate | date :'short'}}</div>
 </div>

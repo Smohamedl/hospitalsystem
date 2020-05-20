@@ -234,7 +234,7 @@ export class ActUpdateComponent implements OnInit {
     console.log('################## index ' + index);
 
     this.actypeService
-      .findByService(this.editForm.get(['formMedicalServices']).at(index).value.name)
+      .findByService((this.editForm.get(['formMedicalServices']) as FormArray).at(index).value.name)
       .subscribe(
         (res: HttpResponse<IActype[]>) => (this.mactypes[index] = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
