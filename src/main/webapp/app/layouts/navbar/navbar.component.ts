@@ -50,8 +50,8 @@ export class NavbarComponent implements OnInit {
     setInterval(() => {
       this.accountService.getCurrentSession().subscribe(result => {
         localStorage.setItem('User_Session', JSON.stringify(result));
+        this.loadSession();
       });
-      this.loadSession();
     }, 30 * 1000);
   }
 

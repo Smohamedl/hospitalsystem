@@ -17,10 +17,9 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Long> {
-    @Query("from Session as d where d.created_by = ?1")
+    @Query("select d from Session d where d.created_by = ?1")
     Page<Session> findAllByCreated_by(String Created_by, Pageable pageable);
 
-    @Query("from Session as d where d.created_by = ?1 ORDER BY d.created_date desc")
-    Optional<Session> findOneByCreateDate( String created_by);
-
+    @Query("select d from Session d where d.created_by = ?1 ORDER BY d.created_date desc")
+    Optional<Session> findOneByCreateDateOOrderByCreated_date(String created_by);
 }

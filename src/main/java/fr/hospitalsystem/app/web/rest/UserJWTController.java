@@ -3,6 +3,7 @@ package fr.hospitalsystem.app.web.rest;
 import fr.hospitalsystem.app.domain.Session;
 import fr.hospitalsystem.app.domain.User;
 import fr.hospitalsystem.app.repository.SessionRepository;
+import fr.hospitalsystem.app.repository.SessionRepositoryImpl;
 import fr.hospitalsystem.app.repository.UserRepository;
 import fr.hospitalsystem.app.security.AuthoritiesConstants;
 import fr.hospitalsystem.app.security.jwt.JWTFilter;
@@ -13,6 +14,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +49,9 @@ public class UserJWTController {
     private final TokenProvider tokenProvider;
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    @Autowired
+    private SessionRepositoryImpl sessionRepositoryImpl;
 
     @Autowired
     private UserRepository userRepository;
@@ -106,12 +113,18 @@ public class UserJWTController {
 
             if (curentSession == null){
 
-                Optional<Session> sessions = sessionRepository.findOneByCreateDate(login);
-
-                if(sessions.isPresent()){
-                    curentSession = sessions.get();
+                //List<Session> sessions = sessionRepositoryImpl.findOneByCreateDateOOrderByCreated_dateLimitX(login, 1);
+                /*
+                if(!sessions.isEmpty()){
+                    curentSession = sessions.get(0);
                 }
+                 */
 
+                Page<Session> sessions = sessionRepository.findAllByCreated_by(login, PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "created_date")));
+                for (Session s : sessions){
+                    System.out.println("UserJWT : " + s.toString());
+                    curentSession = s;
+                }
             }
 
             if (isNeedSession && curentSession == null){

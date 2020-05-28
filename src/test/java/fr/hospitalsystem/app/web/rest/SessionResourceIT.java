@@ -3,6 +3,7 @@ package fr.hospitalsystem.app.web.rest;
 import fr.hospitalsystem.app.HospitalsystemApp;
 import fr.hospitalsystem.app.domain.Session;
 import fr.hospitalsystem.app.repository.SessionRepository;
+import fr.hospitalsystem.app.repository.SessionRepositoryImpl;
 import fr.hospitalsystem.app.repository.search.SessionSearchRepository;
 import fr.hospitalsystem.app.web.rest.errors.ExceptionTranslator;
 
@@ -62,6 +63,9 @@ public class SessionResourceIT {
     @Autowired
     private SessionRepository sessionRepository;
 
+    @Autowired
+    private SessionRepositoryImpl sessionRepositoryImpl;
+
     /**
      * This repository is mocked in the fr.hospitalsystem.app.repository.search test package.
      *
@@ -92,7 +96,7 @@ public class SessionResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SessionResource sessionResource = new SessionResource(sessionRepository, mockSessionSearchRepository);
+        final SessionResource sessionResource = new SessionResource(sessionRepositoryImpl, sessionRepository, mockSessionSearchRepository);
         this.restSessionMockMvc = MockMvcBuilders.standaloneSetup(sessionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -4,6 +4,7 @@ import fr.hospitalsystem.app.domain.Authority;
 import fr.hospitalsystem.app.domain.Session;
 import fr.hospitalsystem.app.domain.User;
 import fr.hospitalsystem.app.repository.SessionRepository;
+import fr.hospitalsystem.app.repository.SessionRepositoryImpl;
 import fr.hospitalsystem.app.repository.UserRepository;
 import fr.hospitalsystem.app.repository.search.SessionSearchRepository;
 import fr.hospitalsystem.app.security.AuthoritiesConstants;
@@ -19,7 +20,9 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
@@ -65,6 +68,8 @@ public class SessionResource {
 
     private final SessionRepository sessionRepository;
 
+    private final SessionRepositoryImpl sessionRepositoryImpl;
+
     private final SessionSearchRepository sessionSearchRepository;
 
     @Autowired
@@ -73,8 +78,9 @@ public class SessionResource {
     @Autowired
     ObjectFactory<HttpSession> httpSessionFactory;
 
-    public SessionResource(SessionRepository sessionRepository, SessionSearchRepository sessionSearchRepository) {
+    public SessionResource(SessionRepositoryImpl sessionRepositoryImpl, SessionRepository sessionRepository, SessionSearchRepository sessionSearchRepository) {
         this.sessionRepository = sessionRepository;
+        this.sessionRepositoryImpl = sessionRepositoryImpl;
         this.sessionSearchRepository = sessionSearchRepository;
     }
 
@@ -119,6 +125,8 @@ public class SessionResource {
         HttpSession httpSession = httpSessionFactory.getObject();
          Session session = (Session) httpSession.getAttribute("SessionUser");
 
+        System.out.println("/currentsession --> session : " + session);
+
          if (session == null){
              String login = "";
              Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -128,10 +136,15 @@ public class SessionResource {
                  login = principal.toString();
              }
 
-             Optional<Session> sessions = sessionRepository.findOneByCreateDate(login);
+            // List<Session> sessions = this.sessionRepositoryImpl.findOneByCreateDateOOrderByCreated_dateLimitX(login, 1);
 
-             if(sessions.isPresent()){
-                 session = sessions.get();
+             //if(!sessions.isEmpty()){
+                 //session = sessions.get(0);
+             System.out.println("Login : " + login);
+             Page<Session> sessions = sessionRepository.findAllByCreated_by(login, PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "created_date")));
+             System.out.println("Session : " + sessions.toString());
+             for (Session s : sessions){
+                 session = s;
 
                  Optional<User> user = userRepository.findOneByLogin(login);
                  List<GrantedAuthority> grantedAuthorities = user.get().getAuthorities().stream()
@@ -167,6 +180,9 @@ public class SessionResource {
                  return ResponseUtil.wrapOrNotFound(currentsession);
              }
 
+         } else {
+             Optional<Session> currentsession = Optional.of(session);
+             return ResponseUtil.wrapOrNotFound(currentsession);
          }
 
         //Optional<Session> currentsession = Optional.of(null);
