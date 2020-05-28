@@ -120,17 +120,20 @@ public class SessionResource {
          Session session = (Session) httpSession.getAttribute("SessionUser");
 
          if (session == null){
-
-             Date date = Calendar.getInstance().getTime();
-             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-             String today = formatter.format(date);
              String login = "";
+             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+             if (principal instanceof UserDetails) {
+                 login = ((UserDetails)principal).getUsername();
+             } else {
+                 login = principal.toString();
+             }
 
-             session = sessionRepository.findOneByCreateDate(login);
+             Optional<Session> sessions = sessionRepository.findOneByCreateDate(login);
 
-             if (session == null) {
-                 UserDetails userDetails = (UserDetails)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                 Optional<User> user = userRepository.findOneByLogin(userDetails.getUsername());
+             if(sessions.isPresent()){
+                 session = sessions.get();
+
+                 Optional<User> user = userRepository.findOneByLogin(login);
                  List<GrantedAuthority> grantedAuthorities = user.get().getAuthorities().stream()
                      .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                      .collect(Collectors.toList());
@@ -138,12 +141,13 @@ public class SessionResource {
                  // Create new session if is Cassier user
                  boolean isNeedSession = false;
                  for (GrantedAuthority auth : grantedAuthorities){
-                     if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER) || auth.getAuthority().equals(AuthoritiesConstants.ADMIN)){
+                     if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER)){
                          isNeedSession = true;
                          break;
                      }
                  }
 
+                 log.info(" ---------- {}", user.get());
                  if (isNeedSession){
                      session = new Session();
                      session.setTotal(0.0);
@@ -156,13 +160,17 @@ public class SessionResource {
 
                      sessionRepository.saveAndFlush(session);
                      httpSession.setAttribute("SessionUser", session);
-
+                     log.debug("REST request to get Session : {}", session.getId());
                  }
+
+                 Optional<Session> currentsession = Optional.of(session);
+                 return ResponseUtil.wrapOrNotFound(currentsession);
              }
+
          }
-        log.debug("REST request to get Session : {}", session.getId());
-        Optional<Session> currentsession = Optional.of(session);
-        return ResponseUtil.wrapOrNotFound(currentsession);
+
+        //Optional<Session> currentsession = Optional.of(null);
+        return null;
     }
 
     /**

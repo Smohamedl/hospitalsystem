@@ -17,11 +17,9 @@ export class LoginService {
       console.log('Clear Session');
     }
 
-    if (JSON.parse(localStorage.getItem('User_Session')) != null) {
-      this.http.get('api/logout', { observe: 'response' }).subscribe(res => {
-        logoutfunc(res);
-      });
-      this.authServerProvider.logout().subscribe(null, null, () => this.accountService.authenticate(null));
-    }
+    this.http.get('api/logout', { observe: 'response' }).subscribe(res => {
+      logoutfunc(res);
+    });
+    this.authServerProvider.logout().subscribe(null, null, () => this.accountService.authenticate(null));
   }
 }

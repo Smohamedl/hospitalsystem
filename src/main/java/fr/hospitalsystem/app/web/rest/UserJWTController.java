@@ -95,35 +95,40 @@ public class UserJWTController {
         // Create new session if is Cassier user
         boolean isNeedSession = false;
         for (GrantedAuthority auth : grantedAuthorities){
-            if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER) || auth.getAuthority().equals(AuthoritiesConstants.ADMIN)){
+            if (auth.getAuthority().equals(AuthoritiesConstants.CASSIER)){
                 isNeedSession = true;
                 break;
             }
         }
+        if (isNeedSession){
+            HttpSession httpSession = httpSessionFactory.getObject();
+            Session curentSession = (Session) httpSession.getAttribute("SessionUser");
 
-        HttpSession httpSession = httpSessionFactory.getObject();
-        Session curentSession = (Session) httpSession.getAttribute("SessionUser");
+            if (curentSession == null){
 
-        if (curentSession == null){
-            Date date = Calendar.getInstance().getTime();
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String today = formatter.format(date);
+                Optional<Session> sessions = sessionRepository.findOneByCreateDate(login);
 
-            curentSession = sessionRepository.findOneByCreateDate(login);
-        }
+                if(sessions.isPresent()){
+                    curentSession = sessions.get();
+                }
 
-        if (isNeedSession && curentSession == null){
-            Session session = new Session();
-            session.setTotal(0.0);
-            session.setTotalCash(0.0);
-            session.setTotalCheck(0.0);
-            session.setTotalPC(0.0);
-            session.setJhi_user(user.get());
-            session.setCreated_by(user.get().getLogin());
-            session.setCreated_date(Instant.now());
+            }
 
-            sessionRepository.saveAndFlush(session);
-            httpSession.setAttribute("SessionUser", session);
+            if (isNeedSession && curentSession == null){
+                Session session = new Session();
+                session.setTotal(0.0);
+                session.setTotalCash(0.0);
+                session.setTotalCheck(0.0);
+                session.setTotalPC(0.0);
+                session.setJhi_user(user.get());
+                session.setCreated_by(user.get().getLogin());
+                session.setCreated_date(Instant.now());
+
+                sessionRepository.saveAndFlush(session);
+                httpSession.setAttribute("SessionUser", session);
+            }
+
+            System.out.println("++++++++++++++++++++ " + curentSession.toString() + " -- " + user.get().toString());
         }
     }
     /**
